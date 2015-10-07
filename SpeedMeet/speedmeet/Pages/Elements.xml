@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="Pages">
+    <File Path="Pages\Default.aspx" Url="Pages/Default.aspx" ReplaceContent="TRUE" />
+    <File Path="Pages\SpeedMeetNew.aspx" Url="Pages/SpeedMeetNew.aspx" ReplaceContent="TRUE" />
+    <File Path="Pages\SubPages\MeetEvent.html" Url="Pages/SubPages/MeetEvent.html" ReplaceContent="TRUE" />
+    <File Path="Pages\SubPages\MyMeetEvent.html" Url="Pages/SubPages/MyMeetEvent.html" ReplaceContent="TRUE" />
+    <File Path="Pages\SubPages\ShowMeetEvent.html" Url="Pages/SubPages/ShowMeetEvent.html" ReplaceContent="TRUE" />
+    <File Path="Pages\SubPages\FinalMeetEvent.html" Url="Pages/SubPages/FinalMeetEvent.html" ReplaceContent="TRUE" />
+    <File Path="Pages\SubPages\EditEvent.html" Url="Pages/SubPages/EditEvent.html" ReplaceContent="TRUE" />
+  </Module>
+</Elements>

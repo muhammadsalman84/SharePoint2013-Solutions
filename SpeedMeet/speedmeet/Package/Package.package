@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="8ee244d0-79c7-44c0-9027-2bc3debd1aa4" solutionId="8ee244d0-79c7-44c0-9027-2bc3debd1aa4" resetWebServer="false" sharePointProductVersion="16.0" name="SpeedMeet" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <features>
+    <featureReference itemId="efad2a7e-502c-4b58-9565-4e90bcfa4016" />
+    <featureReference itemId="9f239204-598d-46c1-8646-d8405dd3eb90" />
+  </features>
+</package>

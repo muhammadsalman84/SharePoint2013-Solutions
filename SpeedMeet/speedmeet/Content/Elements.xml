@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="Content">
+    <File Path="Content\App.css" Url="Content/App.css" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap.css" Url="Content/bootstrap.css" ReplaceContent="TRUE" />
+    <File Path="Content\_bootstrap.min.css" Url="Content/_bootstrap.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap-theme.css" Url="Content/bootstrap-theme.css" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap-theme.min.css" Url="Content/bootstrap-theme.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\fullcalendar.min.css" Url="Content/fullcalendar.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\fullcalendar.print.css" Url="Content/fullcalendar.print.css" ReplaceContent="TRUE" />
+    <File Path="Content\fullcalendar.css" Url="Content/fullcalendar.css" ReplaceContent="TRUE" />
+    <File Path="Content\jquery.dataTables.min.css" Url="Content/jquery.dataTables.min.css" ReplaceContent="TRUE" />
+    <File Path="Content\jquery.fileupload.css" Url="Content/jquery.fileupload.css" ReplaceContent="TRUE" />
+    <File Path="Content\bootstrap.min.css" Url="Content/bootstrap.min.css" ReplaceContent="TRUE" />
+  </Module>
+</Elements>

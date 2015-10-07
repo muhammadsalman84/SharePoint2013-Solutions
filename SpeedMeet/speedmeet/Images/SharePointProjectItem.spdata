@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProjectItem Type="Microsoft.VisualStudio.SharePoint.Module" DefaultFile="Elements.xml" SupportedTrustLevels="All" SupportedDeploymentScopes="Web, Site" xmlns="http://schemas.microsoft.com/VisualStudio/2010/SharePointTools/SharePointProjectItemModel">
+  <Files>
+    <ProjectItemFile Source="Elements.xml" Target="Images\" Type="ElementManifest" />
+    <ProjectItemFile Source="AppIcon.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="speedmeet_logo.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="tuv_logo.jpg" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="speedmeet_logo-text.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="glyphicons-halflings.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="glyphicons-halflings-white.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="default_participant.jpg" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="Person.png" Target="Images\" Type="ElementFile" />
+  </Files>
+</ProjectItem>

@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E75BDAB4-7034-4E10-BC2D-B185AAA3D7F2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpeedMeet</RootNamespace>
+    <AssemblyName>SpeedMeet</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetOfficeVersion>15.0</TargetOfficeVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{C1CDDADD-2546-481F-9697-4EA41081F2FC};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <MinimumOfficeToolsVersion>12.1</MinimumOfficeToolsVersion>
+    <IncludeAssemblyInPackage>False</IncludeAssemblyInPackage>
+    <ProjectMode>SharePointApp</ProjectMode>
+    <AppFeaturePartId>{37b427f1-7d12-43f4-bc02-377a07bff998}</AppFeaturePartId>
+    <WspPartId>{03024188-0acd-4300-91ce-3a462b12cf6b}</WspPartId>
+    <WorkflowPartId>{c2712807-2136-4211-a316-c99a1f6eef9b}</WorkflowPartId>
+    <CspkgPartId>{2f57e062-03ee-4255-9cb1-056d4b1072fb}</CspkgPartId>
+    <SqlPackagePartId>{37ca5463-cf4c-411e-9718-b4190eb70c0e}</SqlPackagePartId>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Content\SpeedMeetList\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{5ef91b4c-9a4d-491f-bf1d-3c70f553869b}</SharePointProjectItemId>
+    </None>
+    <None Include="Content\SpeedMeetList\SpeedMeetListInstance\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{6eb411c4-b945-4f83-8697-e6a4c5a8f582}</SharePointProjectItemId>
+    </None>
+    <None Include="Features\Feature2\Feature2.feature">
+      <FeatureId>{9f239204-598d-46c1-8646-d8405dd3eb90}</FeatureId>
+    </None>
+    <None Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="packages.config" />
+    <None Include="Pages\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{7c6352d4-f4cb-408b-8490-c6746d82190b}</SharePointProjectItemId>
+    </None>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\_bootstrap.min.css" />
+    <Content Include="Content\fullcalendar.css" />
+    <Content Include="Content\fullcalendar.min.css" />
+    <Content Include="Content\fullcalendar.print.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\jquery.fileupload.css" />
+    <Content Include="Content\SpeedMeetList\Elements.xml" />
+    <Content Include="Content\SpeedMeetList\Schema.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\SpeedMeetList\SpeedMeetListInstance\Elements.xml" />
+    <Content Include="Elements.xml" />
+    <Content Include="Features\Feature2\Feature2.Template.xml">
+      <DependentUpon>Feature2.feature</DependentUpon>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\default_participant.jpg" />
+    <Content Include="Images\glyphicons-halflings-white.png" />
+    <Content Include="Images\glyphicons-halflings.png" />
+    <Content Include="Images\Person.png" />
+    <Content Include="Images\speedmeet_logo-text.png" />
+    <Content Include="Images\speedmeet_logo.png" />
+    <Content Include="Images\tuv_logo.jpg" />
+    <Content Include="Pages\SubPages\FinalMeetEvent.html" />
+    <Content Include="Pages\SubPages\EditEvent.html" />
+    <Content Include="Pages\SubPages\ShowMeetEvent.html" />
+    <Content Include="Pages\SubPages\MyMeetEvent.html" />
+    <Content Include="Pages\SubPages\MeetEvent.html" />
+    <Content Include="Pages\Elements.xml" />
+    <Content Include="Pages\Default.aspx" />
+    <None Include="SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{ebf54680-f0e3-4e38-9210-8f3bceb21e13}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\libs\jquery-1.9.1.min.map" />
+    <None Include="Scripts\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{37ca5463-cf4c-411e-9718-b4190eb70c0e}</SharePointProjectItemId>
+    </None>
+    <Content Include="Pages\SpeedMeetNew.aspx" />
+    <Content Include="Scripts\controllers\my-meetevent-controller.js" />
+    <Content Include="Scripts\controllers\meetevent-list-controller.js" />
+    <Content Include="Scripts\controllers\utility-controller.js" />
+    <Content Include="Scripts\controllers\show-meetevent-controller.js" />
+    <Content Include="Scripts\data\da-layer.js" />
+    <Content Include="Scripts\data\da-utility.js" />
+    <Content Include="Scripts\Elements.xml" />
+    <Content Include="Scripts\App.js" />
+    <Content Include="Scripts\libs\async.js" />
+    <Content Include="Scripts\libs\fullcalendar.min.js" />
+    <Content Include="Scripts\libs\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\libs\jquery-1.9.1.js" />
+    <Content Include="Scripts\libs\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\libs\bootstrap.min.js" />
+    <Content Include="Scripts\libs\jquery.dataTables.js" />
+    <Content Include="Scripts\libs\moment.min.js" />
+    <Content Include="Scripts\controllers\meetevent-controller.js" />
+    <Content Include="Scripts\controllers\pool.js" />
+    <Content Include="Scripts\plugin-modules\base-datatable.js" />
+    <Content Include="Scripts\plugin-modules\datatables.js" />
+    <Content Include="Scripts\plugin-modules\pool-datatable.js" />
+    <Content Include="Scripts\plugin-modules\full-calendar.js" />
+    <Content Include="Scripts\plugin-modules\people-picker.js" />
+    <Content Include="Scripts\plugin-modules\google-api.js" />
+    <Content Include="Scripts\common.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\plugin-modules\progressbar.js" />
+    <Content Include="Scripts\starters\constants.js" />
+    <Content Include="Scripts\starters\utility.js" />
+    <Content Include="Scripts\starters\application.js" />
+    <Content Include="Scripts\views\main.js" />
+    <Content Include="Scripts\views\my-meetevent-view.js" />
+    <Content Include="Scripts\views\final-meetevent-view.js" />
+    <Content Include="Scripts\views\edit-speedmeet.js" />
+    <Content Include="Scripts\views\show-meetevent-view.js" />
+    <Content Include="Scripts\views\meetevent-view.js" />
+    <Content Include="Scripts\_references.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{7560cd68-6654-4a4c-8fdf-e59384b2326a}</SharePointProjectItemId>
+    </None>
+    <Content Include="Content\Elements.xml" />
+    <Content Include="Content\App.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\AppIcon.png">
+      <OpcRelationship>manifest-icon</OpcRelationship>
+    </Content>
+    <Content Include="Images\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Images\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{6d4b8f61-d1d7-48af-adfb-f617d3f7f6c8}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Package\Package.package">
+      <PackageId>{8ee244d0-79c7-44c0-9027-2bc3debd1aa4}</PackageId>
+    </None>
+    <None Include="Package\Package.Template.xml">
+      <DependentUpon>Package.package</DependentUpon>
+    </None>
+    <None Include="Features\Feature1\Feature1.feature">
+      <FeatureId>{efad2a7e-502c-4b58-9565-4e90bcfa4016}</FeatureId>
+    </None>
+    <None Include="Features\Feature1\Feature1.Template.xml">
+      <DependentUpon>Feature1.feature</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <AppManifestFile Include="AppManifest.xml">
+      <SubType>Designer</SubType>
+    </AppManifestFile>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" Condition="'$(VSToolsPath)' != ''" />
+</Project>

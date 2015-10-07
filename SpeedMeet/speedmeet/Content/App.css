@@ -1,0 +1,122 @@
+﻿/* Place custom styles below */
+
+/* Header design */
+.body, span, p, td, div, a, input, select, button, textarea, label, option, fieldset, caption, legend, td, tr, th, div, a, h1, h2, h3, h4, h5, h6, li {
+  font-family:Arial, 'Segoe UI', Segoe, Tahoma, Helvetica, sans-serif !important;
+}
+
+/* Hide the top default TUV logo*/
+#s4-titlerow {
+    display: none !important;
+}
+
+#img-company-logo {
+    margin-left: 150px;
+    float: left;
+}
+
+#img-app-logo {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#peoplePickerDiv_TopSpan {
+    width: 100% !important;
+}
+
+.hide {
+    display: none !important;
+}
+
+.show {
+    visibility: visible !important;
+}
+
+.top-buffer { margin-top:20px; }
+
+
+#map-canvas, #map-canvas-showevent, #map-canvas-finalevent {    
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#floating-panel, #floating-panel-final {
+  position: absolute;
+  top: 5px;
+  right: 5%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  text-align: center;  
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+#floating-panel-final {
+  top: 25px !important
+}
+
+.module-progressbar {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    width: 60%;
+}
+
+.closeon {
+    position: absolute;
+    right: 0;
+}
+
+.personimage-resize {
+    width: 50px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.cellfooter {
+    /*background-color: #009262;*/
+    color: black;
+}
+
+    .cellfooter td {
+        vertical-align: text-top;
+        /*text-align: left;*/
+    }
+
+.cellfooter-button {
+    text-align: center;
+}
+
+.align-center {
+}
+
+.fc-event-container {
+    width: 150px !important;
+}
+
+.fc-time > span {
+    width: 100% !important;
+}
+
+/* DataTable Formating*/
+.dataTable thead {
+    /*background-color: #009262 !important;*/
+    background-color: #0072C6 !important;
+    color: white !important;
+}
+
+.readonly-rows {
+    background-color: #F1F1F1 !important;
+}
+
+.active-rows {
+    background-color: #E6F2FA !important;
+}
+
+div.dataTables_wrapper {
+        width: 100%;
+        margin: 0 auto;
+}

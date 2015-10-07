@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="Scripts">
+    <File Path="Scripts\App.js" Url="Scripts/App.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery-1.9.1.min.map" Url="Scripts/libs/jquery-1.9.1.min.map" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery-1.9.1.min.js" Url="Scripts/libs/jquery-1.9.1.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery-1.9.1.js" Url="Scripts/libs/jquery-1.9.1.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery-1.9.1.intellisense.js" Url="Scripts/libs/jquery-1.9.1.intellisense.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\bootstrap.min.js" Url="Scripts/libs/bootstrap.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\require.js" Url="Scripts/require.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\starters\application.js" Url="Scripts/starters/application.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\starters\utility.js" Url="Scripts/starters/utility.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\plugin-modules\google-api.js" Url="Scripts/plugin-modules/google-api.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\plugin-modules\people-picker.js" Url="Scripts/plugin-modules/people-picker.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\fullcalendar.min.js" Url="Scripts/libs/fullcalendar.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\moment.min.js" Url="Scripts/libs/moment.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\async.js" Url="Scripts/libs/async.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\plugin-modules\full-calendar.js" Url="Scripts/plugin-modules/full-calendar.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\views\meetevent-view.js" Url="Scripts/views/meetevent-view.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\controllers\meetevent-controller.js" Url="Scripts/controllers/meetevent-controller.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\views\main.js" Url="Scripts/views/main.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\data\da-utility.js" Url="Scripts/data/da-utility.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\starters\constants.js" Url="Scripts/starters/constants.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\data\da-layer.js" Url="Scripts/data/da-layer.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\controllers\pool.js" Url="Scripts/controllers/pool.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery.dataTables.js" Url="Scripts/libs/jquery.dataTables.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\views\show-meetevent-view.js" Url="Scripts/views/show-meetevent-view.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\plugin-modules\progressbar.js" Url="Scripts/plugin-modules/progressbar.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\controllers\my-meetevent-controller.js" Url="Scripts/controllers/my-meetevent-controller.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\controllers\show-meetevent-controller.js" Url="Scripts/controllers/show-meetevent-controller.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\views\my-meetevent-view.js" Url="Scripts/views/my-meetevent-view.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\common.js" Url="Scripts/common.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\plugin-modules\pool-datatable.js" Url="Scripts/plugin-modules/pool-datatable.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\plugin-modules\base-datatable.js" Url="Scripts/plugin-modules/base-datatable.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\plugin-modules\datatables.js" Url="Scripts/plugin-modules/datatables.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\views\final-meetevent-view.js" Url="Scripts/views/final-meetevent-view.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\controllers\meetevent-list-controller.js" Url="Scripts/controllers/meetevent-list-controller.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\views\edit-speedmeet.js" Url="Scripts/views/edit-speedmeet.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\controllers\utility-controller.js" Url="Scripts/controllers/utility-controller.js" ReplaceContent="TRUE" />
+  </Module>
+</Elements>

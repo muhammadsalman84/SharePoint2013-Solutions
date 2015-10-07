@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProjectItem Type="Microsoft.VisualStudio.SharePoint.Module" DefaultFile="Elements.xml" SupportedTrustLevels="All" SupportedDeploymentScopes="Web, Site" xmlns="http://schemas.microsoft.com/VisualStudio/2010/SharePointTools/SharePointProjectItemModel">
+  <Files>
+    <ProjectItemFile Source="Elements.xml" Target="Scripts\" Type="ElementManifest" />
+    <ProjectItemFile Source="App.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery-1.9.1.min.map" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery-1.9.1.min.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery-1.9.1.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery-1.9.1.intellisense.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\bootstrap.min.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="require.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="starters\application.js" Target="Scripts\starters\" Type="ElementFile" />
+    <ProjectItemFile Source="starters\utility.js" Target="Scripts\starters\" Type="ElementFile" />
+    <ProjectItemFile Source="plugin-modules\google-api.js" Target="Scripts\plugin-modules\" Type="ElementFile" />
+    <ProjectItemFile Source="plugin-modules\people-picker.js" Target="Scripts\plugin-modules\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\fullcalendar.min.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\moment.min.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\async.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="plugin-modules\full-calendar.js" Target="Scripts\plugin-modules\" Type="ElementFile" />
+    <ProjectItemFile Source="views\meetevent-view.js" Target="Scripts\views\" Type="ElementFile" />
+    <ProjectItemFile Source="controllers\meetevent-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="views\main.js" Target="Scripts\views\" Type="ElementFile" />
+    <ProjectItemFile Source="data\da-utility.js" Target="Scripts\data\" Type="ElementFile" />
+    <ProjectItemFile Source="starters\constants.js" Target="Scripts\starters\" Type="ElementFile" />
+    <ProjectItemFile Source="data\da-layer.js" Target="Scripts\data\" Type="ElementFile" />
+    <ProjectItemFile Source="controllers\pool.js" Target="Scripts\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery.dataTables.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="views\show-meetevent-view.js" Target="Scripts\views\" Type="ElementFile" />
+    <ProjectItemFile Source="plugin-modules\progressbar.js" Target="Scripts\plugin-modules\" Type="ElementFile" />
+    <ProjectItemFile Source="controllers\my-meetevent-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="controllers\show-meetevent-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="views\my-meetevent-view.js" Target="Scripts\views\" Type="ElementFile" />
+    <ProjectItemFile Source="common.js" Target="Scripts\" Type="ElementFile" />
+    <ProjectItemFile Source="plugin-modules\pool-datatable.js" Target="Scripts\plugin-modules\" Type="ElementFile" />
+    <ProjectItemFile Source="plugin-modules\base-datatable.js" Target="Scripts\plugin-modules\" Type="ElementFile" />
+    <ProjectItemFile Source="plugin-modules\datatables.js" Target="Scripts\plugin-modules\" Type="ElementFile" />
+    <ProjectItemFile Source="views\final-meetevent-view.js" Target="Scripts\views\" Type="ElementFile" />
+    <ProjectItemFile Source="controllers\meetevent-list-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="views\edit-speedmeet.js" Target="Scripts\views\" Type="ElementFile" />
+    <ProjectItemFile Source="controllers\utility-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
+  </Files>
+</ProjectItem>

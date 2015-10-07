@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<List xmlns:ows="Microsoft SharePoint" Title="SpeedMeetList" FolderCreation="FALSE" Direction="$Resources:Direction;" Url="Lists/SpeedMeetList" BaseType="0" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <MetaData>
+    <ContentTypes>
+      
+      
+    <ContentType ID="0x0100c5b4caa9bef54ecf993484919dc7f001" Name="ListFieldsContentType"><FieldRefs><FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" /><FieldRef ID="{65e5284a-d05c-4cd8-93fb-94df5fce4f89}" Name="Location1" /><FieldRef ID="{7cf551ad-94c8-4b5d-af93-0487d7b4a9f8}" Name="Description1" /><FieldRef ID="{47b598ec-746b-42b5-8ebb-54010c70eec1}" Name="Participants1" /><FieldRef ID="{ed892362-aa45-414d-a5eb-8f0f1192ae9e}" Name="GeoLocation" /><FieldRef ID="{9f0679da-f6ca-4800-84c4-edf35db5125f}" Name="MeetingDates" /><FieldRef ID="{659b0393-13ba-4123-af26-166475fe0ecf}" Name="Feedback" /><FieldRef ID="{489fb4d0-5409-4e6e-beeb-8359aa836a2e}" Name="FinalEventDate" /></FieldRefs></ContentType><ContentTypeRef ID="0x01">
+        <Folder TargetName="Item" />
+      </ContentTypeRef><ContentTypeRef ID="0x0120" /></ContentTypes>
+    <Fields>
+      
+    <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Type="Text" Name="Title" DisplayName="$Resources:core,Title;" Required="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Title" MaxLength="255" /><Field Name="Location1" ID="{65e5284a-d05c-4cd8-93fb-94df5fce4f89}" DisplayName="Location" Type="Text" /><Field Name="Description1" ID="{7cf551ad-94c8-4b5d-af93-0487d7b4a9f8}" DisplayName="Description" Type="Note" /><Field Name="Participants1" ID="{47b598ec-746b-42b5-8ebb-54010c70eec1}" DisplayName="Participants" Type="UserMulti" Mult="TRUE" /><Field Name="GeoLocation" ID="{ed892362-aa45-414d-a5eb-8f0f1192ae9e}" DisplayName="GeoLocation" Type="Text" /><Field Name="MeetingDates" ID="{9f0679da-f6ca-4800-84c4-edf35db5125f}" DisplayName="MeetingDates" Type="Note" /><Field Name="Feedback" ID="{659b0393-13ba-4123-af26-166475fe0ecf}" DisplayName="Feedback" Type="Note" /><Field Name="FinalEventDate" ID="{489fb4d0-5409-4e6e-beeb-8359aa836a2e}" DisplayName="FinalEventDate" Type="Text" /></Fields>
+    <Views>
+      
+      
+    <View BaseViewID="0" Type="HTML" MobileView="TRUE" TabularView="FALSE">
+        <Toolbar Type="Standard" />
+        <XslLink Default="TRUE">main.xsl</XslLink>
+        <RowLimit Paged="TRUE">30</RowLimit>
+        <ViewFields>
+          
+        <FieldRef Name="LinkTitleNoMenu"></FieldRef></ViewFields>
+        <Query>
+          <OrderBy>
+            
+          <FieldRef Name="Modified" Ascending="FALSE"></FieldRef></OrderBy>
+        </Query>
+        <ParameterBindings>
+          <ParameterBinding Name="AddNewAnnouncement" Location="Resource(wss,addnewitem)" />
+          <ParameterBinding Name="NoAnnouncements" Location="Resource(wss,noXinviewofY_LIST)" />
+          <ParameterBinding Name="NoAnnouncementsHowTo" Location="Resource(wss,noXinviewofY_ONET_HOME)" />
+        </ParameterBindings>
+      </View><View BaseViewID="1" Type="HTML" WebPartZoneID="Main" DisplayName="$Resources:core,objectiv_schema_mwsidcamlidC24;" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" SetupPath="pages\viewpage.aspx" ImageUrl="/_layouts/15/images/generic.png?rev=23" Url="AllItems.aspx">
+        <Toolbar Type="Standard" />
+        <XslLink Default="TRUE">main.xsl</XslLink>
+        <JSLink>clienttemplates.js</JSLink>
+        <RowLimit Paged="TRUE">30</RowLimit>
+        <ViewFields>
+          
+        <FieldRef Name="LinkTitle"></FieldRef><FieldRef Name="Location1" /><FieldRef Name="Description1" /><FieldRef Name="Participants1" /><FieldRef Name="GeoLocation" /><FieldRef Name="MeetingDates" /><FieldRef Name="Feedback" /><FieldRef Name="FinalEventDate" /></ViewFields>
+        <Query>
+          <OrderBy>
+            
+          <FieldRef Name="ID"></FieldRef></OrderBy>
+        </Query>
+        <ParameterBindings>
+          <ParameterBinding Name="NoAnnouncements" Location="Resource(wss,noXinviewofY_LIST)" />
+          <ParameterBinding Name="NoAnnouncementsHowTo" Location="Resource(wss,noXinviewofY_DEFAULT)" />
+        </ParameterBindings>
+      </View></Views>
+    <Forms>
+      <Form Type="DisplayForm" Url="DispForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+      <Form Type="EditForm" Url="EditForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+      <Form Type="NewForm" Url="NewForm.aspx" SetupPath="pages\form.aspx" WebPartZoneID="Main" />
+    </Forms>
+  </MetaData>
+</List>

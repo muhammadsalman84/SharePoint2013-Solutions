@@ -1,0 +1,72 @@
+﻿<!--
+    ShowMeetEvent.html
+    @author: Salman Malik, Jens Bonse
+-->
+<div>
+    <div class="adminFunctions">
+        <div class="row>">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                <div class="btn-group btn-group-justified">
+                    <button type="button" id="btnEditMeet-show" class="btn btn-primary" data-bsbutton="true">
+                        <i class="glyphicon glyphicon-edit pull-left"></i>
+                        Edit event
+                    </button>
+                    <button type="button" id="btnCancelMeet-show" class="btn btn-primary" data-bsbutton="true">
+                        <i class="glyphicon glyphicon-trash pull-left"></i>
+                        Cancel event
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row top-buffer">
+        </div>
+        <div class="row top-buffer">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading text-center">
+                    <h3><span id="txt-title-pool"></span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="width: 40%;">
+            <div class=" row">
+                <div class="col-md-12">
+                    <label for="txt-description-pool">Description: </label>
+                    <span id="txt-description-pool"></span>
+                </div>
+                <div class="col-md-12">
+                    <label for="txt-location-pool">Location: </label>
+                    <span id="txt-location-pool"></span>
+                </div>
+                <div class="col-md-12" style="height:150px">
+                    <h3>
+                        <span id="txt-instructions-pool" style="bottom: 0px; position: absolute;">Choose the dates that are most suitable for you.</span>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" style="width: 60%; height: 200px;">
+            <div id="floating-panel">
+                <button type="button" id="btnShowStreetView" class="btn btn-success">Show Street View</button>
+            </div>
+            <div id="map-canvas-showevent"></div>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-12">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="tblPool" class="row-border hover order-column" cellspacing="0" width="100%"></table>
+        </div>
+    </div>
+</div>
+
+
