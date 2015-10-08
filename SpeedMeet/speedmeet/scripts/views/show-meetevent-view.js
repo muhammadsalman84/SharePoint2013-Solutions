@@ -34,20 +34,27 @@ define(["controllers/meetevent-list-controller", "controllers/utility-controller
              }
 
 
-             this.loadMeetEvent = function (itemId, sUserId) {
+             this.loadMeetEvent = function (oListItem, usersObject) {
+                 var itemId = null;
+                 if (typeof (oListItem) == "object") {     // If it is an object then Listitem object is passed.
 
-                 if (typeof (itemId) == "object") {     // If it is an object then Listitem object is passed.
-                     bindView(itemId);
+                     headerHtml = oPoolController.getHeadersInfo(oListItem);       // Create Headers for the DataTable                                                                          
+                     oPoolDataTable.clearDataTable();
+                     oPoolDataTable.bindDataTable(headerHtml, usersObject, oListItem);
+
+                     bindView(oListItem);
                  }
                  else {
+                     itemId = oListItem;
+
                      oMeetEventListController.getListItemByItemId(itemId).
                          done(function (oListItem) {
-                             oPoolController.getUsersInfo(oListItem).done(function (olUsers) {
+                             oPoolController.getUsersInfo(oListItem).done(function (usersObject) {
                                  // Create Headers for the DataTable
-                                 headerHtml = oPoolController.getHeadersInfo();
+                                 headerHtml = oPoolController.getHeadersInfo(oListItem);
                                  oPoolDataTable.clearDataTable();
                                  // Bind DataTable with header html and data.                                                  
-                                 oPoolDataTable.bindDataTable(headerHtml, olUsers, oListItem);
+                                 oPoolDataTable.bindDataTable(headerHtml, usersObject, oListItem);
                                  bindView(oListItem);
                              });
 
@@ -64,7 +71,12 @@ define(["controllers/meetevent-list-controller", "controllers/utility-controller
              });
 
              $("#btnSaveChoices-show").bind('click', function () {                
-                oPoolDataTable.saveUserChoices();
+                 oPoolDataTable.saveUserChoices(oApplication.ActiveListItem.ID)
+                    .done(function (success) {
+                        if (success === true) {
+                            oApplication.showAlert("#alertChoicesSaved-show");
+                        }
+                    })
              });
 
          }

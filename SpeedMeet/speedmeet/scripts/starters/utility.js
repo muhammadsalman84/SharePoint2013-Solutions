@@ -48,6 +48,13 @@ define([], function () {
             return sSPAppBaseUrl;
         }
 
+        self.showAlert = function (element) {
+            $(element).removeClass("hide");                        
+            window.setTimeout(function () {                                            
+                    $(element).addClass("hide");                
+            }, 2000);
+        }
+       
     }
 
     return SpeedMeetUtility;

@@ -210,11 +210,13 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
 
             var resultsCollection = {}, headerSequence = {}, allDates = [],
                 dates = {}, date, time, count, headerCounter, firstHdrHtml, startDT, endDT,
-                secondHdrHtml, listItemHtml, startTime, endTime, dataAttrHtml;
+                secondHdrHtml, listItemHtml, startTime, endTime, dataAttrHtml,
+
+                feedBackObject = JSON.parse(oListItem.Feedback);        // get the feedback from the Item object
 
             // listItemHtml = "data-ItemId='" + oListItem.ID + "'";
 
-            $.each(olFeedBack, function (index, dateTimeObject) {       // interate on each date and create a new object literal.
+            $.each(feedBackObject, function (index, dateTimeObject) {       // interate on each date and create a new object literal.
                 var dateStart = moment(dateTimeObject.start).format("MMMM Do YYYY");
                 var i, isFound = false;
                 for (date in dates) {

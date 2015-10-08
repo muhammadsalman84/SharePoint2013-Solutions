@@ -62,14 +62,12 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
 
                  oMeetEventController.CreateMeetEvent(geoLocation).done(     // Create a new List item (Progressbar=30)
                      function (oListItem) {
-                         oPoolController.getUsersInfo(oListItem).done(function (olUsers) {
-
-                             constructDataTable(oListItem, olUsers);
+                         oPoolController.getUsersInfo(oListItem).done(function (usersObject) {                             
                              oApplication.incrementProgressBar(10, "Sending Email(s) to Participant(s)..");
-                             usrEmailObjects = oMeetEventController.getEmailObjectsByUsers("JOINMEET", olUsers, oListItem);       // Create email objects and push in an Array                             
+                             usrEmailObjects = oMeetEventController.getEmailObjectsByUsers("JOINMEET", usersObject, oListItem);       // Create email objects and push in an Array                             
                              oPoolController.sendEmails(usrEmailObjects).done(function () {        // Send Emails to the participants
                                  oApplication.stopProgressBar();
-                                 oApplication.oShowMeetEventView.loadMeetEvent(oListItem);
+                                 oApplication.oShowMeetEventView.loadMeetEvent(oListItem, usersObject);
                              });
 
                          });
@@ -92,13 +90,12 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
                      oMeetEventListController.getListItemByItemId(itemId)       // Get the updated list item object
                                     .done(function (oListItem) {
                                         oApplication.incrementProgressBar(30, "collecting updated event data..");
-                                        oPoolController.getUsersInfo(oListItem).done(function (olUsers) {        // get the Users Info to be used in DataTable.                                                                                            
-                                            constructDataTable(oListItem, olUsers);
+                                        oPoolController.getUsersInfo(oListItem).done(function (usersObject) {        // get the Users Info to be used in DataTable.                                                                                                                                        
                                             oApplication.incrementProgressBar(20, "Sending Email(s) to Participant(s)..");
-                                            usrEmailObjects = oMeetEventController.getEmailObjectsByUsers("JOINMEET", olUsers, oListItem, changesRecorder[0]);       // Create email objects for new users
+                                            usrEmailObjects = oMeetEventController.getEmailObjectsByUsers("JOINMEET", usersObject, oListItem, changesRecorder[0]);       // Create email objects for new users
 
                                             if (changesRecorder[1] == true) {     // Second index tells whether location is updated or not.
-                                                usrEmailObjects1 = oMeetEventController.getEmailObjectsByUsers("NEWLOCATION", olUsers, oListItem, changesRecorder[0]);       // Create emaail objects for all the old users
+                                                usrEmailObjects1 = oMeetEventController.getEmailObjectsByUsers("NEWLOCATION", usersObject, oListItem, changesRecorder[0]);       // Create emaail objects for all the old users
                                                 usrEmailObjects = $.merge(usrEmailObjects, usrEmailObjects1);       // Merge the email objects
                                             }
 
@@ -106,7 +103,7 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
 
                                             delete oApplication.ActiveListItem;
                                             oApplication.stopProgressBar();
-                                            oApplication.oShowMeetEventView.loadMeetEvent(oListItem);
+                                            oApplication.oShowMeetEventView.loadMeetEvent(oListItem, usersObject);
                                         });
                                     });
                  });

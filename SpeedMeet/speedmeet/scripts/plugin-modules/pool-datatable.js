@@ -12,6 +12,62 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
             self._isFeedBackChanged = false;
             self.activeRow = null;
 
+            /* 
+             * Update choices of the user on row leave event.
+            */
+            /*  function onRowMouseLeave(row, oListItem) {
+  
+                  $(row).mouseleave(function () {     //Check if the user clicked and changed value  
+  
+                      if (self._isFeedBackChanged == true) {
+                          var olRowCells = {},
+                              sItemType;
+  
+                          //PoolDataTable.dtTable.row(row).data()
+                          $.each(row.cells, function (index, cell) {      // Collect all the values of the cell in a object literal
+                              var sCellHtml = $(cell).html();
+                              if (index > 0) {
+                                  var sCellName = "Cell" + index;
+                                  olRowCells[sCellName] = {};
+                                  olRowCells[sCellName].startDate =
+                                      $(sCellHtml).attr('data-startdate'),
+                                  olRowCells[sCellName].endDate =
+                                      $(sCellHtml).attr('data-enddate'),
+                                  olRowCells[sCellName].Feedback =
+                                      $(sCellHtml).attr('data-feedback')
+                              }
+                          });
+  
+                          var oMeetEventListController = new MeetEventListController(oApplication);
+                          oMeetEventListController.getListItemByItemId(oListItem.Id).done  // Get the list item object from Sharepoint list.
+                              (function (oListItem) {
+                                  if (oListItem) {
+                                      var olFeedBack = JSON.parse(oListItem.Feedback);
+                                      // Loop object literal from List
+                                      for (var oDate in olFeedBack) {
+                                          // Loop object literal from Row
+                                          for (var oCellValue in olRowCells) {
+                                              if ((olRowCells[oCellValue].startDate == olFeedBack[oDate].start) &&
+                                                  (olRowCells[oCellValue].endDate == olFeedBack[oDate].end))
+                                                  olFeedBack[oDate].Participants[_spPageContextInfo.userId] = olRowCells[oCellValue].Feedback;
+                                          }
+                                      }
+  
+  
+                                      var feedBackObject = {};
+                                      feedBackObject['Feedback'] = olFeedBack;
+                                      oMeetEventListController.
+                                          updateListItemByItemId(oListItem.Id, feedBackObject, true).         // Update the FeedBack field value in the List Item.
+                                          done(function () {
+                                              self._isFeedBackChanged = false;
+                                          });
+                                  }
+  
+                              });
+                      }
+                  });
+              }*/
+
             function renderFooterCell(columnIndex, columnTotal, itemId) {
                 var footerCellHtml, footerButtonId, finalDateObject = {};
 
@@ -35,121 +91,16 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                 });
             }
 
-            /* 
-             * Update choices of the user on row leave event.
-            */
-            function onRowMouseLeave(row, oListItem) {
+            function getFeedBackTotal(cellHtml) {
+                var feedBackValue = false;
+                if ($(cellHtml).length > 0) {
+                    var feedBackValue = $(cellHtml).find("i").hasClass("glyphicon-remove");
 
-                $(row).mouseleave(function () {     //Check if the user clicked and changed value  
+                    feedBackValue === true ? feedBackValue = 0 : feedBackValue = 1;
 
-                    if (self._isFeedBackChanged == true) {
-                        var olRowCells = {},
-                            sItemType;
-
-                        //PoolDataTable.dtTable.row(row).data()
-                        $.each(row.cells, function (index, cell) {      // Collect all the values of the cell in a object literal
-                            var sCellHtml = $(cell).html();
-                            if (index > 0) {
-                                var sCellName = "Cell" + index;
-                                olRowCells[sCellName] = {};
-                                olRowCells[sCellName].startDate =
-                                    $(sCellHtml).attr('data-startdate'),
-                                olRowCells[sCellName].endDate =
-                                    $(sCellHtml).attr('data-enddate'),
-                                olRowCells[sCellName].Feedback =
-                                    $(sCellHtml).attr('data-feedback')
-                            }
-                        });
-
-                        var oMeetEventListController = new MeetEventListController(oApplication);
-                        oMeetEventListController.getListItemByItemId(oListItem.Id).done  // Get the list item object from Sharepoint list.
-                            (function (oListItem) {
-                                if (oListItem) {
-                                    var olFeedBack = JSON.parse(oListItem.Feedback);
-                                    // Loop object literal from List
-                                    for (var oDate in olFeedBack) {
-                                        // Loop object literal from Row
-                                        for (var oCellValue in olRowCells) {
-                                            if ((olRowCells[oCellValue].startDate == olFeedBack[oDate].start) &&
-                                                (olRowCells[oCellValue].endDate == olFeedBack[oDate].end))
-                                                olFeedBack[oDate].Participants[_spPageContextInfo.userId] = olRowCells[oCellValue].Feedback;
-                                        }
-                                    }
-
-
-                                    var feedBackObject = {};
-                                    feedBackObject['Feedback'] = olFeedBack;
-                                    oMeetEventListController.
-                                        updateListItemByItemId(oListItem.Id, feedBackObject, true).         // Update the FeedBack field value in the List Item.
-                                        done(function () {
-                                            self._isFeedBackChanged = false;
-                                        });
-                                }
-
-                            });
-                    }
-                });
-            }
-
-            this.saveUserChoices = function () {
-                var itemId = 1;
-                var olRowCells = {},
-                    sItemType;
-
-                //PoolDataTable.dtTable.row(row).data()
-                $.each(self.activeRow.cells, function (index, cell) {      // Collect all the values of the cell in a object literal
-                    var sCellHtml = $(cell).html();
-                    if (index > 0) {
-                        var sCellName = "Cell" + index;
-                        olRowCells[sCellName] = {};
-                        olRowCells[sCellName].startDate =
-                            $(sCellHtml).attr('data-startdate'),
-                        olRowCells[sCellName].endDate =
-                            $(sCellHtml).attr('data-enddate'),
-                        olRowCells[sCellName].Feedback =
-                            $(sCellHtml).attr('data-feedback')
-                    }
-                });
-
-                var oMeetEventListController = new MeetEventListController(oApplication);
-                oMeetEventListController.getListItemByItemId(itemId).done  // Get the list item object from Sharepoint list.
-                    (function (oListItem) {
-                        if (oListItem) {
-                            var olFeedBack = JSON.parse(oListItem.Feedback);
-                            // Loop object literal from List
-                            for (var oDate in olFeedBack) {
-                                // Loop object literal from Row
-                                for (var oCellValue in olRowCells) {
-                                    if ((olRowCells[oCellValue].startDate == olFeedBack[oDate].start) &&
-                                        (olRowCells[oCellValue].endDate == olFeedBack[oDate].end))
-                                        olFeedBack[oDate].Participants[_spPageContextInfo.userId] = olRowCells[oCellValue].Feedback;
-                                }
-                            }
-
-
-                            var feedBackObject = {};
-                            feedBackObject['Feedback'] = olFeedBack;
-                            oMeetEventListController.
-                                updateListItemByItemId(oListItem.Id, feedBackObject, true).         // Update the FeedBack field value in the List Item.
-                                done(function () {
-                                    self._isFeedBackChanged = false;
-                                });
-                        }
-
-                    });
-
-            }
-
-            function getFeedBackTotal(sHtml) {
-                var isCrossValue = false;
-                if ($(sHtml).length > 0) {
-                    var isCrossValue = $(sHtml).find("i").hasClass("glyphicon-remove");
-
-                    isCrossValue === true ? isCrossValue = 0 : isCrossValue = 1;
-
-                    return isCrossValue;
+                    return feedBackValue;
                 }
-                return isCrossValue;
+                return feedBackValue;
             }
 
             function refreshFooter(columnIndex, isYes, itemId) {
@@ -257,6 +208,58 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                 return aData;
             }
 
+            this.saveUserChoices = function (itemId) {
+                var oDeferred = $.Deferred(),
+                    olRowCells = {},
+                    feedBackObject = {},
+                    sItemType, olFeedBack, oDate, cellHtml, cellName, oCellValue,
+                    oMeetEventListController = new MeetEventListController(oApplication);
+
+
+                $.each(self.activeRow.cells, function (index, cell) {      // Collect all the values of the cell in a object literal
+                    cellHtml = $(cell).html();
+                    if (index > 0) {
+                        cellName = "Cell" + index;
+                        olRowCells[cellName] = {};
+                        olRowCells[cellName].startDate =
+                            $(cellHtml).attr('data-startdate'),
+                        olRowCells[cellName].endDate =
+                            $(cellHtml).attr('data-enddate'),
+                        olRowCells[cellName].Feedback =
+                            $(cellHtml).attr('data-feedback')
+                    }
+                });
+
+                oMeetEventListController.getListItemByItemId(itemId)        // Get the list item object from Sharepoint list.
+                    .done(function (oListItem) {
+                        if (oListItem) {
+                            olFeedBack = JSON.parse(oListItem.Feedback);
+
+                            for (oDate in olFeedBack) {      // Loop object literal from List                                
+                                for (oCellValue in olRowCells) {        // Loop object literal from Row
+                                    if ((olRowCells[oCellValue].startDate == olFeedBack[oDate].start) &&
+                                        (olRowCells[oCellValue].endDate == olFeedBack[oDate].end))
+                                        olFeedBack[oDate].Participants[_spPageContextInfo.userId] = olRowCells[oCellValue].Feedback;
+                                }
+                            }
+
+                            feedBackObject['Feedback'] = olFeedBack;
+                            oMeetEventListController.
+                                updateListItemByItemId
+                                    (oListItem.Id, feedBackObject, true)      // Update the FeedBack field value in the List Item.
+                                        .done(function () {
+                                            oDeferred.resolve(true);
+                                        }).
+                                        fail(function () {
+                                            oDeferred.resolve(false);
+                                        });
+                        }
+
+                    });
+
+                return oDeferred.promise();
+            }
+
             this.clearDataTable = function () {
 
                 if (PoolDataTable.dtTable != null) {
@@ -281,8 +284,9 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                     ],
                     //columns: columns,
                     destroy: true,
-                    /* "scrollY": 400,
-                     "scrollCollapse": true,*/
+                    /*"scrollY": 400,
+                    "scrollCollapse": true,*/
+                    "bAutoWidth": false,
                     //"scrollX": true,
                     "createdRow": function (row, data, index) {             // On each Row, set css class and event
                         var userId = $(data[0]).attr("id").split("User")[1];
@@ -292,8 +296,7 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                         else {
                             $(row).addClass('active-rows');
                             bindEventOnDTCells(data, row, oListItem);
-                            onRowMouseLeave(row, oListItem);
-                            self.activeRow = row;
+                            self.activeRow = row;       // Set the active row to be later use by saveChoices() Method
                         }
                     },
                     "footerCallback":
@@ -320,6 +323,11 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                             //}
                         }
                 });
+
+                /*$(window).resize(function () {
+                    PoolDataTable.dtTable.columns.adjust();
+                });*/                
+
             }
         }
 
