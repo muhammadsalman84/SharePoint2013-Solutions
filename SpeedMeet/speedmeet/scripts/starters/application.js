@@ -45,6 +45,10 @@ define(["starters/utility", "starters/constants", "plugin-modules/progressbar", 
                      hide: true,
                      menuButton: "#btnMySpeedMeets"
                  },
+                 joinMeetEventModule: {
+                     id: "#IJoinMeetEvent",
+                     hide: true                     
+                 },
                  showMeetEventModule: {
                      id: "#IShowMeetEvent",
                      hide: true

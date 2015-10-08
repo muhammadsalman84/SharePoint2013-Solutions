@@ -44,11 +44,6 @@
                     <label for="txt-location-pool">Location: </label>
                     <span id="txt-location-pool"></span>
                 </div>
-                <div class="col-md-12" style="height:150px">
-                    <h3>
-                        <span id="txt-instructions-pool" style="bottom: 0px; position: absolute;">Choose the dates that are most suitable for you.</span>
-                    </h3>
-                </div>
             </div>
         </div>
         <div class="col-md-6" style="width: 60%; height: 200px;">
@@ -63,8 +58,37 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-6">
+            <h3>
+                <span id="txt-instructions-pool" style="bottom: 0px; position: absolute;">Choose the dates that are most suitable for you.</span>
+            </h3>
+        </div>
+        <div class="col-md-6">
+            <div id="alertChoicesSaved-show" class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Success!</strong> Your choices has been saved successfully.
+            </div>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-12">
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <table id="tblPool" class="row-border hover order-column" cellspacing="0" width="100%"></table>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-12">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-3" style="text-align:right">
+            <button type="button" id="btnSaveChoices-show" class="btn btn-success" style="width:200px">
+                <i class="glyphicon glyphicon-list-alt pull-left"></i>Save my choices
+            </button>
         </div>
     </div>
 </div>

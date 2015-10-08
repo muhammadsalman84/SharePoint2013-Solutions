@@ -159,9 +159,12 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
                  olLocation = oGoogleApi.getGeoLocation();
                  $("#txt-location-meetevent").val(olLocation.locationName);
                  oApplication.hideShowButtons(["btnUpdateEvent"], ["btnCreateEvent"]);
+                 $("#txt-title-meetevent").focus();
              }
 
+             $("#txt-title-meetevent").focus();
              initializeGoogleMap();
+             
          }
 
          return MeetEventView;

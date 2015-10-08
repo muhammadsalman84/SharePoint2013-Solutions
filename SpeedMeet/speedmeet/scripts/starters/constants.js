@@ -21,7 +21,8 @@ define(function () {
                     divFeedBackNO: "<div class='alert alert-warning text-center' width='100%' height='100%' data-feedback='0' data-startdate='{0}' data-enddate='{1}'><strong><i class='glyphicon glyphicon-remove'></i></strong></div>",
                     divFeedBackYES: "<div class='alert alert-success text-center' width='100%' height='100%' data-feedback='1' data-startdate='{0}' data-enddate='{1}'><strong><i class='glyphicon glyphicon-ok'></i></strong></div>",
                     footerRow: "<tfoot><tr id='tfooterrow' class='cellfooter'><td>Feedback Total:</td></tr></tfoot>",
-                    footerCell: "<b><span class='text-center'>{0}</span><br><br><div class='adminFunctions'><button id='{1}' type='button' class='btn btn-primary text-center'>Finalize date</button></div></b>"
+                    //footerCell: "<b><span class='text-center'>{0}</span><br><br><button id='{1}' type='button' class='btn btn-primary text-center'>Finalize date</button></b>"
+                    footerCell: "<b><span class='text-center'>{0}</span><br><br><div class='adminFunctions hide'><button id='{1}' type='button' class='btn btn-primary text-center'>Finalize date</button></div></b>"
                 },
                 URL: {
                     userImagePath: "../Images/Person.png"

@@ -1,6 +1,6 @@
 ﻿'use strict';
-define(["views/meetevent-view", "views/my-meetevent-view", "views/show-meetevent-view", "views/final-meetevent-view"],
-     function (MeetEventView, MyMeetEventView, ShowMeetEventView, FinalSpeedMeetView) {
+define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent-view", "views/show-meetevent-view", "views/final-meetevent-view"],
+     function (MeetEventView, MyMeetEventView, JoinMeetEventView, ShowMeetEventView, FinalSpeedMeetView) {
          function MainView(oApplication) {
              var headerButtons = oApplication.modules.menubar.getButtons(),
                  olLocation, itemId, sUserId;
@@ -13,7 +13,7 @@ define(["views/meetevent-view", "views/my-meetevent-view", "views/show-meetevent
              oApplication.oMyMeetEventView = new MyMeetEventView(oApplication);
              oApplication.oFinalSpeedMeetView = new FinalSpeedMeetView(oApplication);
              oApplication.oShowMeetEventView = new ShowMeetEventView(oApplication);
-            
+             oApplication.oJoinMeetEventView = new JoinMeetEventView(oApplication);
 
              if ((itemId) && (sUserId == _spPageContextInfo.userId)) {
                  oApplication.oMeetEventView = new MeetEventView(oApplication);
@@ -23,17 +23,23 @@ define(["views/meetevent-view", "views/my-meetevent-view", "views/show-meetevent
                  oApplication.showHideModule(oApplication.modules.meetEventModule.id);
                  oApplication.oMeetEventView = new MeetEventView(oApplication);
              }
-
+             
 
              // Menu Button Events
-             $(headerButtons.btnNewSpeedMeet).bind("click", function () {
+             $(headerButtons.btnNewMeetEvent).bind("click", function () {
                  oApplication.oMeetEventView.ShowNewMeet();
              });
 
-             $(headerButtons.btnMySpeedMeets).bind("click", function () {
+             $(headerButtons.btnMyMeetEvents).bind("click", function () {
                  var module = oApplication.modules.myMeetEventModule;
                  oApplication.showHideModule(module.id);
                  oApplication.oMyMeetEventView.getMySpeedMeets();
+             });
+
+             $(headerButtons.btnJoinMeetEvent).bind("click", function () {
+                 var module = oApplication.modules.joinMeetEventModule;
+                 oApplication.showHideModule(module.id);
+                 oApplication.oJoinMeetEventView.getMeetInvitations();
              });
 
              var uploadFiles = [], crossCounter = 0;

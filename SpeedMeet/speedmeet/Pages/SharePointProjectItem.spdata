@@ -8,6 +8,6 @@
     <ProjectItemFile Source="SubPages\MyMeetEvent.html" Target="Pages\SubPages\" Type="ElementFile" />
     <ProjectItemFile Source="SubPages\ShowMeetEvent.html" Target="Pages\SubPages\" Type="ElementFile" />
     <ProjectItemFile Source="SubPages\FinalMeetEvent.html" Target="Pages\SubPages\" Type="ElementFile" />
-    <ProjectItemFile Source="SubPages\EditEvent.html" Target="Pages\SubPages\" Type="ElementFile" />
+    <ProjectItemFile Source="SubPages\JoinMeetEvent.html" Target="Pages\SubPages\" Type="ElementFile" />
   </Files>
 </ProjectItem>

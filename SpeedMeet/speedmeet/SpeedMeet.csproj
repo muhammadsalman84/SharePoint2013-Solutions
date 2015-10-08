@@ -92,7 +92,7 @@
     <Content Include="Images\speedmeet_logo.png" />
     <Content Include="Images\tuv_logo.jpg" />
     <Content Include="Pages\SubPages\FinalMeetEvent.html" />
-    <Content Include="Pages\SubPages\EditEvent.html" />
+    <Content Include="Pages\SubPages\JoinMeetEvent.html" />
     <Content Include="Pages\SubPages\ShowMeetEvent.html" />
     <Content Include="Pages\SubPages\MyMeetEvent.html" />
     <Content Include="Pages\SubPages\MeetEvent.html" />
@@ -108,6 +108,7 @@
       <SharePointProjectItemId>{37ca5463-cf4c-411e-9718-b4190eb70c0e}</SharePointProjectItemId>
     </None>
     <Content Include="Pages\SpeedMeetNew.aspx" />
+    <Content Include="Scripts\controllers\join-meetevent-controller.js" />
     <Content Include="Scripts\controllers\my-meetevent-controller.js" />
     <Content Include="Scripts\controllers\meetevent-list-controller.js" />
     <Content Include="Scripts\controllers\utility-controller.js" />
@@ -139,6 +140,7 @@
     <Content Include="Scripts\starters\utility.js" />
     <Content Include="Scripts\starters\application.js" />
     <Content Include="Scripts\views\main.js" />
+    <Content Include="Scripts\views\join-meetevent-view.js" />
     <Content Include="Scripts\views\my-meetevent-view.js" />
     <Content Include="Scripts\views\final-meetevent-view.js" />
     <Content Include="Scripts\views\edit-speedmeet.js" />

@@ -10,6 +10,7 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
             self.CONSTANTS = oApplication.getConstants(),
             self._dtName = dtName,
             self._isFeedBackChanged = false;
+            self.activeRow = null;
 
             function renderFooterCell(columnIndex, columnTotal, itemId) {
                 var footerCellHtml, footerButtonId, finalDateObject = {};
@@ -39,14 +40,14 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
             */
             function onRowMouseLeave(row, oListItem) {
 
-                $(row).mouseleave(function () {                   //Check if the user clicked and changed value  
+                $(row).mouseleave(function () {     //Check if the user clicked and changed value  
 
                     if (self._isFeedBackChanged == true) {
                         var olRowCells = {},
                             sItemType;
 
                         //PoolDataTable.dtTable.row(row).data()
-                        $.each(row.cells, function (index, cell) {              // Collect all the values of the cell in a object literal
+                        $.each(row.cells, function (index, cell) {      // Collect all the values of the cell in a object literal
                             var sCellHtml = $(cell).html();
                             if (index > 0) {
                                 var sCellName = "Cell" + index;
@@ -90,6 +91,55 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                 });
             }
 
+            this.saveUserChoices = function () {
+                var itemId = 1;
+                var olRowCells = {},
+                    sItemType;
+
+                //PoolDataTable.dtTable.row(row).data()
+                $.each(self.activeRow.cells, function (index, cell) {      // Collect all the values of the cell in a object literal
+                    var sCellHtml = $(cell).html();
+                    if (index > 0) {
+                        var sCellName = "Cell" + index;
+                        olRowCells[sCellName] = {};
+                        olRowCells[sCellName].startDate =
+                            $(sCellHtml).attr('data-startdate'),
+                        olRowCells[sCellName].endDate =
+                            $(sCellHtml).attr('data-enddate'),
+                        olRowCells[sCellName].Feedback =
+                            $(sCellHtml).attr('data-feedback')
+                    }
+                });
+
+                var oMeetEventListController = new MeetEventListController(oApplication);
+                oMeetEventListController.getListItemByItemId(itemId).done  // Get the list item object from Sharepoint list.
+                    (function (oListItem) {
+                        if (oListItem) {
+                            var olFeedBack = JSON.parse(oListItem.Feedback);
+                            // Loop object literal from List
+                            for (var oDate in olFeedBack) {
+                                // Loop object literal from Row
+                                for (var oCellValue in olRowCells) {
+                                    if ((olRowCells[oCellValue].startDate == olFeedBack[oDate].start) &&
+                                        (olRowCells[oCellValue].endDate == olFeedBack[oDate].end))
+                                        olFeedBack[oDate].Participants[_spPageContextInfo.userId] = olRowCells[oCellValue].Feedback;
+                                }
+                            }
+
+
+                            var feedBackObject = {};
+                            feedBackObject['Feedback'] = olFeedBack;
+                            oMeetEventListController.
+                                updateListItemByItemId(oListItem.Id, feedBackObject, true).         // Update the FeedBack field value in the List Item.
+                                done(function () {
+                                    self._isFeedBackChanged = false;
+                                });
+                        }
+
+                    });
+
+            }
+
             function getFeedBackTotal(sHtml) {
                 var isCrossValue = false;
                 if ($(sHtml).length > 0) {
@@ -103,7 +153,6 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
             }
 
             function refreshFooter(columnIndex, isYes, itemId) {
-
                 var columnTotal, footerCellHtml, footerButtonId, hdrCell, finalDateObject,
                     cell = $("#tfooterrow td:eq(" + columnIndex + ")");
 
@@ -124,6 +173,8 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                     footerButtonId = "#" + footerButtonId;
                     if ($(footerButtonId).length > 0)
                         $(footerButtonId).empty();
+
+                    cell.html(footerCellHtml);
 
                     $(footerButtonId).click(function () {
                         hdrCell = $(self._dtName + " thead tr:nth-child(2) th:nth-child(" + columnIndex + ")");
@@ -242,6 +293,7 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                             $(row).addClass('active-rows');
                             bindEventOnDTCells(data, row, oListItem);
                             onRowMouseLeave(row, oListItem);
+                            self.activeRow = row;
                         }
                     },
                     "footerCallback":

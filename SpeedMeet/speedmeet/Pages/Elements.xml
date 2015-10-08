@@ -7,6 +7,6 @@
     <File Path="Pages\SubPages\MyMeetEvent.html" Url="Pages/SubPages/MyMeetEvent.html" ReplaceContent="TRUE" />
     <File Path="Pages\SubPages\ShowMeetEvent.html" Url="Pages/SubPages/ShowMeetEvent.html" ReplaceContent="TRUE" />
     <File Path="Pages\SubPages\FinalMeetEvent.html" Url="Pages/SubPages/FinalMeetEvent.html" ReplaceContent="TRUE" />
-    <File Path="Pages\SubPages\EditEvent.html" Url="Pages/SubPages/EditEvent.html" ReplaceContent="TRUE" />
+    <File Path="Pages\SubPages\JoinMeetEvent.html" Url="Pages/SubPages/JoinMeetEvent.html" ReplaceContent="TRUE" />
   </Module>
 </Elements>

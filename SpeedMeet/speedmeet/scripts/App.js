@@ -23,15 +23,17 @@ function ($, Application, viewMain) {
         $("#IMeetEvent").load("SubPages/MeetEvent.html", function () {
             var oApplication = new Application();
             $(oApplication.modules.myMeetEventModule.id).load("SubPages/MyMeetEvent.html", function () {
-                $(oApplication.modules.showMeetEventModule.id).load("SubPages/ShowMeetEvent.html", function () {
-                    $(oApplication.modules.finalMeetEventModule.id).load("SubPages/FinalMeetEvent.html", function () {
+                $(oApplication.modules.joinMeetEventModule.id).load("SubPages/JoinMeetEvent.html", function () {
+                    $(oApplication.modules.showMeetEventModule.id).load("SubPages/ShowMeetEvent.html", function () {
+                        $(oApplication.modules.finalMeetEventModule.id).load("SubPages/FinalMeetEvent.html", function () {
 
-                        var oviewMain = new viewMain(oApplication);
-                        waitDialog.close();
-                        waitDialog = null;
+                            var oviewMain = new viewMain(oApplication);
+                            waitDialog.close();
+                            waitDialog = null;
 
+                        });
                     });
-                })
+                });
             });
 
         });

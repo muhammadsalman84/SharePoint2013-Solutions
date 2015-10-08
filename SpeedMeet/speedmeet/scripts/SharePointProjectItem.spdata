@@ -38,5 +38,7 @@
     <ProjectItemFile Source="controllers\meetevent-list-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
     <ProjectItemFile Source="views\edit-speedmeet.js" Target="Scripts\views\" Type="ElementFile" />
     <ProjectItemFile Source="controllers\utility-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="views\join-meetevent-view.js" Target="Scripts\views\" Type="ElementFile" />
+    <ProjectItemFile Source="controllers\join-meetevent-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
   </Files>
 </ProjectItem>

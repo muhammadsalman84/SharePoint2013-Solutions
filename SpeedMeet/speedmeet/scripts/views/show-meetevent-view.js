@@ -63,6 +63,10 @@ define(["controllers/meetevent-list-controller", "controllers/utility-controller
                  oApplication.oMeetEventView.editEvent(oApplication.ActiveListItem.ID);
              });
 
+             $("#btnSaveChoices-show").bind('click', function () {                
+                oPoolDataTable.saveUserChoices();
+             });
+
          }
 
          return ShowMeetEventView;

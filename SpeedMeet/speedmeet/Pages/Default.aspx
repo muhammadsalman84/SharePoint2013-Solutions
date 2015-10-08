@@ -14,7 +14,7 @@
     <meta name="WebPartPageExpansion" content="full" />
 
     <!-- Add your CSS styles to the following file -->
-    <link rel="Stylesheet" type="text/css" href="../Content/App.css" />    
+    <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
     <link rel="Stylesheet" type="text/css" href="../Content/bootstrap.min.css" />
     <link rel="Stylesheet" type="text/css" href="../Content/bootstrap-theme.min.css" />
     <link rel="Stylesheet" type="text/css" href="../Content/fullcalendar.min.css" />
@@ -56,9 +56,9 @@
                 <div class="col-md-2">
                     <div id="IMenubar">
                         <ul class="nav nav-pills nav-stacked span3">
-                            <li class="active"><a id="btnNewSpeedMeet" href="javascript:;" data-bsbutton="true">New SpeedMeet</a></li>
-                            <li><a id="btnMySpeedMeets" href="javascript:;" data-bsbutton="true">My SpeedMeet(s)</a></li>
-                            <li><a id="btnSM" href="javascript:;" data-bsbutton="true">View Request(s)</a></li>
+                            <li class="active"><a id="btnNewMeetEvent" href="javascript:;" data-bsbutton="true">New SpeedMeet</a></li>
+                            <li><a id="btnMyMeetEvents" href="javascript:;" data-bsbutton="true">My SpeedMeet(s)</a></li>
+                            <li><a id="btnJoinMeetEvent" href="javascript:;" data-bsbutton="true">Join SpeedMeet(s)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -66,6 +66,8 @@
                     <div id="IMeetEvent" class="col-md-10 hide">
                     </div>
                     <div id="IMyMeetEvent" class="col-md-10 hide">
+                    </div>
+                    <div id="IJoinMeetEvent" class="col-md-10 hide">
                     </div>
                     <div id="IShowMeetEvent" class="col-md-10 hide">
                     </div>
