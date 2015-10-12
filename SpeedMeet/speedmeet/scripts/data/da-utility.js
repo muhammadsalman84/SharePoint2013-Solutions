@@ -1,9 +1,11 @@
 ﻿'use strict';
 
-define(function () {
-    function DAUtility() {
+define(["data/da-layer"], function (DALayer) {
+    function DAUtility(oApplication) {
+        var self = this;
+        self.oApplication = oApplication;
 
-        this.SPLists = function (olModule) {
+        self.SPLists = function (olModule) {
             var olSPLists = {
                 SpeedMeet: {
                     Name: "SpeedMeetList",
@@ -49,10 +51,8 @@ define(function () {
             return olSPLists;
 
         }
-    }
 
-    DAUtility.prototype = {
-        getHttpRequest: function (sMethod, sAccessPoint, webUrl, spObjectType) {
+        self.getHttpRequest = function (sMethod, sAccessPoint, webUrl, spObjectType) {
             var sHttpRequest = {
                 url: "",
                 type: sMethod,
@@ -69,7 +69,7 @@ define(function () {
                     sHttpRequest.url = "{0}/_api/SP.UserProfiles.PeopleManager/";
                     break;
                 case "EMAIL":
-                    sHttpRequest.url = "{0}/_api/SP.Utilities.Utility.SendEmail";                    
+                    sHttpRequest.url = "{0}/_api/SP.Utilities.Utility.SendEmail";
                     break;
                 default:
                     sHttpRequest.url = "{0}/_api/web/";
@@ -85,7 +85,7 @@ define(function () {
                     sHttpRequest.headers = {
                         "accept": "application/json; odata=verbose",
                         "contentType": "application/json; odata=verbose",
-                        "X-RequestDigest": $("#__REQUESTDIGEST").val()                        
+                        "X-RequestDigest": $("#__REQUESTDIGEST").val()
                     };
                     sHttpRequest.data = { '__metadata': { 'type': spObjectType } };
                     break;
@@ -104,7 +104,11 @@ define(function () {
 
             return sHttpRequest;
 
-        },
+        }
+    }
+
+    DAUtility.prototype = {
+
         getItemType: function GetItemTypeForListName(sListName) {
             return "SP.Data." + sListName.charAt(0).toUpperCase() + sListName.slice(1) + "ListItem";
         },
@@ -131,6 +135,33 @@ define(function () {
                 }
             }
             return listStruct;
+        },
+        sendEmails: function (emailObjects) {
+
+            var oDALayer = new DALayer(),
+                CONSTANTS = this.oApplication.getConstants(),
+                sMethodType = CONSTANTS.DB.HTTP.METHODS.POST,
+                oHttpRequest = this.getHttpRequest(sMethodType, "EMAIL", this.oApplication.getSPAppWebUrl(), "SP.Utilities.EmailProperties"),
+                oDeferred = $.Deferred(),
+                email, iCounter = 0;
+
+            for (email in emailObjects) {
+                oHttpRequest.data = JSON.stringify({
+                    'properties': {
+                        '__metadata': { 'type': 'SP.Utilities.EmailProperties' },
+                        'From': emailObjects[email].From,
+                        'To': { 'results': [emailObjects[email].To] },
+                        'Subject': emailObjects[email].Subject,
+                        'Body': emailObjects[email].Body
+                    }
+                });
+                oDALayer.SubmitWebMethod(oHttpRequest).done(function () {
+                    iCounter += 1;
+                    if (iCounter == emailObjects.length)
+                        oDeferred.resolve();
+                });
+            }
+            return oDeferred.promise();
         }
     }
 

@@ -22,7 +22,7 @@
     <File Path="Scripts\data\da-utility.js" Url="Scripts/data/da-utility.js" ReplaceContent="TRUE" />
     <File Path="Scripts\starters\constants.js" Url="Scripts/starters/constants.js" ReplaceContent="TRUE" />
     <File Path="Scripts\data\da-layer.js" Url="Scripts/data/da-layer.js" ReplaceContent="TRUE" />
-    <File Path="Scripts\controllers\pool.js" Url="Scripts/controllers/pool.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\controllers\utility-controller.js" Url="Scripts/controllers/utility-controller.js" ReplaceContent="TRUE" />
     <File Path="Scripts\libs\jquery.dataTables.js" Url="Scripts/libs/jquery.dataTables.js" ReplaceContent="TRUE" />
     <File Path="Scripts\views\show-meetevent-view.js" Url="Scripts/views/show-meetevent-view.js" ReplaceContent="TRUE" />
     <File Path="Scripts\plugin-modules\progressbar.js" Url="Scripts/plugin-modules/progressbar.js" ReplaceContent="TRUE" />
@@ -34,11 +34,10 @@
     <File Path="Scripts\plugin-modules\base-datatable.js" Url="Scripts/plugin-modules/base-datatable.js" ReplaceContent="TRUE" />
     <File Path="Scripts\plugin-modules\datatables.js" Url="Scripts/plugin-modules/datatables.js" ReplaceContent="TRUE" />
     <File Path="Scripts\views\final-meetevent-view.js" Url="Scripts/views/final-meetevent-view.js" ReplaceContent="TRUE" />
-    <File Path="Scripts\controllers\meetevent-list-controller.js" Url="Scripts/controllers/meetevent-list-controller.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\data\data-meetevent-list.js" Url="Scripts/data/data-meetevent-list.js" ReplaceContent="TRUE" />
     <File Path="Scripts\views\edit-speedmeet.js" Url="Scripts/views/edit-speedmeet.js" ReplaceContent="TRUE" />
-    <File Path="Scripts\controllers\utility-controller.js" Url="Scripts/controllers/utility-controller.js" ReplaceContent="TRUE" />
     <File Path="Scripts\views\join-meetevent-view.js" Url="Scripts/views/join-meetevent-view.js" ReplaceContent="TRUE" />
     <File Path="Scripts\controllers\join-meetevent-controller.js" Url="Scripts/controllers/join-meetevent-controller.js" ReplaceContent="TRUE" />
-    <File Path="Scripts\data\utility-data.js" Url="Scripts/data/utility-data.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\controllers\final-meetevent-controller.js" Url="Scripts/controllers/final-meetevent-controller.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

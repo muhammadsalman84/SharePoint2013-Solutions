@@ -1,17 +1,18 @@
 ﻿'use strict';
-define(["controllers/meetevent-list-controller", "plugin-modules/google-api"],
-     function (MeetEventListController, GoogleApi) {
+define(["data/data-meetevent-list", "controllers/utility-controller", "controllers/final-meetevent-controller", "plugin-modules/google-api"],
+     function (DAMeetEventList, UtilityController, FinalController, GoogleApi) {
          function FinalizeMeetEventView(oApplication) {
              var self = this;
-             var oMeetEventListController = new MeetEventListController(oApplication),
+             var oDAMeetEventList = new DAMeetEventList(oApplication),
                  oGoogleApi, finalEventData, geoLocation;
 
-             function sendEmail() {
 
-             }
+             this.bindFinalSpeedMeetView = function (itemId, doEmail) {
+                 var oUtilityController = new UtilityController(oApplication),
+                     oFinalController = new FinalController(oApplication),
+                     emailObjects;
 
-             this.bindFinalSpeedMeetView = function (itemId) {
-                 oMeetEventListController.getListItemByItemId(itemId)
+                 oDAMeetEventList.getListItemByItemId(itemId)
                         .done(function (oListItem) {
                             if (oListItem) {
                                 geoLocation = JSON.parse(oListItem.GeoLocation);
@@ -26,14 +27,22 @@ define(["controllers/meetevent-list-controller", "plugin-modules/google-api"],
 
                                 oGoogleApi = new GoogleApi("map-canvas-finalevent", geoLocation, true);
                                 oGoogleApi.initialzeMap();
+
+                                if (doEmail) {
+                                    oUtilityController.getUsersInfo(oListItem).done(function (usersObject) {
+                                        emailObjects = oFinalController.getEmailObjects(usersObject, oListItem);
+                                        oUtilityController.sendEmails(emailObjects);
+                                    });
+                                }
                             }
+
                         });
              }
 
 
              this.updateFinalDate = function (itemId, finalDateObject) {
-                 oMeetEventListController.updateListItemByItemId(itemId, finalDateObject, true).done(function () {
-                     self.bindFinalSpeedMeetView(itemId);
+                 oDAMeetEventList.updateListItemByItemId(itemId, finalDateObject, true).done(function () {
+                     self.bindFinalSpeedMeetView(itemId, true);
                  });
 
              }

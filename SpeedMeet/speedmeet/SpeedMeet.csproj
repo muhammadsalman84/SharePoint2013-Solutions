@@ -110,10 +110,9 @@
     <Content Include="Pages\SpeedMeetNew.aspx" />
     <Content Include="Scripts\controllers\join-meetevent-controller.js" />
     <Content Include="Scripts\controllers\my-meetevent-controller.js" />
-    <Content Include="Scripts\controllers\meetevent-list-controller.js" />
-    <Content Include="Scripts\controllers\utility-controller.js" />
+    <Content Include="Scripts\controllers\final-meetevent-controller.js" />
+    <Content Include="Scripts\data\data-meetevent-list.js" />
     <Content Include="Scripts\controllers\show-meetevent-controller.js" />
-    <Content Include="Scripts\data\utility-data.js" />
     <Content Include="Scripts\data\da-layer.js" />
     <Content Include="Scripts\data\da-utility.js" />
     <Content Include="Scripts\Elements.xml" />
@@ -127,7 +126,7 @@
     <Content Include="Scripts\libs\jquery.dataTables.js" />
     <Content Include="Scripts\libs\moment.min.js" />
     <Content Include="Scripts\controllers\meetevent-controller.js" />
-    <Content Include="Scripts\controllers\pool.js" />
+    <Content Include="Scripts\controllers\utility-controller.js" />
     <Content Include="Scripts\plugin-modules\base-datatable.js" />
     <Content Include="Scripts\plugin-modules\datatables.js" />
     <Content Include="Scripts\plugin-modules\pool-datatable.js" />

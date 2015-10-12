@@ -5,7 +5,7 @@ define(function () {
         var self = this;
 
         self.getConstants = function getConstants() {
-            var sConstantsLiteral = {
+            var constantsLiteral = {
                 DB: {
                     HTTP: {
                         METHODS: {
@@ -33,9 +33,9 @@ define(function () {
                         TO: "{0}",
                         SUBJECT: "SpeedMeet event location: {0}",
                         BODY: "{0}",
-                        BODY_TEXT: function(){
+                        BODY_TEXT: function () {
                             var sHtml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-                            sHtml  += '<html xmlns="http://www.w3.org/1999/xhtml">';
+                            sHtml += '<html xmlns="http://www.w3.org/1999/xhtml">';
                             sHtml += '<head>';
                             sHtml += '<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />';
                             sHtml += '<title>SpeedMeet Invitation</title>';
@@ -47,19 +47,19 @@ define(function () {
                             sHtml += '<p> <br> The location of the speedmeet event <strong>"{1}"</strong></strong> has been changed to: <strong>{2}</strong></strong> <br></p>';
                             sHtml += '<p> For further details, please visit your <strong><a href="{3}">SpeedMeet event</a>.</strong></strong></p>';
                             sHtml += '<b></p><div >';
-                            sHtml += '</div></body></html>';                           
+                            sHtml += '</div></body></html>';
 
                             return sHtml;
-                        }                        
+                        }
                     },
                     NewMeet: {
                         FROM: "smtpgate.de.tuv.com",
                         TO: "{0}",
                         SUBJECT: "SpeedMeet event invitation: {0}",
                         BODY: "{0}",
-                        BODY_TEXT: function(){
+                        BODY_TEXT: function () {
                             var sHtml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-                            sHtml  += '<html xmlns="http://www.w3.org/1999/xhtml">';
+                            sHtml += '<html xmlns="http://www.w3.org/1999/xhtml">';
                             sHtml += '<head>';
                             sHtml += '<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />';
                             sHtml += '<title>SpeedMeet Invitation</title>';
@@ -90,15 +90,47 @@ define(function () {
                             sHtml += '<a href="{4}">	<table style="color:white;background-color:#0072C6;width: 15%" align="left">';
                             sHtml += '<tr><td class="auto-style8">Join this SpeedMeet</td></tr>';
                             sHtml += '</table></a>';
-                            sHtml += '<br></div></body></html>';                           
+                            sHtml += '<br></div></body></html>';
 
                             return sHtml;
-                        }                        
+                        }
+                    },
+                    FinalizeEvent: {
+                        FROM: "smtpgate.de.tuv.com",
+                        TO: "{0}",
+                        SUBJECT: "SpeedMeet event finalized",
+                        BODY: "{0}",
+                        BODY_TEXT: function () {
+                            var sHtml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+                            sHtml += '<html xmlns="http://www.w3.org/1999/xhtml">';
+                            sHtml += '<head>';
+                            sHtml += '<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />';
+                            sHtml += '<title>SpeedMeet Invitation</title>';
+                            sHtml += '<style type="text/css">a, u {';
+                            sHtml += 'text-decoration: none;';
+                            sHtml += '}</style></head>';
+                            sHtml += '<body>';
+                            sHtml += '<p> <strong>Dear {0}</strong>, </p>';
+                            sHtml += '<p> <br> The date has been finalized for the event <strong>"{1}"</strong></strong>. The following are the details;<br></p>';
+                            sHtml += '<table style="width: 100%">';
+                            sHtml += '<tr><td style="color:white;background-color:#0072C6; font-size:x-large" colspan="2">SpeedMeet Event: {2}</td></tr>';                            
+                            sHtml += '<tr><td style="width: 152px">Description:</td><td>{3}</td></tr>';
+                            sHtml += '<tr><td style="width: 152px">Location:</td><td>{4}</td></tr>';
+                            sHtml += '<tr><td style="width: 152px">Date-Time:</td><td>{5}</td></tr>';
+                            sHtml += '</table>';
+                            sHtml += '<p> For further details, please visit your <strong><a href="{6}">SpeedMeet event</a></strong>.</p>';
+                            sHtml += '</p><div >';
+                            sHtml += '</div></body></html>';
+
+                            return sHtml;
+                        }
                     }
                 }
             }
-            return sConstantsLiteral;
+                
+            return constantsLiteral;
         }
+        
     }
 
     return Constants;

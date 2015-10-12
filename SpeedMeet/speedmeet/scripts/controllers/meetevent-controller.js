@@ -1,14 +1,13 @@
 ﻿'use strict';
-define(["data/da-utility", "data/da-layer", "controllers/pool", "controllers/meetevent-list-controller"],
-    function (DAUtility, DALayer, PoolContainer, MeetEventListController) {
+define(["data/da-utility", "data/da-layer", "controllers/utility-controller", "data/data-meetevent-list"],
+    function (DAUtility, DALayer, PoolContainer, DAMeetEventList) {
         function MeetEventController(oApplication) {
             var self = this,
             oDAUtility = new DAUtility(),
             oDALayer = new DALayer,
             oMeetEventModule = oApplication.modules.meetEventModule,
             oSpeedMeetList = oDAUtility.SPLists().SpeedMeet,
-            olSpeedMeetFlds = oSpeedMeetList.fields,
-            oPoolContainer = new PoolContainer(oApplication),
+            olSpeedMeetFlds = oSpeedMeetList.fields,            
             CONSTANTS = oApplication.getConstants();
             oDAUtility.getListStruct(oMeetEventModule, oSpeedMeetList);
 
@@ -117,14 +116,14 @@ define(["data/da-utility", "data/da-layer", "controllers/pool", "controllers/mee
             }
 
             this.UpdateMeetEvent = function (geoLocation) {
-                var oMeetEventListController = new MeetEventListController(oApplication),
+                var oDAMeetEventList = new DAMeetEventList(oApplication),
                     changesRecorder = [], newUsers = [],
                     newFeedBack, foundAuthorId, isNewLocation,
                     itemId = oApplication.ActiveListItem.ID,
                     oDeferred = $.Deferred(),
                     listObject = setDataInListObject(geoLocation);                          // Set the values to the list object
 
-                oMeetEventListController.getListItemByItemId(itemId)                        // Get the latest values of the list item from Sharepoint list.
+                oDAMeetEventList.getListItemByItemId(itemId)                        // Get the latest values of the list item from Sharepoint list.
                                         .done(function (oListItem) {
 
                                             getParticipantsKeys(oApplication.getParticipants()).done(function (arrayUserKeys) {
@@ -150,7 +149,7 @@ define(["data/da-utility", "data/da-layer", "controllers/pool", "controllers/mee
                                                 listObject["MeetingDates"] = JSON.stringify(listObject["MeetingDates"]);
                                                 listObject["GeoLocation"] = JSON.stringify(listObject["GeoLocation"]);
 
-                                                oMeetEventListController.
+                                                oDAMeetEventList.
                                                     updateListItemByItemId(itemId, listObject, false)
                                                         .done(function () {
                                                             oDeferred.resolve(changesRecorder);
@@ -163,7 +162,7 @@ define(["data/da-utility", "data/da-layer", "controllers/pool", "controllers/mee
 
             this.CreateMeetEvent = function (geoLocation) {
 
-                var oMeetEventListController = new MeetEventListController(oApplication),
+                var oDAMeetEventList = new DAMeetEventList(oApplication),
                    updatedObject = {}, users, removedUsers = [], newFeedBack,
                    oDeferred = $.Deferred(),
                    listObject = setDataInListObject(geoLocation);                          // Set the values to the list object
@@ -188,7 +187,7 @@ define(["data/da-utility", "data/da-layer", "controllers/pool", "controllers/mee
                     listObject["MeetingDates"] = JSON.stringify(listObject["MeetingDates"]);
                     listObject["GeoLocation"] = JSON.stringify(listObject["GeoLocation"]);
 
-                    var olistItem = oMeetEventListController.createListitem(listObject, false);
+                    var olistItem = oDAMeetEventList.createListitem(listObject, false);
                     olistItem.done(function (listItem) {
                         //Increment 30
                         oApplication.incrementProgressBar(20, "SpeedMeet list item created..");

@@ -1,10 +1,10 @@
 ﻿'use strict';
-define(["controllers/meetevent-list-controller", "controllers/utility-controller", "controllers/pool", "plugin-modules/pool-datatable", "plugin-modules/google-api"],
-     function (MeetEventListController, UtilityController, PoolController, PoolDataTable, GoogleApi) {
+define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-modules/pool-datatable", "plugin-modules/google-api"],
+     function (DAMeetEventList, UtilityController, PoolDataTable, GoogleApi) {
          function ShowMeetEventView(oApplication) {
 
-             var oMeetEventListController = new MeetEventListController(oApplication),
-                 oPoolController = new PoolController(oApplication),
+             var oDAMeetEventList = new DAMeetEventList(oApplication),
+                 //oPoolController = new PoolController(oApplication),
                  oPoolDataTable = new PoolDataTable(oApplication, "#tblPool", oApplication.oFinalSpeedMeet),
                  headerHtml, oGoogleApi;
 
@@ -17,7 +17,7 @@ define(["controllers/meetevent-list-controller", "controllers/utility-controller
              }
 
              function bindView(oListItem) {
-                 var oUtilityController = new UtilityController(),
+                 var oUtilityController = new UtilityController(oApplication),
                  showMeetEventModuleId = oApplication.modules.showMeetEventModule.id;
 
                  oApplication.showHideModule(showMeetEventModuleId);
@@ -35,10 +35,12 @@ define(["controllers/meetevent-list-controller", "controllers/utility-controller
 
 
              this.loadMeetEvent = function (oListItem, usersObject) {
-                 var itemId = null;
+                 var itemId = null,
+                     oUtilityController = new UtilityController(oApplication);
+
                  if (typeof (oListItem) == "object") {     // If it is an object then Listitem object is passed.
 
-                     headerHtml = oPoolController.getHeadersInfo(oListItem);       // Create Headers for the DataTable                                                                          
+                     headerHtml = oUtilityController.getHeadersInfo(oListItem);       // Create Headers for the DataTable                                                                          
                      oPoolDataTable.clearDataTable();
                      oPoolDataTable.bindDataTable(headerHtml, usersObject, oListItem);
 
@@ -47,11 +49,11 @@ define(["controllers/meetevent-list-controller", "controllers/utility-controller
                  else {
                      itemId = oListItem;
 
-                     oMeetEventListController.getListItemByItemId(itemId).
+                     oDAMeetEventList.getListItemByItemId(itemId).
                          done(function (oListItem) {
-                             oPoolController.getUsersInfo(oListItem).done(function (usersObject) {
+                             oUtilityController.getUsersInfo(oListItem).done(function (usersObject) {
                                  // Create Headers for the DataTable
-                                 headerHtml = oPoolController.getHeadersInfo(oListItem);
+                                 headerHtml = oUtilityController.getHeadersInfo(oListItem);
                                  oPoolDataTable.clearDataTable();
                                  // Bind DataTable with header html and data.                                                  
                                  oPoolDataTable.bindDataTable(headerHtml, usersObject, oListItem);

@@ -1,12 +1,12 @@
 ﻿'use strict';
 
 define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
-    function MeetEventListController(oApplication) {
+    function DAMeetEventList(oApplication) {
         var self = this;
         self.oApplication = oApplication;
     }
 
-    MeetEventListController.prototype.createListitem = function (fieldsCollection, doJsonStringify) {
+    DAMeetEventList.prototype.createListitem = function (fieldsCollection, doJsonStringify) {
         var field,
             oDeferred = $.Deferred(),
             oDAUtility = new DAUtility(),
@@ -37,7 +37,7 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
         return oDeferred.promise();
     }
 
-    MeetEventListController.prototype.updateListItemByItemId = function (itemId, fieldsCollection, doJsonStringify) {
+    DAMeetEventList.prototype.updateListItemByItemId = function (itemId, fieldsCollection, doJsonStringify) {
 
         var oDeferred = $.Deferred(),
             oDALayer = new DALayer,
@@ -76,7 +76,7 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
         return oDeferred.promise();
     };
 
-    MeetEventListController.prototype.getListItemByItemId = function (itemId, doGetDetail) {
+    DAMeetEventList.prototype.getListItemByItemId = function (itemId, doGetDetail) {
         var itemType,
             oDeferred = $.Deferred(),
             oDALayer = new DALayer,
@@ -102,5 +102,5 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
         return oDeferred.promise();
     }
 
-    return MeetEventListController;
+    return DAMeetEventList;
 });

@@ -1,11 +1,11 @@
 ﻿'use strict';
-define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/pool-datatable", "plugin-modules/google-api", "controllers/meetevent-list-controller"],
-     function (MeetEventController, PoolController, PoolDataTable, GoogleApi, MeetEventListController) {
+define(["controllers/meetevent-controller", "controllers/utility-controller", "plugin-modules/pool-datatable", "plugin-modules/google-api", "data/data-meetevent-list"],
+     function (MeetEventController, UtilityController, PoolDataTable, GoogleApi, DAMeetEventList) {
          function MeetEventView(oApplication) {
              var oMeetEventModule = oApplication.modules.meetEventModule,
                  oGoogleApi,
                  oMeetEventController = new MeetEventController(oApplication),
-                 oPoolController = new PoolController(oApplication),
+                 oUtilityController = new UtilityController(oApplication),
                  oPoolDataTable = new PoolDataTable(oApplication, "#tblPool"),
              buttons = oMeetEventModule.getButtons(),
              oGoogleApi1, olLocation, headrCollection;
@@ -90,13 +90,12 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
 
                  oMeetEventController.CreateMeetEvent(geoLocation).done(     // Create a new List item (Progressbar=30)
                      function (oListItem) {
-                         oPoolController.getUsersInfo(oListItem).done(function (usersObject) {
+                         oUtilityController.getUsersInfo(oListItem).done(function (usersObject) {
                              oApplication.incrementProgressBar(10, "Sending Email(s) to Participant(s)..");
                              usrEmailObjects = oMeetEventController.getEmailObjectsByUsers("JOINMEET", usersObject, oListItem);       // Create email objects and push in an Array                             
-                             oPoolController.sendEmails(usrEmailObjects).done(function () {        // Send Emails to the participants
-                                 oApplication.stopProgressBar();
-                                 oApplication.oShowMeetEventView.loadMeetEvent(oListItem, usersObject);
-                             });
+                             oUtilityController.sendEmails(usrEmailObjects)        // Send Emails to the participants
+                             oApplication.stopProgressBar();
+                             oApplication.oShowMeetEventView.loadMeetEvent(oListItem, usersObject);                             
 
                          });
                      });
@@ -104,7 +103,7 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
 
              $(buttons.btnUpdateEvent).bind('click', function () {
                  var location, itemId, usrEmailObjects, usrEmailObjects1,
-                     oMeetEventListController = new MeetEventListController(oApplication);
+                     oDAMeetEventList = new DAMeetEventList(oApplication);
 
                  itemId = oApplication.ActiveListItem.ID;
                  oApplication.startProgressbar();
@@ -112,11 +111,11 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
                  location = oGoogleApi.getGeoLocation();
                  oApplication.incrementProgressBar(10, "Updating your event..");
                  oMeetEventController.UpdateMeetEvent(location).done(function (changesRecorder) {      // Update the MeetEvent
-                     oApplication.incrementProgressBar(30, "SpeedMeet event successfully is updated..");
-                     oMeetEventListController.getListItemByItemId(itemId)       // Get the updated list item object
+                     oApplication.incrementProgressBar(30, "SpeedMeet event is updated successfully..");
+                     oDAMeetEventList.getListItemByItemId(itemId)       // Get the updated list item object
                                     .done(function (oListItem) {
                                         oApplication.incrementProgressBar(30, "collecting updated event data..");
-                                        oPoolController.getUsersInfo(oListItem).done(function (usersObject) {        // get the Users Info to be used in DataTable.                                                                                                                                        
+                                        oUtilityController.getUsersInfo(oListItem).done(function (usersObject) {        // get the Users Info to be used in DataTable.                                                                                                                                        
                                             oApplication.incrementProgressBar(20, "Sending Email(s) to Participant(s)..");
                                             usrEmailObjects = oMeetEventController.getEmailObjectsByUsers("JOINMEET", usersObject, oListItem, changesRecorder[0]);       // Create email objects for new users
 
@@ -125,7 +124,7 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
                                                 usrEmailObjects = $.merge(usrEmailObjects, usrEmailObjects1);       // Merge the email objects
                                             }
 
-                                            oPoolController.sendEmails(usrEmailObjects)        // Send Emails to the new participants                                                                                           
+                                            oUtilityController.sendEmails(usrEmailObjects)        // Send Emails to the new participants                                                                                           
 
                                             delete oApplication.ActiveListItem;
                                             oApplication.stopProgressBar();
@@ -141,8 +140,8 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
 
              this.editEvent = function (itemId) {
                  if (typeof (itemId) != "object") {     // if ItemId is not the ListItem Object
-                     var oMeetEventListController = new MeetEventListController(oApplication);
-                     oMeetEventListController.getListItemByItemId(itemId, true).
+                     var oDAMeetEventList = new DAMeetEventList(oApplication);
+                     oDAMeetEventList.getListItemByItemId(itemId, true).
                        done(function (oListItem) {
                            bindView(oListItem);
 

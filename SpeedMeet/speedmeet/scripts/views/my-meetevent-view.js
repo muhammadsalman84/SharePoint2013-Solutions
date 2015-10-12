@@ -1,6 +1,6 @@
 ﻿'use strict';
-define(["controllers/my-meetevent-controller", "controllers/meetevent-list-controller", "plugin-modules/base-datatable"],
-     function (MyMeetEventController, MeetEventListController, BaseDataTable) {
+define(["controllers/my-meetevent-controller", "data/data-meetevent-list", "plugin-modules/base-datatable"],
+     function (MyMeetEventController, DAMeetEventList, BaseDataTable) {
          function MyMeetEventView(oApplication) {
              var oMyMeetEventController = new MyMeetEventController(oApplication),
                  dtTable, arrayColumns;
@@ -10,7 +10,7 @@ define(["controllers/my-meetevent-controller", "controllers/meetevent-list-contr
              }
 
              this.getMySpeedMeets = function () {
-                 var oMeetEventListController = new MeetEventListController(oApplication),
+                 var oDAMeetEventList = new DAMeetEventList(oApplication),
                      oBaseDataTable, columnsDef, columnsOrder, data, eventHtml, allAnchors;
 
                  oMyMeetEventController.getMySpeedMeets().done(function (arrayDataSet) {
@@ -50,7 +50,7 @@ define(["controllers/my-meetevent-controller", "controllers/meetevent-list-contr
 
                      $('#tblMyMeetEvents tbody tr').on('click', '#btnEditMeet-mymeet', function () {
                          data = oBaseDataTable.DataTable().row($(this).parents('tr')).data();
-                         oMeetEventListController.getListItemByItemId(data[0])
+                         oDAMeetEventList.getListItemByItemId(data[0])
                                         .done(function (oListItem) {
                                             oApplication.ActiveListItem = oListItem;        // Set the Active list item
                                             oApplication.oMeetEventView.editEvent(oApplication.ActiveListItem.ID);

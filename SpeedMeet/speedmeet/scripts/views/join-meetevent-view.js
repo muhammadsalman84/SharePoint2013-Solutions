@@ -1,6 +1,6 @@
 ﻿'use strict';
-define(["controllers/join-meetevent-controller", "controllers/meetevent-list-controller", "plugin-modules/base-datatable"],
-     function (JoinMeetEventController, MeetEventListController, BaseDataTable) {
+define(["controllers/join-meetevent-controller", "plugin-modules/base-datatable"],
+     function (JoinMeetEventController, BaseDataTable) {
          function JoinMeetEventView(oApplication) {
              var oJoinMeetEventController = new JoinMeetEventController(oApplication),
                  dtTable, arrayColumns;

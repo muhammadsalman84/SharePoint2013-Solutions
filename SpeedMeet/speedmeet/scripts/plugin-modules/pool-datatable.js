@@ -1,11 +1,10 @@
 ﻿'use strict';
 
-define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "controllers/meetevent-list-controller", "controllers/utility-controller"],
-    function (DataTable, BaseDataTable, PoolController, MeetEventListController, UtilityController) {
+define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list", "controllers/utility-controller"],
+    function (DataTable, BaseDataTable, DAMeetEventList, UtilityController) {
 
         function PoolDataTable(oApplication, dtName) {
-            var self = this,
-                oPoolController = new PoolController(oApplication);
+            var self = this;
 
             self.CONSTANTS = oApplication.getConstants(),
             self._dtName = dtName,
@@ -89,7 +88,7 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
             }
 
             function bindEventOnDTCells(data, row, oListItem) {
-                var oUtilityController = new UtilityController(),
+                var oUtilityController = new UtilityController(oApplication),
                     td, dateStart, dateEnd, oldFeedback, cellHtml;
 
                 $(data).each(function (i) {
@@ -161,7 +160,7 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                     olRowCells = {},
                     feedBackObject = {},
                     sItemType, olFeedBack, oDate, cellHtml, cellName, oCellValue,
-                    oMeetEventListController = new MeetEventListController(oApplication);
+                    oDAMeetEventList = new DAMeetEventList(oApplication);
 
 
                 $.each(self.activeRow.cells, function (index, cell) {      // Collect all the values of the cell in a object literal
@@ -178,7 +177,7 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                     }
                 });
 
-                oMeetEventListController.getListItemByItemId(itemId)        // Get the list item object from Sharepoint list.
+                oDAMeetEventList.getListItemByItemId(itemId)        // Get the list item object from Sharepoint list.
                     .done(function (oListItem) {
                         if (oListItem) {
                             olFeedBack = JSON.parse(oListItem.Feedback);
@@ -192,7 +191,7 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                             }
 
                             feedBackObject['Feedback'] = olFeedBack;
-                            oMeetEventListController.
+                            oDAMeetEventList.
                                 updateListItemByItemId
                                     (oListItem.Id, feedBackObject, true)      // Update the FeedBack field value in the List Item.
                                         .done(function () {

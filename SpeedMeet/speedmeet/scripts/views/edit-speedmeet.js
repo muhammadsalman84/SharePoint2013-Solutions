@@ -1,9 +1,9 @@
 ﻿'use strict';
-define(["controllers/meetevent-list-controller", "plugin-modules/google-api"],
-     function (SpeedMeetListController, GoogleApi) {
+define(["data/data-meetevent-list", "plugin-modules/google-api"],
+     function (DAMeetEventList, GoogleApi) {
          function EditSpeedMeetView(oApplication, oFinalSpeedMeet) {
              var self = this,
-                 oSpeedMeetListController = new SpeedMeetListController(oApplication),
+                 oDAMeetEventList = new DAMeetEventList(oApplication),
                   oGoogleApi = new GoogleApi("map-canvas"),
                   geoLocation;
 
@@ -16,7 +16,7 @@ define(["controllers/meetevent-list-controller", "plugin-modules/google-api"],
              });
 
              this.editEvent = function (itemId) {
-                 oSpeedMeetListController.getListItemByItemId(itemId, true).
+                 DAMeetEventList.getListItemByItemId(itemId, true).
                        done(function (oListItem) {
                            var participant, userKeys = "", event = {}, allEvents = [], eventData, eventsData;
 
