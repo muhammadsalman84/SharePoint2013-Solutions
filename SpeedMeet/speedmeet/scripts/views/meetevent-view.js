@@ -10,7 +10,9 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
              buttons = oMeetEventModule.getButtons(),
              oGoogleApi1, olLocation, headrCollection;
 
-             // Private Methods
+             /*
+              *  Private Methods
+             */
              function initializeGoogleMap(geoLocation) {
                  if (geoLocation) {
                      oGoogleApi = new GoogleApi("map-canvas", geoLocation, true);
@@ -23,10 +25,36 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
                  $("#txt-location-meetevent").val(olLocation.locationName);
              }
 
-             function constructDataTable(oListItem, olUsers) {
-                 headrCollection = oPoolController.getHeadersInfo(oListItem);       // Create Headers for the DataTable                                                                          
-                 oPoolDataTable.clearDataTable();
-                 oPoolDataTable.bindDataTable(headrCollection, olUsers, oListItem);     // Bind DataTable with headers and data.                  
+             function bindView(oListItem) {
+                 var participant, userKeys = "", event = {}, allEvents = [],
+                     eventData, eventsData, location;
+
+                 $("#txt-title-meetevent").val(oListItem.Title);
+                 $("#txt-location-meetevent").val(oListItem.Location1);
+                 $("#txt-description-meetevent").val(oListItem.Description1);
+                 location = JSON.parse(oListItem.GeoLocation);
+
+                 oApplication.clearPeoplePicker();                                            // Clear the PeoplePicker.                         
+                 for (participant in oListItem.Participants1.results) {
+                     userKeys += oListItem.Participants1.results[participant].Name + ";";
+                 }
+
+                 userKeys = userKeys.substr(0, userKeys.length - 1);
+                 oApplication.setPeoplePicker(userKeys);                                      // Set user keys in PeoplePicker 
+                 oApplication.clearFullCalendar();
+                 eventsData = JSON.parse(oListItem.MeetingDates);
+                 for (eventData in eventsData) {
+                     event = {};
+                     event.title = "";
+                     event.start = eventsData[eventData].startDate;
+                     event.end = eventsData[eventData].endDate;
+                     allEvents.push(event);
+                 }
+                 oApplication.AddEventsToCalander(allEvents);
+
+                 oApplication.hideShowButtons(["btnCreateEvent"], ["btnUpdateEvent"]);
+                 oApplication.showHideModule(oMeetEventModule.id);
+                 initializeGoogleMap(location);
              }
 
              // Register Events for the New SpeedMeet.            
@@ -62,7 +90,7 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
 
                  oMeetEventController.CreateMeetEvent(geoLocation).done(     // Create a new List item (Progressbar=30)
                      function (oListItem) {
-                         oPoolController.getUsersInfo(oListItem).done(function (usersObject) {                             
+                         oPoolController.getUsersInfo(oListItem).done(function (usersObject) {
                              oApplication.incrementProgressBar(10, "Sending Email(s) to Participant(s)..");
                              usrEmailObjects = oMeetEventController.getEmailObjectsByUsers("JOINMEET", usersObject, oListItem);       // Create email objects and push in an Array                             
                              oPoolController.sendEmails(usrEmailObjects).done(function () {        // Send Emails to the participants
@@ -73,8 +101,6 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
                          });
                      });
              });
-
-
 
              $(buttons.btnUpdateEvent).bind('click', function () {
                  var location, itemId, usrEmailObjects, usrEmailObjects1,
@@ -109,44 +135,25 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
                  });
              });
 
+             /*
+              *  Public Methods
+             */
+
              this.editEvent = function (itemId) {
-                 var oMeetEventListController = new MeetEventListController(oApplication),
-                     participant, userKeys = "", event = {}, allEvents = [],
-                     eventData, eventsData, location;
-
-                 oMeetEventListController.getListItemByItemId(itemId, true).
+                 if (typeof (itemId) != "object") {     // if ItemId is not the ListItem Object
+                     var oMeetEventListController = new MeetEventListController(oApplication);
+                     oMeetEventListController.getListItemByItemId(itemId, true).
                        done(function (oListItem) {
+                           bindView(oListItem);
 
-                           $("#txt-title-meetevent").val(oListItem.Title);
-                           $("#txt-location-meetevent").val(oListItem.Location1);
-                           $("#txt-description-meetevent").val(oListItem.Description1);
-                           location = JSON.parse(oListItem.GeoLocation);
-
-                           oApplication.clearPeoplePicker();                                            // Clear the PeoplePicker.                         
-                           for (participant in oListItem.Participants1.results) {
-                               userKeys += oListItem.Participants1.results[participant].Name + ";";
-                           }
-
-                           userKeys = userKeys.substr(0, userKeys.length - 1);
-                           oApplication.setPeoplePicker(userKeys);                                      // Set user keys in PeoplePicker 
-                           oApplication.clearFullCalendar();
-                           eventsData = JSON.parse(oListItem.MeetingDates);
-                           for (eventData in eventsData) {
-                               event = {};
-                               event.title = "";
-                               event.start = eventsData[eventData].startDate;
-                               event.end = eventsData[eventData].endDate;
-                               allEvents.push(event);
-                           }
-                           oApplication.AddEventsToCalander(allEvents);
-
-                           oApplication.hideShowButtons(["btnCreateEvent"], ["btnUpdateEvent"]);
-                           oApplication.showHideModule(oMeetEventModule.id);
-                           initializeGoogleMap(location);
                        });
+                 }
+                 else {
+                     bindView(itemId);
+                 }
+                 
              }
-
-             // Public Methods
+             
              this.ShowNewMeet = function () {
                  oApplication.showHideModule(oMeetEventModule.id);
                  oApplication.clearFields(oMeetEventModule);
@@ -159,9 +166,12 @@ define(["controllers/meetevent-controller", "controllers/pool", "plugin-modules/
                  $("#txt-title-meetevent").focus();
              }
 
+             /*
+              *  Initializations
+             */
              $("#txt-title-meetevent").focus();
              initializeGoogleMap();
-             
+
          }
 
          return MeetEventView;

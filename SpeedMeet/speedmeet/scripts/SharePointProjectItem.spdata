@@ -40,5 +40,6 @@
     <ProjectItemFile Source="controllers\utility-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
     <ProjectItemFile Source="views\join-meetevent-view.js" Target="Scripts\views\" Type="ElementFile" />
     <ProjectItemFile Source="controllers\join-meetevent-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="data\utility-data.js" Target="Scripts\data\" Type="ElementFile" />
   </Files>
 </ProjectItem>

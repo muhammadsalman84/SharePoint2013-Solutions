@@ -1,5 +1,5 @@
 ﻿'use strict';
-define([], function () {
+define(["data/da-utility"], function (DAUtility) {
     function UtilityController(oApplication) {
         var self = this;
 
@@ -10,7 +10,10 @@ define([], function () {
             else {
                 $(".adminFunctions").addClass("hide");
             }
-        }       
+        }
+
     }
     return UtilityController;
 });
+
+

@@ -1,5 +1,5 @@
 ﻿'use strict';
-define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
+define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUtility, UtilityDA, DALayer) {
     function PoolController(oApplication) {
 
         var oDAUtility = new DAUtility(),
@@ -100,111 +100,10 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
             return oDeferred.promise();
         };
 
-        this.sendEmails = function (arrayEmails) {
-            var sMethodType = CONSTANTS.DB.HTTP.METHODS.POST,
-                oHttpRequest = oDAUtility.getHttpRequest(sMethodType, "EMAIL", oApplication.getSPAppWebUrl(), "SP.Utilities.EmailProperties"),
-                oDeferred = $.Deferred(), email,
-                iCounter = 0;
-
-            for (email in arrayEmails) {
-                oHttpRequest.data = JSON.stringify({
-                    'properties': {
-                        '__metadata': { 'type': 'SP.Utilities.EmailProperties' },
-                        'From': arrayEmails[email].From,
-                        'To': { 'results': [arrayEmails[email].To] },
-                        'Subject': arrayEmails[email].Subject,
-                        'Body': arrayEmails[email].Body
-                    }
-                });
-                oDALayer.SubmitWebMethod(oHttpRequest).done(function () {
-                    iCounter += 1;
-                    if (iCounter == arrayEmails.length)
-                        oDeferred.resolve();
-                });
-            }
-            return oDeferred.promise();
+        this.sendEmails = function (emailObjects) {
+            oUtilityDA = new UtilityDA();
+            oUtilityDA.sendEmails(emailObjects);
         }
-
-        /*this.getHeadersInfo = function (oListItem) {
-
-            var resultsCollection = {}, headerSequence = {},
-                dates = {}, date, time, count, headerCounter, firstHdrHtml, startDT, endDT,
-                secondHdrHtml, listItemHtml, startTime, endTime, dataAttrHtml;
-
-            // listItemHtml = "data-ItemId='" + oListItem.ID + "'";
-
-            $.each(olFeedBack, function (index, dateTimeObject) {       // interate on each date and create a new object literal.
-                var dateStart = moment(dateTimeObject.start).format("MMMM Do YYYY");
-                var i, isFound = false;
-                for (date in dates) {
-                    if (date === dateStart) {
-                        isFound = true;
-                        break;
-                    }
-                }
-
-                startTime = new Date(dateTimeObject.start);
-                startTime = new Date(startTime.getTime() + (startTime.getTimezoneOffset() * 60000));
-
-                endTime = new Date(dateTimeObject.end);
-                endTime = new Date(endTime.getTime() + (endTime.getTimezoneOffset() * 60000));
-
-                if (isFound == false) {
-                    dates[dateStart] = {};
-                    dates[dateStart]["time1"] = {};
-
-                    dates[dateStart]["time1"]["start"] = moment(startTime).format("h:mm a");
-                    dates[dateStart]["time1"]["startDT"] = dateTimeObject.start;
-                    dates[dateStart]["time1"]["end"] = moment(endTime).format("h:mm a");
-                    dates[dateStart]["time1"]["endDT"] = dateTimeObject.end;
-                }
-                else {
-                    count = $.map(dates[dateStart], function (n, i) { return i; }).length;
-                    count++;
-                    dates[dateStart]["time" + count] = {};
-                    dates[dateStart]["time" + count]["start"] = moment(startTime).format("h:mm a");
-                    dates[dateStart]["time" + count]["startDT"] = dateTimeObject.start;
-                    dates[dateStart]["time" + count]["end"] = moment(endTime).format("h:mm a");
-                    dates[dateStart]["time" + count]["endDT"] = dateTimeObject.end;
-                    isFound = false;
-                }
-
-            });
-
-            startTime = null;
-            endTime = null;
-            firstHdrHtml = "<thead>", secondHdrHtml = "<tr>";
-            firstHdrHtml += "<tr> <th rowspan='2'>Participant(s)</th>";
-            headerCounter = 1;
-
-            $.each(dates, function (date, AllTimes) {
-                count = $.map(dates[date], function (n, i) { return i; }).length;
-                firstHdrHtml += "<th colspan='" + count + "'>" + date + "</th>";
-
-                for (time in AllTimes) {
-                    startTime = AllTimes[time]["start"];
-                    endTime = AllTimes[time]["end"];
-                    startDT = AllTimes[time]["startDT"];
-                    endDT = AllTimes[time]["endDT"];
-
-                    headerSequence["time" + headerCounter] = {};
-                    headerSequence["time" + headerCounter]["startDT"] = startDT;
-                    headerSequence["time" + headerCounter]["endDT"] = endDT;
-                    dataAttrHtml = "data-HdrDate='" + date + "' data-HdrStartTime='" + startTime + "' data-HdrEndTime='" + endTime + "'";
-                    dataAttrHtml += "data-HdrStartDT='" + startDT + "' data-HdrEndDT='" + endDT + "'";
-                    //dataAttrHtml += listItemHtml;
-                    secondHdrHtml += "<th " + dataAttrHtml + ">" + startTime + " - " + endTime + "</th>";
-
-                    headerCounter++;
-                }
-            });
-
-            firstHdrHtml += "</tr>" + secondHdrHtml + "</tr>" + "</thead>";
-
-            resultsCollection["headrHtml"] = firstHdrHtml;
-            resultsCollection["headrSequence"] = headerSequence;
-            return resultsCollection;
-        }*/
 
         this.getHeadersInfo = function (oListItem) {
 
@@ -250,7 +149,7 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
                     dates[dateStart]["time" + count]["end"] = moment(endTime).format("h:mm a");
                     dates[dateStart]["time" + count]["endDT"] = dateTimeObject.end;
                     isFound = false;
-                }           
+                }
 
             });
 

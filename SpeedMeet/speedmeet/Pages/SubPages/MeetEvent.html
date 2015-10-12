@@ -40,9 +40,9 @@
                 </div>
                 <div class="col-md-11 form-group">
                     <label for="peoplePickerDiv">Invite participant(s) to your SpeedMeet event</label>
-                    <div id="peoplePickerDiv" style="width: 100%" data-spfield="Participants1"></div>
+                    <div id="peoplePickerDiv" style="width: 100%;height:200px;" data-spfield="Participants1"></div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 hide">
                     <label for="fileupload">Share file(s) with the participant(s)</label><br />
                     <span class="btn btn-primary fileinput-button">
                         <i class="glyphicon glyphicon-paperclip"></i>
@@ -66,24 +66,23 @@
         </div>
 
     </div>
-</div>
-<div id="IMeetEventTWO" class="row hide">
+    <div id="IMeetEventTWO" class="row hide">
 
-    <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h4>Choose the days along with the time slots for the event.</h4>
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>Choose the days along with the time slots for the event.</h4>
+                </div>
             </div>
-        </div>
 
-        <div id='calendar' data-spfield="CalendarDates">
+            <div id='calendar' data-spfield="CalendarDates">
+            </div>
+            <br />
         </div>
+        <div class="col-md-12"></div>
+        <div class=" col-md-6 text-left"><button type="button" id="btnBackToMap" class="btn btn-warning" data-bsbutton="true">Back</button></div>
+        <div class="col-md-6 text-right"><button type="button" id="btnCreateEvent" class="btn btn-primary" data-bsbutton="true"><i class="glyphicon glyphicon-list-alt pull-left"></i> Create SpeedMeet event</button></div>
+        <div class="col-md-6 text-right hide"><button type="button" id="btnUpdateEvent" class="btn btn-primary" data-bsbutton="true"><i class="glyphicon glyphicon-list-alt pull-left"></i>Update SpeedMeet event</button></div>
         <br />
     </div>
-    <div class="col-md-12"></div>
-    <div class=" col-md-6 text-left"><button type="button" id="btnBackToMap" class="btn btn-warning" data-bsbutton="true">Back</button></div>
-    <div class="col-md-6 text-right"><button type="button" id="btnCreateEvent" class="btn btn-primary" data-bsbutton="true">Create Event</button></div>
-    <div class="col-md-6 text-right hide"><button type="button" id="btnUpdateEvent" class="btn btn-primary" data-bsbutton="true">Update Event</button></div>
-    <br />
-</div>
 </div>

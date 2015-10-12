@@ -39,5 +39,6 @@
     <File Path="Scripts\controllers\utility-controller.js" Url="Scripts/controllers/utility-controller.js" ReplaceContent="TRUE" />
     <File Path="Scripts\views\join-meetevent-view.js" Url="Scripts/views/join-meetevent-view.js" ReplaceContent="TRUE" />
     <File Path="Scripts\controllers\join-meetevent-controller.js" Url="Scripts/controllers/join-meetevent-controller.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\data\utility-data.js" Url="Scripts/data/utility-data.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

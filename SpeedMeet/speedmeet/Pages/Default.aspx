@@ -57,8 +57,8 @@
                     <div id="IMenubar">
                         <ul class="nav nav-pills nav-stacked span3">
                             <li class="active"><a id="btnNewMeetEvent" href="javascript:;" data-bsbutton="true">New SpeedMeet</a></li>
-                            <li><a id="btnMyMeetEvents" href="javascript:;" data-bsbutton="true">My SpeedMeet(s)</a></li>
-                            <li><a id="btnJoinMeetEvent" href="javascript:;" data-bsbutton="true">Join SpeedMeet(s)</a></li>
+                            <li><a id="btnMyMeetEvents" href="javascript:;" data-bsbutton="true">My SpeedMeets</a></li>
+                            <li><a id="btnJoinMeetEvent" href="javascript:;" data-bsbutton="true">SpeedMeet Requests</a></li>
                         </ul>
                     </div>
                 </div>

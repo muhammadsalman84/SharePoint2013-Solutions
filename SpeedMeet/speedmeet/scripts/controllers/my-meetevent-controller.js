@@ -41,9 +41,8 @@ define(["data/da-utility", "data/da-layer"],
                         arrayHdrs.push({
                             data: null,
                             className: "center",
-                            defaultContent: "<div class='btn-group btn-group-justified'><button type='button' id='btnEditMeet-mymeet' class='btn btn-primary' data-bsbutton='true'> <i class='glyphicon glyphicon-edit pull-left'></i>Edit</button><button type='button' id='btnCancelMeet-mymeet' class='btn btn-primary' data-bsbutton='true'> <i class='glyphicon glyphicon-trash pull-left'></i>Cancel</button></div>"
-                                //'<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Cancel</a>'
-                            //mRender: function (o) { return '<i class="ui-tooltip fa fa-pencil" style="font-size: 22px;" data-original-title="Edit"></i><i class="ui-tooltip fa fa-trash-o" style="font-size: 22px;" data-original-title="Delete"></i>'; }
+                            defaultContent: "<div class='btn-group btn-group-justified'><a type='button' id='btnEditMeet-mymeet' class='btn btn-primary' data-bsbutton='true'> <i class='glyphicon glyphicon-edit pull-left'></i>Edit</a><a type='button' id='btnCancelMeet-mymeet' class='btn btn-primary' data-bsbutton='true'> <i class='glyphicon glyphicon-trash pull-left'></i>Cancel</a></div>"
+                              
                         });
 
         

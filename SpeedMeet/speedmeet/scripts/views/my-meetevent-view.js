@@ -28,7 +28,7 @@ define(["controllers/my-meetevent-controller", "controllers/meetevent-list-contr
                            },
                           {
                               "render": function (data, type, full, meta) {                                                                    
-                                  eventHtml = '<a href="#" id="event' + full[0] + '" data-eventId="' + full[0] + '">' + data + '</a>';
+                                  eventHtml = '<a href="#" class="myevent" id="event' + full[0] + '" data-eventId="' + full[0] + '">' + data + '</a>';
                                   return eventHtml;
                               },
                               "targets": 1
@@ -38,7 +38,7 @@ define(["controllers/my-meetevent-controller", "controllers/meetevent-list-contr
                      oBaseDataTable.clearDataTable();
                      oBaseDataTable.bindDataTable(columnsDef, columnsOrder);
 
-                     allAnchors = $('#tblMyMeetEvents tbody').find("a");
+                     allAnchors = $('#tblMyMeetEvents tbody').find("a.myevent");
 
                      // Bind the click event with the Events Anchors
                      $.each(allAnchors, function (index, eventAnchor) {

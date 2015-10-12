@@ -113,6 +113,7 @@
     <Content Include="Scripts\controllers\meetevent-list-controller.js" />
     <Content Include="Scripts\controllers\utility-controller.js" />
     <Content Include="Scripts\controllers\show-meetevent-controller.js" />
+    <Content Include="Scripts\data\utility-data.js" />
     <Content Include="Scripts\data\da-layer.js" />
     <Content Include="Scripts\data\da-utility.js" />
     <Content Include="Scripts\Elements.xml" />

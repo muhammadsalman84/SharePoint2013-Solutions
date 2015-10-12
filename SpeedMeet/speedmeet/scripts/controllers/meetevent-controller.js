@@ -28,7 +28,7 @@ define(["data/da-utility", "data/da-layer", "controllers/pool", "controllers/mee
                 });
 
                 return deferred.promise();
-            }           
+            }
 
             function createHttpRequestObject() {
                 var sItemType = oDAUtility.getItemType(oSpeedMeetList.Name),
@@ -172,7 +172,7 @@ define(["data/da-utility", "data/da-layer", "controllers/pool", "controllers/mee
                 oApplication.incrementProgressBar(10, "Getting participant(s)..");
                 users = getParticipantsKeys(oApplication.getParticipants());
                 users.done(function (arrayUserKeys) {
-                    //Increemnt 20
+                    //Increment 20
                     oApplication.incrementProgressBar(20, "Creating a new SpeedMeet..");
                     olSpeedMeetFlds.Participants1.value = arrayUserKeys;
                     var foundCreatorId = $.inArray(_spPageContextInfo.userId, arrayUserKeys);
@@ -191,7 +191,7 @@ define(["data/da-utility", "data/da-layer", "controllers/pool", "controllers/mee
                     var olistItem = oMeetEventListController.createListitem(listObject, false);
                     olistItem.done(function (listItem) {
                         //Increment 30
-                        oApplication.incrementProgressBar(10, "SpeedMeet list item created..");
+                        oApplication.incrementProgressBar(20, "SpeedMeet list item created..");
                         oDeferred.resolve(listItem);
                     });
                 });
@@ -220,14 +220,14 @@ define(["data/da-utility", "data/da-layer", "controllers/pool", "controllers/mee
 
                 for (userId in olUsers) {
                     if (olUsers[userId].Email) {
-                        url = oApplication.updateQueryStringParameter(sBaseUrl, "smUserId", userId);                        
+                        url = oApplication.updateQueryStringParameter(sBaseUrl, "smUserId", userId);
                         oEmail.To = olUsers[userId].Email;
 
                         if (newUsers != null) {     // Send invitation to the users invited later in the event.
                             foundUser = $.inArray(userId, newUsers);        // Does new Users collection has the user id.
                             if ((emailType == "NEWLOCATION") && (foundUser == -1)) {        // Send location changed notification to old users.
                                 oEmail.Body = String.format(sEmailConstants.BODY_TEXT(), olUsers[userId].DisplayName, oListitem.Title, location.locationName, url);
-                                
+
                                 arrayEmails.push(oEmail);
                             }
                             else if (foundUser != -1)
@@ -243,6 +243,7 @@ define(["data/da-utility", "data/da-layer", "controllers/pool", "controllers/mee
                 return arrayEmails;
             }
 
+           
         }
 
         return MeetEventController;

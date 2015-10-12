@@ -20,9 +20,9 @@ define(function () {
                 HTML: {
                     divFeedBackNO: "<div class='alert alert-warning text-center' width='100%' height='100%' data-feedback='0' data-startdate='{0}' data-enddate='{1}'><strong><i class='glyphicon glyphicon-remove'></i></strong></div>",
                     divFeedBackYES: "<div class='alert alert-success text-center' width='100%' height='100%' data-feedback='1' data-startdate='{0}' data-enddate='{1}'><strong><i class='glyphicon glyphicon-ok'></i></strong></div>",
-                    footerRow: "<tfoot><tr id='tfooterrow' class='cellfooter'><td>Feedback Total:</td></tr></tfoot>",
+                    footerRow: "<tfoot><tr id='tfooterrow' class='cellfooter'><td>Participants Total:</td></tr></tfoot>",
                     //footerCell: "<b><span class='text-center'>{0}</span><br><br><button id='{1}' type='button' class='btn btn-primary text-center'>Finalize date</button></b>"
-                    footerCell: "<b><span class='text-center'>{0}</span><br><br><div class='adminFunctions hide'><button id='{1}' type='button' class='btn btn-primary text-center'>Finalize date</button></div></b>"
+                    footerCell: "<div style='text-align:center'><b><span>{0}</span><br><br><div class='adminFunctions hide'><button id='{1}' type='button' class='btn btn-primary'>Finalize date</button></div></b></div>"
                 },
                 URL: {
                     userImagePath: "../Images/Person.png"
@@ -44,8 +44,8 @@ define(function () {
                             sHtml += '}</style></head>';
                             sHtml += '<body>';
                             sHtml += '<p> <strong>Dear {0}</strong>, </p>';
-                            sHtml += '<p> <br> The location of the speedmeet event <strong>"{1}"</strong> has been changed to: <strong>{2}</strong> <br></p>';
-                            sHtml += '<p> For further details, please visit your <strong><a href="{3}">SpeedMeet event</a></strong>.</p>';
+                            sHtml += '<p> <br> The location of the speedmeet event <strong>"{1}"</strong></strong> has been changed to: <strong>{2}</strong></strong> <br></p>';
+                            sHtml += '<p> For further details, please visit your <strong><a href="{3}">SpeedMeet event</a>.</strong></strong></p>';
                             sHtml += '<b></p><div >';
                             sHtml += '</div></body></html>';                           
 
@@ -72,7 +72,7 @@ define(function () {
                             sHtml += '<p> ';
                             sHtml += '<table style="width: 100%" border="0">';
                             sHtml += '<tr>';
-                            sHtml += '<td style="color:white;background-color:green; font-size:x-large" colspan="2">SpeedMeet Event</td>';
+                            sHtml += '<td style="color:white;background-color:#0072C6; font-size:x-large" colspan="2">SpeedMeet Event</td>';
                             sHtml += '</tr>';
                             sHtml += '<tr>';
                             sHtml += '<td class="auto-style5" style="width: 152px">Title:</td>';
@@ -87,7 +87,7 @@ define(function () {
                             sHtml += '<td>{3}</td>';
                             sHtml += '</tr>';
                             sHtml += '</table><b></p><div>';
-                            sHtml += '<a href="{4}">	<table style="color:white;background-color:green;width: 15%" align="left">';
+                            sHtml += '<a href="{4}">	<table style="color:white;background-color:#0072C6;width: 15%" align="left">';
                             sHtml += '<tr><td class="auto-style8">Join this SpeedMeet</td></tr>';
                             sHtml += '</table></a>';
                             sHtml += '<br></div></body></html>';                           

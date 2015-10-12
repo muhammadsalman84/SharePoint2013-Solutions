@@ -1,7 +1,7 @@
 ﻿'use strict';
 //define(['async!https://maps.googleapis.com/maps/api/js?v=3.exp', 'https://google.com/jsapi'], function () {
 //define(['jsapi'], function () {
-define(['async!https://maps.googleapis.com/maps/api/js?v=3.exp', 'https://google.com/jsapi'], function () {
+define(['async!https://maps.googleapis.com/maps/api/js?v=3.exp'], function () {
 
     function GoogleApi(mapId, geoLocation, isStreetView) {
         var self = this,

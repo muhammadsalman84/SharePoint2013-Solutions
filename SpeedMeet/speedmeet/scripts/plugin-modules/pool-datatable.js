@@ -12,62 +12,6 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
             self._isFeedBackChanged = false;
             self.activeRow = null;
 
-            /* 
-             * Update choices of the user on row leave event.
-            */
-            /*  function onRowMouseLeave(row, oListItem) {
-  
-                  $(row).mouseleave(function () {     //Check if the user clicked and changed value  
-  
-                      if (self._isFeedBackChanged == true) {
-                          var olRowCells = {},
-                              sItemType;
-  
-                          //PoolDataTable.dtTable.row(row).data()
-                          $.each(row.cells, function (index, cell) {      // Collect all the values of the cell in a object literal
-                              var sCellHtml = $(cell).html();
-                              if (index > 0) {
-                                  var sCellName = "Cell" + index;
-                                  olRowCells[sCellName] = {};
-                                  olRowCells[sCellName].startDate =
-                                      $(sCellHtml).attr('data-startdate'),
-                                  olRowCells[sCellName].endDate =
-                                      $(sCellHtml).attr('data-enddate'),
-                                  olRowCells[sCellName].Feedback =
-                                      $(sCellHtml).attr('data-feedback')
-                              }
-                          });
-  
-                          var oMeetEventListController = new MeetEventListController(oApplication);
-                          oMeetEventListController.getListItemByItemId(oListItem.Id).done  // Get the list item object from Sharepoint list.
-                              (function (oListItem) {
-                                  if (oListItem) {
-                                      var olFeedBack = JSON.parse(oListItem.Feedback);
-                                      // Loop object literal from List
-                                      for (var oDate in olFeedBack) {
-                                          // Loop object literal from Row
-                                          for (var oCellValue in olRowCells) {
-                                              if ((olRowCells[oCellValue].startDate == olFeedBack[oDate].start) &&
-                                                  (olRowCells[oCellValue].endDate == olFeedBack[oDate].end))
-                                                  olFeedBack[oDate].Participants[_spPageContextInfo.userId] = olRowCells[oCellValue].Feedback;
-                                          }
-                                      }
-  
-  
-                                      var feedBackObject = {};
-                                      feedBackObject['Feedback'] = olFeedBack;
-                                      oMeetEventListController.
-                                          updateListItemByItemId(oListItem.Id, feedBackObject, true).         // Update the FeedBack field value in the List Item.
-                                          done(function () {
-                                              self._isFeedBackChanged = false;
-                                          });
-                                  }
-  
-                              });
-                      }
-                  });
-              }*/
-
             function renderFooterCell(columnIndex, columnTotal, itemId) {
                 var footerCellHtml, footerButtonId, finalDateObject = {};
 
@@ -92,15 +36,19 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
             }
 
             function getFeedBackTotal(cellHtml) {
-                var feedBackValue = false;
+                var feedBackValue = 0;
+
+                if ($.isNumeric(cellHtml))
+                    return cellHtml;
+
                 if ($(cellHtml).length > 0) {
                     var feedBackValue = $(cellHtml).find("i").hasClass("glyphicon-remove");
 
                     feedBackValue === true ? feedBackValue = 0 : feedBackValue = 1;
 
-                    return feedBackValue;
+                    return parseInt(feedBackValue);
                 }
-                return feedBackValue;
+                return parseInt(feedBackValue);
             }
 
             function refreshFooter(columnIndex, isYes, itemId) {
@@ -310,8 +258,8 @@ define(["datatables", "plugin-modules/base-datatable", "controllers/pool", "cont
                                     var columnTotal =
                                         this.data()
                                                 .reduce(function (a, b) {
-                                                    return getFeedBackTotal(a) + getFeedBackTotal(b);
-                                                });
+                                                    return (getFeedBackTotal(a)) + (getFeedBackTotal(b));
+                                                }, 0);
 
                                     if (isNaN(parseInt(columnTotal)))
                                         columnTotal = getFeedBackTotal();

@@ -6,6 +6,10 @@ define(["controllers/meetevent-list-controller", "plugin-modules/google-api"],
              var oMeetEventListController = new MeetEventListController(oApplication),
                  oGoogleApi, finalEventData, geoLocation;
 
+             function sendEmail() {
+
+             }
+
              this.bindFinalSpeedMeetView = function (itemId) {
                  oMeetEventListController.getListItemByItemId(itemId)
                         .done(function (oListItem) {
