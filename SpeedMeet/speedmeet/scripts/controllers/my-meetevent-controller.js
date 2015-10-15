@@ -23,16 +23,24 @@ define(["data/da-utility", "data/da-layer"],
                         var arrayHdrs = [];
                         $.each(olMeetItems, function (index, meetItem) {
                             var row = [];
-
+                            row.push(meetItem.ID)
                             row.push(meetItem.ID);
                             row.push(meetItem.Title);
                             row.push(meetItem.Created);
                             row.push(meetItem.Description1);
-                            row.push(meetItem.Location1);                            
+                            row.push(meetItem.Location1);
 
                             aData.push(row);
                         });
 
+                        // Add header columns in the array
+
+                        arrayHdrs.push({
+                            data: null,
+                            className: "details-control",
+                            orderable: false,                           
+                            defaultContent: ""
+                        });
                         arrayHdrs.push({ "title": "ID" });
                         arrayHdrs.push({ "title": oSpeedMeetList.fields.Title.title });
                         arrayHdrs.push({ "title": "Created" });
@@ -42,10 +50,10 @@ define(["data/da-utility", "data/da-layer"],
                             data: null,
                             className: "center",
                             defaultContent: "<div class='btn-group btn-group-justified'><a type='button' id='btnEditMeet-mymeet' class='btn btn-primary' data-bsbutton='true'> <i class='glyphicon glyphicon-edit pull-left'></i>Edit</a><a type='button' id='btnCancelMeet-mymeet' class='btn btn-primary' data-bsbutton='true'> <i class='glyphicon glyphicon-trash pull-left'></i>Cancel</a></div>"
-                              
+
                         });
 
-        
+
                         aData.push(arrayHdrs);
 
                         oDeferred.resolve(aData);

@@ -3,6 +3,23 @@
 define(function () {
     function DALayer() {
         return {
+            SubmitWebMethodSynchronise: function (url) {
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    async: false,
+                    headers: {
+                        "accept": "application/json;odata=verbose",
+                        "X-RequestDigest": $("#__REQUESTDIGEST").val()
+                    },
+                    success: function (data) {
+                        return data;
+                    },
+                    error: function (err) {
+                        console.log(err.message)
+                    }
+                });
+            },
             SubmitWebMethod: function (httpRequest) {
                 httpRequest.success = function (data) {
                     data;

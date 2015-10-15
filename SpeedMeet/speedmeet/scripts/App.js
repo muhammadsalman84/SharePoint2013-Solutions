@@ -38,7 +38,13 @@ function ($, Application, viewMain) {
 
         });
 
-    })
+    });
+   
+   
+    var sUserName = "i:0#.f|membership|msalmanm@myspappsdev.onmicrosoft.com".replace('i:0#.w|', '');
+    var settings = { type: "withpicture", redirectToProfile: true };
+    //createpresence(sUserName, settings);
+
 });
 
 

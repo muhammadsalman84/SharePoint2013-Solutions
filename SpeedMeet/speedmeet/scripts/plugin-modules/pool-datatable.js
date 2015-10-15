@@ -92,28 +92,32 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                     td, dateStart, dateEnd, oldFeedback, cellHtml;
 
                 $(data).each(function (i) {
-                    $('td', row).eq(i).bind('click', function () {      // Loop each cells of the row and bind click event dynamically
+                    if (i > 0) {
+                        $('td', row).eq(i).bind('click', function () {      // Loop each cells of the row and bind click event dynamically
+                            
+                            td = $('td', row).eq(i).html();
+                            dateStart = $(td).attr('data-startdate');
+                            dateEnd = $(td).attr('data-enddate');
+                            oldFeedback = $(td).attr('data-feedback');
+                            cellHtml = "";
 
-                        td = $('td', row).eq(i).html();
-                        dateStart = $(td).attr('data-startdate');
-                        dateEnd = $(td).attr('data-enddate');
-                        oldFeedback = $(td).attr('data-feedback');
-                        cellHtml = "";
+                            if ((dateStart)) {
+                                if (oldFeedback == 0) {
+                                    cellHtml = String.format(self.CONSTANTS.HTML.divFeedBackYES, dateStart, dateEnd);
+                                    $('td', row).eq(i).html(cellHtml);
+                                    refreshFooter(i, true, oListItem.ID);
+                                }
+                                else {
+                                    cellHtml = String.format(self.CONSTANTS.HTML.divFeedBackNO, dateStart, dateEnd);
+                                    $('td', row).eq(i).html(cellHtml);
+                                    refreshFooter(i, false, oListItem.ID);
+                                }
 
-                        if (oldFeedback == 0) {
-                            cellHtml = String.format(self.CONSTANTS.HTML.divFeedBackYES, dateStart, dateEnd);
-                            $('td', row).eq(i).html(cellHtml);
-                            refreshFooter(i, true, oListItem.ID);
-                        }
-                        else {
-                            cellHtml = String.format(self.CONSTANTS.HTML.divFeedBackNO, dateStart, dateEnd);
-                            $('td', row).eq(i).html(cellHtml);
-                            refreshFooter(i, false, oListItem.ID);
-                        }
-
-                        oUtilityController.showAdminView(oListItem.AuthorId);       // Hide the Finalize button if the user is not the Author of the Item
-                        self._isFeedBackChanged = true;       // set user feedback
-                    });
+                                oUtilityController.showAdminView(oListItem.AuthorId);       // Hide the Finalize button if the user is not the Author of the Item
+                                self._isFeedBackChanged = true;       // set user feedback
+                            }
+                        });
+                    }
                 });
             }
 
@@ -137,7 +141,8 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                         sName = user.DisplayName,
                         sPicUrl = user.PictureUrl || self.CONSTANTS.URL.userImagePath;
 
-                    aRow.push("<div id='User" + id + "' ><img class='personimage-resize' src='" + sPicUrl + "' /><span>" + sName + "</span></div>");
+                    //aRow.push("<div id='User" + id + "' ><img class='personimage-resize' src='" + sPicUrl + "' /><span>" + sName + "</span></div>");
+                    aRow.push("<div id='User" + id + "' >" + user.PicturePresence + "</div>");
                     $.each(olFeedBack, function (j, date) {
                         var cellHtml = "";
                         if (date.Participants[id] == 0) {
@@ -273,7 +278,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
 
                 /*$(window).resize(function () {
                     PoolDataTable.dtTable.columns.adjust();
-                });*/                
+                });*/
 
             }
         }

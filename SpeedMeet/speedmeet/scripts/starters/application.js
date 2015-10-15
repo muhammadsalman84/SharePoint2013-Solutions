@@ -115,11 +115,12 @@ define(["starters/utility", "starters/constants", "plugin-modules/progressbar", 
              },
              hideShowButtons: function (hideButtonsCollection, showButtonsCollection) {
                  $.each(hideButtonsCollection, function (key, value) {
-                     $("#" + value).parent().addClass("hide");
+                     //$("#" + value).parent().addClass("hide");
+                     $("#" + value).addClass("hide");
                  });
 
                  $.each(showButtonsCollection, function (key, value) {
-                     $("#" + value).parent().removeClass("hide");
+                     $("#" + value).removeClass("hide");
                  });
              },
              clearFields: function (module) {

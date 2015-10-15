@@ -10,5 +10,7 @@
     <ProjectItemFile Source="glyphicons-halflings-white.png" Target="Images\" Type="ElementFile" />
     <ProjectItemFile Source="default_participant.jpg" Target="Images\" Type="ElementFile" />
     <ProjectItemFile Source="Person.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="details_close.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="details_open.png" Target="Images\" Type="ElementFile" />
   </Files>
 </ProjectItem>

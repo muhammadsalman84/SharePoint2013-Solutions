@@ -117,3 +117,11 @@ div.dataTables_wrapper {
         width: 100%;
         margin: 0 auto;
 }
+
+td.details-control {
+    background: url('../Images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.details td.details-control {
+    background: url('../Images/details_close.png') no-repeat center center;
+}

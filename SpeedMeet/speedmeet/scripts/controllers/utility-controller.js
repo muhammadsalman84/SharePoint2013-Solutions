@@ -2,7 +2,8 @@
 define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUtility, UtilityDA, DALayer) {
     function UtilityController(oApplication) {
 
-        var oDAUtility = new DAUtility(oApplication),
+        var self = this,
+            oDAUtility = new DAUtility(oApplication),
             oDALayer = new DALayer,
             isFeedBackChanged = false,
             CONSTANTS = oApplication.getConstants(),
@@ -10,14 +11,14 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
             iItemID,
             CONSTANTS,
             oSpeedMeetList,
-            dtTable,
+            dtTable;
 
 
         /* 
          * Get the Participant's internal id and login name  from SharePoint          
          * @return: Javascript Object Literal
         */
-        getUserLoginById = function () {
+        function getUserLoginById() {
             var sItemType = oDAUtility.getItemType(oSpeedMeetList.Name),
              sMethodType = CONSTANTS.DB.HTTP.METHODS.GET,
              oHttpRequest = oDAUtility.getHttpRequest(sMethodType, "default", oApplication.getSPAppWebUrl(), sItemType),
@@ -46,17 +47,18 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
             });
 
             return oDeferred.promise();
-        },
+        }
 
         /* 
          * Get the Participant's DisplayName,Email, Picture from user Profile service application
         */
-        getUsers = function () {
+        function getUsers() {
             var oDeferred = $.Deferred(),
                 sMethodType = CONSTANTS.DB.HTTP.METHODS.GET,
                 oHttpRequest = oDAUtility.getHttpRequest(sMethodType, "USERPROFILE", oApplication.getSPAppWebUrl()),
                 olUser,
-                users = getUserLoginById(); // Send request to user profile
+                users = getUserLoginById(), // Send request to user profile
+                settings = { type: "withpicture", redirectToProfile: true };
 
             users.done(function (olUsers) {
                 var iTotalCount = $.map(olUsers, function (n, i) { return i; }).length,
@@ -76,6 +78,7 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
                     ajaxRequest.done(function (userProfile) {
                         // Increment 50
                         oApplication.incrementProgressBar(iProgress, "Processing Participant(s) information ..");
+
                         if (userProfile.d.AccountName) {
                             var oUserProfile = userProfile.d;
                             for (olUser in olUsers) {
@@ -85,6 +88,7 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
                                     olUsers[olUser].DisplayName = oUserProfile.DisplayName;
                                     olUsers[olUser].Email = oUserProfile.Email;
                                     olUsers[olUser].PictureUrl = oUserProfile.PictureUrl;
+                                    olUsers[olUser].PicturePresence = self.getPresence(sAccountName, oUserProfile, settings);
                                     break;
                                 }
                             }
@@ -118,7 +122,7 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
             return oDeferred.promise();
         }
 
-        this.sendEmails = function (emailObjects) {            
+        this.sendEmails = function (emailObjects) {
             oDAUtility.sendEmails(emailObjects);
         }
 
@@ -205,6 +209,71 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
             return resultsCollection;
         }
 
+        this.getPresence = function (accountName, data, options) {
+            RegisterSod("Strings.js", "/_layouts/15/Strings.js");
+            var settings = $.extend({
+                type: "default",
+                redirectToProfile: true
+            }, options);
+
+            var name, sip, personalUrl, pictureUrl, title, department = "" | "";
+            personalUrl = "#";
+
+
+            /*var url = _spPageContextInfo.webAbsoluteUrl + "/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@accountName)?@accountName='" + encodeURIComponent(accountName) + "'";
+            var data = oDALayer.SubmitWebMethodSynchronise(url);*/
+            name = data.DisplayName;
+            if (data.Title)
+                title = data.Title;
+            else
+                title = "";
+
+            try {
+                sip = $.grep(data.UserProfileProperties.results, function (e) { return e.Key == "SPS-SipAddress"; })[0].Value;
+            }
+            catch (e) {
+                sip = data.Email;
+            }
+            if (settings.redirectToProfile) {
+                personalUrl = data.PersonalUrl;
+            }
+            if (settings.type == "withpicture") {
+                try {
+                    department = $.grep(data.UserProfileProperties.results, function (e) { return e.Key == "Department"; })[0].Value;
+                }
+                catch (e) {
+                    department = '';
+                }
+            }
+
+
+            pictureUrl = _spPageContextInfo.webAbsoluteUrl + "/_layouts/15/userphoto.aspx?accountname=" + accountName;
+            var uniqueID = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+            var html = '';
+            if (settings.type == "default") {
+                html = "<span class='ms-imnSpan'><a onmouseover='IMNShowOOUI();' onmouseout='IMNHideOOUI()'  href='" + personalUrl + "' class='ms-imnlink ms-spimn-presenceLink' ><span class='ms-spimn-presenceWrapper ms-imnImg ms-spimn-imgSize-10x10'><img name='imnmark' title='' ShowOfflinePawn='1' class='ms-spimn-img ms-spimn-presence-offline-10x10x32' src='/_layouts/15/images/spimn.png?rev=23' alt='User Presence' sip='" + sip + "' id='imn_" + uniqueID + ",type=sip' /></span>" + name + "</a></span>"
+            }
+            else if (settings.type == "withpicturesmall") {
+                pictureUrl += "&size=S";
+                html = "<span class='ms-imnSpan ms-tableCell'><a onmouseover='IMNShowOOUI();' onmouseout='IMNHideOOUI()' style='padding: 0px;'><div class='ms-tableCell'><span class='ms-imnlink ms-spimn-presenceLink'><span class='ms-spimn-presenceWrapper ms-spimn-imgSize-5x36'><img name='imnmark' title='' showofflinepawn='1' class='ms-spimn-img ms-spimn-presence-offline-5x36x32' src='/_layouts/15/images/spimn.png' sip='" + sip + "' id='imn_" + uniqueID + ",type=sip' /></span></span></div><div class='ms-tableCell ms-verticalAlignTop'><div class='ms-peopleux-userImgDiv'><span><img title='' showofflinepawn='1' class='ms-hide' src='/_layouts/15/images/spimn.png' alt='Offline' sip='" + sip + "' /><span class='ms-peopleux-imgUserLink'><span class='ms-peopleux-userImgWrapper' style='width: 36px; height: 36px;'><img class='userIMG' style='width: 36px; height: 36px; clip: rect(0px, 36px, 36px, 0px);' src='" + pictureUrl + "' alt='" + name + "' /></span></span></span></div></div></a></span><div class='ms-tableCell ms-verticalAlignTop' style='padding-left: 10px;'><span><a href='" + personalUrl + "'>" + name + "</a></span><span style='font-size: 0.9em; display: block;'>" + title + "</span></div>";
+            }
+            else if (settings.type == "withpicture") {
+                html = "<span class='ms-imnSpan ms-tableCell'><a href='#' onmouseover='IMNShowOOUI();' onmouseout='IMNHideOOUI()' style='padding: 0px;'><div class='ms-tableCell'><span class='ms-imnlink ms-spimn-presenceLink'><span class='ms-spimn-presenceWrapper ms-spimn-imgSize-8x72'><img name='imnmark' title='' showofflinepawn='1' class='ms-spimn-img ms-spimn-presence-offline-8x72x32' src='/_layouts/15/images/spimn.png' sip='" + sip + "' id='imn_" + uniqueID + ",type=sip' /></span></span></div><div class='ms-tableCell ms-verticalAlignTop'><div class='ms-peopleux-userImgDiv'><span><img title='' showofflinepawn='1' class='ms-hide' src='/_layouts/15/images/spimn.png' alt='Offline' sip='" + sip + "' /><span class='ms-peopleux-imgUserLink'><span class='ms-peopleux-userImgWrapper' style='width: 72px; height: 72px;'><img class='userIMG' style='width: 72px; height: 72px; clip: rect(0px, 72px, 72px, 0px);' src='" + pictureUrl + "' alt='" + name + "' /></span></span></span></div></div></a></span><div class='ms-tableCell ms-verticalAlignTop' style='padding-left: 10px;'><span><a href='" + personalUrl + "' target='_blank'>" + name + "</a></span><span style='font-size: 0.9em; display: block;'>" + title + "</span><span style='font-size: 0.9em; display: block;'>" + department + "</span></div>";
+            }
+            else if (settings.type == "pictureonlysmall") {
+                pictureUrl += "&size=S";
+                html = "<span class='ms-imnSpan ms-tableCell'><a onmouseover='IMNShowOOUI();' onmouseout='IMNHideOOUI()' style='padding: 0px;'><div class='ms-tableCell'><span class='ms-imnlink ms-spimn-presenceLink'><span class='ms-spimn-presenceWrapper ms-spimn-imgSize-5x36'><img name='imnmark' title='' showofflinepawn='1' class='ms-spimn-img ms-spimn-presence-offline-5x36x32' src='/_layouts/15/images/spimn.png' sip='" + sip + "' id='imn_" + uniqueID + ",type=sip' /></span></span></div><div class='ms-tableCell ms-verticalAlignTop'><div class='ms-peopleux-userImgDiv'><span><img title='' showofflinepawn='1' class='ms-hide' src='/_layouts/15/images/spimn.png' alt='Offline' sip='" + sip + "' /><span class='ms-peopleux-imgUserLink'><span class='ms-peopleux-userImgWrapper' style='width: 36px; height: 36px;'><img class='userIMG' style='width: 36px; height: 36px; clip: rect(0px, 36px, 36px, 0px);' src='" + pictureUrl + "' alt='" + name + "' /></span></span></span></div></div></a></span>";
+            }
+            else if (settings.type == "pictureonly") {
+                html = "<span class='ms-imnSpan ms-tableCell'><a onmouseover='IMNShowOOUI();' onmouseout='IMNHideOOUI()' style='padding: 0px;'><div class='ms-tableCell'><span class='ms-imnlink ms-spimn-presenceLink'><span class='ms-spimn-presenceWrapper ms-spimn-imgSize-8x72'><img name='imnmark' title='' showofflinepawn='1' class='ms-spimn-img ms-spimn-presence-offline-8x72x32' src='/_layouts/15/images/spimn.png' sip='" + sip + "' id='imn_" + uniqueID + ",type=sip' /></span></span></div><div class='ms-tableCell ms-verticalAlignTop'><div class='ms-peopleux-userImgDiv'><span><img title='' showofflinepawn='1' class='ms-hide' src='/_layouts/15/images/spimn.png' alt='Offline' sip='" + sip + "' /><span class='ms-peopleux-imgUserLink'><span class='ms-peopleux-userImgWrapper' style='width: 72px; height: 72px;'><img class='userIMG' style='width: 72px; height: 72px; clip: rect(0px, 72px, 72px, 0px);' src='" + pictureUrl + "' alt='" + name + "' /></span></span></span></div></div></a></span>";
+            }
+            else if (settings.type == "presenceonly") {
+                html = "<span class='ms-imnSpan'><a onmouseover='IMNShowOOUI();' onmouseout='IMNHideOOUI()'  href='" + personalUrl + "' class='ms-imnlink ms-spimn-presenceLink' ><span class='ms-spimn-presenceWrapper ms-imnImg ms-spimn-imgSize-10x10'><img name='imnmark' title='' ShowOfflinePawn='1' class='ms-spimn-img ms-spimn-presence-offline-10x10x32' src='/_layouts/15/images/spimn.png?rev=23' alt='User Presence' sip='" + sip + "' id='imn_" + uniqueID + ",type=sip' /></span></a></span>"
+            }
+
+            return html;
+        };
+
         this.showAdminView = function (authorId, htmlElement) {
             if (authorId == _spPageContextInfo.userId) {
                 $(".adminFunctions").removeClass("hide");
@@ -212,7 +281,7 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
             else {
                 $(".adminFunctions").addClass("hide");
             }
-        }       
+        }
 
     }
 

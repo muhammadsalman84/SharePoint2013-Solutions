@@ -85,6 +85,8 @@
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\default_participant.jpg" />
+    <Content Include="Images\details_close.png" />
+    <Content Include="Images\details_open.png" />
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
     <Content Include="Images\Person.png" />

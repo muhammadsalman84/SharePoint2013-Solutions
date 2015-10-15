@@ -9,5 +9,7 @@
     <File Path="Images\glyphicons-halflings-white.png" Url="Images/glyphicons-halflings-white.png" ReplaceContent="TRUE" />
     <File Path="Images\default_participant.jpg" Url="Images/default_participant.jpg" ReplaceContent="TRUE" />
     <File Path="Images\Person.png" Url="Images/Person.png" ReplaceContent="TRUE" />
+    <File Path="Images\details_close.png" Url="Images/details_close.png" ReplaceContent="TRUE" />
+    <File Path="Images\details_open.png" Url="Images/details_open.png" ReplaceContent="TRUE" />
   </Module>
 </Elements>

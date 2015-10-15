@@ -19,22 +19,22 @@ define(["controllers/my-meetevent-controller", "data/data-meetevent-list", "plug
 
                      oBaseDataTable = new BaseDataTable('#tblMyMeetEvents', arrayDataSet, arrayColumns[0]);
                      columnsDef =       // Set the buttons column width & hide the ID column (first column)
-                         [{ "sWidth": "15%", "aTargets": [5] },     // Set the width of the Edit/Cancel buttons column
+                         [{ "sWidth": "15%", "aTargets": [6] },     // Set the width of the Edit/Cancel buttons column
                           {     // Hide the ID column
-                              "targets": [0], "visible": false, "searchable": false
+                              "targets": [1], "visible": false, "searchable": false
                           },
                            {     // Hide the Created column
-                               "targets": [2], "visible": false, "searchable": false
+                               "targets": [3], "visible": false, "searchable": false
                            },
                           {
                               "render": function (data, type, full, meta) {                                                                    
-                                  eventHtml = '<a href="#" class="myevent" id="event' + full[0] + '" data-eventId="' + full[0] + '">' + data + '</a>';
+                                  eventHtml = '<a href="#" class="myevent" id="event' + full[1] + '" data-eventId="' + full[1] + '">' + data + '</a>';
                                   return eventHtml;
                               },
                               "targets": 1
                           }];
                      
-                     columnsOrder = [[2, "desc"]];      // Order by created date (descending)
+                     columnsOrder = [[3, "desc"]];      // Order by created date (descending)
                      oBaseDataTable.clearDataTable();
                      oBaseDataTable.bindDataTable(columnsDef, columnsOrder);
 
