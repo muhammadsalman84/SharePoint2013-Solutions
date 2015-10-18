@@ -42,7 +42,10 @@ define(["data/da-layer"], function (DALayer) {
                             title: "Proposed Meeting Date(s)"
                         },
                         Feedback: {
-                            spName: "Feedback",
+                            spName: "Feedback"
+                        },
+                        Status: {
+                            spName: "Status"
                         }
                     }
                 }

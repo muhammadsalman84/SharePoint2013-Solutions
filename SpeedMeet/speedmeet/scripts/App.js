@@ -17,8 +17,8 @@ require.config({
 require(['jquery', 'starters/application', 'views/main'
 ],
 function ($, Application, viewMain) {
+    var waitDialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Loading SpeedMeet...', 'Please wait, this will not take longer...');
     $(document).ready(function () {
-        var waitDialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Loading SpeedMeet...', 'Please wait, this will not take longer...');
         //(SP.Res.dialogLoading15);
         $("#IMeetEvent").load("SubPages/MeetEvent.html", function () {
             var oApplication = new Application();

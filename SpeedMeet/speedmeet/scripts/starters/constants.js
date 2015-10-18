@@ -13,6 +13,14 @@ define(function () {
                             POST: "POST",
                             PATCH: "PATCH"
                         }
+                    },
+                    ListFields:{
+                        Status: {
+                            Created: "Created",
+                            InProgress: "InProgress",
+                            Finalized: "Finalized",
+                            Cancelled: "Cancelled"
+                        }
                     }
                 },
                 APP: {

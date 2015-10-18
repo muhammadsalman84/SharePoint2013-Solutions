@@ -1,6 +1,6 @@
 ﻿'use strict';
-define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUtility, UtilityDA, DALayer) {
-    function UtilityController(oApplication) {
+define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
+    function UtilityController(oApplication, presenceSettings) {
 
         var self = this,
             oDAUtility = new DAUtility(oApplication),
@@ -10,33 +10,34 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
             olFeedBack,
             iItemID,
             CONSTANTS,
-            oSpeedMeetList,
             dtTable;
 
+        this.presenceSettings = presenceSettings;          
 
         /* 
          * Get the Participant's internal id and login name  from SharePoint          
          * @return: Javascript Object Literal
         */
-        function getUserLoginById() {
-            var sItemType = oDAUtility.getItemType(oSpeedMeetList.Name),
-             sMethodType = CONSTANTS.DB.HTTP.METHODS.GET,
-             oHttpRequest = oDAUtility.getHttpRequest(sMethodType, "default", oApplication.getSPAppWebUrl(), sItemType),
-             olUserInfo = {},
-             oDeferred = $.Deferred(),
-             sUrl = oHttpRequest.url,
-             participants = olFeedBack.Date1.Participants,
-             iTotalCount = $.map(participants, function (n, i) { return i; }).length,
-             iCounter = 0;
+        this.getUserLoginById = function (allUsers) {
+            var oSpeedMeetList = oDAUtility.SPLists().SpeedMeet,
+                sItemType = oDAUtility.getItemType(oSpeedMeetList.Name),
+                sMethodType = CONSTANTS.DB.HTTP.METHODS.GET,
+                oHttpRequest = oDAUtility.getHttpRequest(sMethodType, "default", oApplication.getSPAppWebUrl(), sItemType),
+                olUserInfo = {},
+                oDeferred = $.Deferred(),
+                sUrl = oHttpRequest.url,
+                participants = allUsers,
+                iTotalCount = $.map(participants, function (n, i) { return i; }).length,
+                iCounter = 0;
 
-            $.each(olFeedBack.Date1.Participants, function (i, participant) {
-                oHttpRequest.url = sUrl + "GetUserById(" + i + ")"; //GetUserById REST endpoint
+            $.each(allUsers, function (i, participant) {
+                oHttpRequest.url = sUrl + "GetUserById(" + participant + ")"; //GetUserById REST endpoint
 
                 var ajaxRequest = oDALayer.SubmitWebMethod(oHttpRequest);
                 ajaxRequest.done(function (userDetails) {
                     var oUser = userDetails.d;
                     olUserInfo[oUser.Id] = {};
-                    olUserInfo[i].LoginName = oUser.LoginName;
+                    olUserInfo[participant].LoginName = oUser.LoginName;
                     iCounter += 1;
 
                     //Resolve deferred object when all the user information is fetched.
@@ -52,33 +53,25 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
         /* 
          * Get the Participant's DisplayName,Email, Picture from user Profile service application
         */
-        function getUsers() {
+        this.getUsers = function (allUsers) {
             var oDeferred = $.Deferred(),
                 sMethodType = CONSTANTS.DB.HTTP.METHODS.GET,
                 oHttpRequest = oDAUtility.getHttpRequest(sMethodType, "USERPROFILE", oApplication.getSPAppWebUrl()),
                 olUser,
-                users = getUserLoginById(), // Send request to user profile
-                settings = { type: "withpicture", redirectToProfile: true };
+                users = this.getUserLoginById(allUsers); // Send request to user profile              
 
             users.done(function (olUsers) {
                 var iTotalCount = $.map(olUsers, function (n, i) { return i; }).length,
                     sUrl = oHttpRequest.url,
-                    iCounter = 0,
-                    iProgress = 20 / iTotalCount; // Increment 50
-
-
-                oApplication.incrementProgressBar(10, "Getting Participant(s) information from SharePoint..");
+                    iCounter = 0;
 
                 $.each(olUsers, function (i, user) {
                     var sUserName = user.LoginName.replace('i:0#.w|', '');
                     oHttpRequest.url = sUrl + "GetPropertiesFor(accountName=@v)?@v='" + encodeURIComponent(sUserName) + "'"; //GetProperpertiesFor REST endpoint.
                     var ajaxRequest = oDALayer.SubmitWebMethod(oHttpRequest);
 
-
                     ajaxRequest.done(function (userProfile) {
-                        // Increment 50
-                        oApplication.incrementProgressBar(iProgress, "Processing Participant(s) information ..");
-
+                       
                         if (userProfile.d.AccountName) {
                             var oUserProfile = userProfile.d;
                             for (olUser in olUsers) {
@@ -88,7 +81,7 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
                                     olUsers[olUser].DisplayName = oUserProfile.DisplayName;
                                     olUsers[olUser].Email = oUserProfile.Email;
                                     olUsers[olUser].PictureUrl = oUserProfile.PictureUrl;
-                                    olUsers[olUser].PicturePresence = self.getPresence(sAccountName, oUserProfile, settings);
+                                    olUsers[olUser].PicturePresence = self.getPresence(sAccountName, oUserProfile);
                                     break;
                                 }
                             }
@@ -108,13 +101,19 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
         * generate the Pool in a tabular format
         */
         this.getUsersInfo = function (oListItem) {
-            var oDeferred = $.Deferred();
+            var oDeferred = $.Deferred(),
+                oSpeedMeetList = oDAUtility.SPLists().SpeedMeet,
+                participants =[];
+
             olFeedBack = JSON.parse(oListItem.Feedback);
             iItemID = oListItem.ID;
-            oSpeedMeetList = oDAUtility.SPLists().SpeedMeet;
 
-            // Get all the participants
-            getUsers().done(function (olUsers) {
+            $.each(olFeedBack.Date1.Participants, function (participant, value) {
+                participants.push(participant);
+            });
+
+            // Get all the participants details
+            this.getUsers(participants).done(function (olUsers) {
 
                 oDeferred.resolve(olUsers);
             });
@@ -209,13 +208,20 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
             return resultsCollection;
         }
 
-        this.getPresence = function (accountName, data, options) {
+        this.getPresence = function (accountName, data) {
             RegisterSod("Strings.js", "/_layouts/15/Strings.js");
+            var options;
+            if (this.presenceSettings)
+                options = this.presenceSettings;
+            else
+                options = { type: "withpicture", redirectToProfile: true }
+                
+
             var settings = $.extend({
                 type: "default",
                 redirectToProfile: true
             }, options);
-
+            
             var name, sip, personalUrl, pictureUrl, title, department = "" | "";
             personalUrl = "#";
 
@@ -251,7 +257,7 @@ define(["data/da-utility", "data/utility-data", "data/da-layer"], function (DAUt
             var uniqueID = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
             var html = '';
             if (settings.type == "default") {
-                html = "<span class='ms-imnSpan'><a onmouseover='IMNShowOOUI();' onmouseout='IMNHideOOUI()'  href='" + personalUrl + "' class='ms-imnlink ms-spimn-presenceLink' ><span class='ms-spimn-presenceWrapper ms-imnImg ms-spimn-imgSize-10x10'><img name='imnmark' title='' ShowOfflinePawn='1' class='ms-spimn-img ms-spimn-presence-offline-10x10x32' src='/_layouts/15/images/spimn.png?rev=23' alt='User Presence' sip='" + sip + "' id='imn_" + uniqueID + ",type=sip' /></span>" + name + "</a></span>"
+                html = "<span class='ms-imnSpan'><a onmouseover='IMNShowOOUI();' onmouseout='IMNHideOOUI()' target='_blank' href='" + personalUrl + "' class='ms-imnlink ms-spimn-presenceLink' ><span class='ms-spimn-presenceWrapper ms-imnImg ms-spimn-imgSize-10x10'><img name='imnmark' title='' ShowOfflinePawn='1' class='ms-spimn-img ms-spimn-presence-offline-10x10x32' src='/_layouts/15/images/spimn.png?rev=23' alt='User Presence' sip='" + sip + "' id='imn_" + uniqueID + ",type=sip' /></span>" + name + "</a></span>"
             }
             else if (settings.type == "withpicturesmall") {
                 pictureUrl += "&size=S";

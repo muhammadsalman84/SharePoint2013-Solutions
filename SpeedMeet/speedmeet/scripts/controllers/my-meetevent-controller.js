@@ -20,31 +20,32 @@ define(["data/da-utility", "data/da-layer"],
                 oDALayer.SubmitWebMethod(oHttpRequest).done(function (oListItems) {
                     if (oListItems.d.results) {
                         olMeetItems = oListItems.d.results;
-                        var arrayHdrs = [];
-                        $.each(olMeetItems, function (index, meetItem) {
-                            var row = [];
-                            row.push(meetItem.ID)
-                            row.push(meetItem.ID);
-                            row.push(meetItem.Title);
-                            row.push(meetItem.Created);
-                            row.push(meetItem.Description1);
-                            row.push(meetItem.Location1);
-
+                        var arrayHdrs = [], eventDetails = {}, users = [];
+                        $.each(olMeetItems, function (index, eventItem) {
+                            var row = [], eventId;
+                            eventId = eventItem.ID;
+                            row.push(eventItem.ID)
+                            //row.push(eventItem.ID);
+                            row.push(eventItem.Title);
+                            row.push(eventItem.Created);
+                            row.push(eventItem.Location1);
                             aData.push(row);
+
+                            eventDetails[eventId] = {};
+                            eventDetails[eventId]["description"] = eventItem.Description1;
+                            eventDetails[eventId]["participants"] = eventItem.Participants1Id.results;
                         });
 
                         // Add header columns in the array
-
                         arrayHdrs.push({
                             data: null,
                             className: "details-control",
-                            orderable: false,                           
+                            orderable: false,
                             defaultContent: ""
                         });
-                        arrayHdrs.push({ "title": "ID" });
+                        //arrayHdrs.push({ "title": "ID" });
                         arrayHdrs.push({ "title": oSpeedMeetList.fields.Title.title });
                         arrayHdrs.push({ "title": "Created" });
-                        arrayHdrs.push({ "title": oSpeedMeetList.fields.Description1.title });
                         arrayHdrs.push({ "title": oSpeedMeetList.fields.Location1.title });
                         arrayHdrs.push({
                             data: null,
@@ -55,7 +56,7 @@ define(["data/da-utility", "data/da-layer"],
 
 
                         aData.push(arrayHdrs);
-
+                        aData.push(eventDetails);
                         oDeferred.resolve(aData);
                     }
                 });

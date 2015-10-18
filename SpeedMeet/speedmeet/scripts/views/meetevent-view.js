@@ -83,19 +83,28 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
              });
 
              $(buttons.btnCreateEvent).bind("click", function () {
-                 var geoLocation, usrEmailObjects;
+                 var geoLocation, usrEmailObjects,
+                     status = {};
+
+                 status["Status"] = oApplication.getConstants().ListFields.Status.InProgress;
                  oApplication.startProgressbar();
                  oApplication.showHideModule(oApplication.modules.progressbar.id);       // show progress bar
                  geoLocation = oGoogleApi.getGeoLocation();
 
                  oMeetEventController.CreateMeetEvent(geoLocation).done(     // Create a new List item (Progressbar=30)
                      function (oListItem) {
+                         oApplication.incrementProgressBar(30, "Getting Participant(s) information from SharePoint..");
                          oUtilityController.getUsersInfo(oListItem).done(function (usersObject) {
                              oApplication.incrementProgressBar(10, "Sending Email(s) to Participant(s)..");
                              usrEmailObjects = oMeetEventController.getEmailObjectsByUsers("JOINMEET", usersObject, oListItem);       // Create email objects and push in an Array                             
-                             oUtilityController.sendEmails(usrEmailObjects)        // Send Emails to the participants
+                             oUtilityController.sendEmails(usrEmailObjects)       // Send Emails to the participants
+                                                        .done(function () {
+                                                            oDAMeetEventList.updateListItemByItemId(oListItem.ID, status, true);
+                                                        });
                              oApplication.stopProgressBar();
-                             oApplication.oShowMeetEventView.loadMeetEvent(oListItem, usersObject);                             
+                             oApplication.oShowMeetEventView.loadMeetEvent(oListItem, usersObject);
+
+
 
                          });
                      });
@@ -150,9 +159,9 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
                  else {
                      bindView(itemId);
                  }
-                 
+
              }
-             
+
              this.ShowNewMeet = function () {
                  oApplication.showHideModule(oMeetEventModule.id);
                  oApplication.clearFields(oMeetEventModule);
