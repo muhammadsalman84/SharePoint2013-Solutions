@@ -110,7 +110,8 @@
 }
 
 .active-rows {
-    background-color: #E6F2FA !important;
+    /*background-color: #EBFFD9 !important;*/
+    background-color: #E3F2FF !important;
 }
 
 div.dataTables_wrapper {
