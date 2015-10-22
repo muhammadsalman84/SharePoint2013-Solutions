@@ -9,14 +9,14 @@ require.config({
         "async": "libs/async",
         "jsapi": "//google.com/jsapi",
         "moment": "libs/moment.min",
-        "fullCalendar": "libs/fullcalendar.min"
+        "fullCalendar": "libs/fullcalendar.min",
+        "jquery.validate": "libs/jquery.validate"
     }
 });
 
 
-require(['jquery', 'starters/application', 'views/main'
-],
-function ($, Application, viewMain) {
+require(['jquery', 'starters/application', 'views/main', 'jquery.validate'],
+function ($, Application, viewMain, validate) {
     var waitDialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Loading SpeedMeet...', 'Please wait, this will not take longer...');
     $(document).ready(function () {
         //(SP.Res.dialogLoading15);
@@ -30,7 +30,6 @@ function ($, Application, viewMain) {
                             var oviewMain = new viewMain(oApplication);
                             waitDialog.close();
                             waitDialog = null;
-
                         });
                     });
                 });
@@ -38,13 +37,7 @@ function ($, Application, viewMain) {
 
         });
 
-    });
-   
-   
-    var sUserName = "i:0#.f|membership|msalmanm@myspappsdev.onmicrosoft.com".replace('i:0#.w|', '');
-    var settings = { type: "withpicture", redirectToProfile: true };
-    //createpresence(sUserName, settings);
-
+    });   
 });
 
 

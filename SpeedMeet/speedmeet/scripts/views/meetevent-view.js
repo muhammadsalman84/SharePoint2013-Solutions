@@ -2,13 +2,12 @@
 define(["controllers/meetevent-controller", "controllers/utility-controller", "plugin-modules/pool-datatable", "plugin-modules/google-api", "data/data-meetevent-list"],
      function (MeetEventController, UtilityController, PoolDataTable, GoogleApi, DAMeetEventList) {
          function MeetEventView(oApplication) {
-             var oMeetEventModule = oApplication.modules.meetEventModule,
-                 oGoogleApi,
+             var oMeetEventModule = oApplication.modules.meetEventModule,                 
                  oMeetEventController = new MeetEventController(oApplication),
                  oUtilityController = new UtilityController(oApplication),
-                 oPoolDataTable = new PoolDataTable(oApplication, "#tblPool"),
-             buttons = oMeetEventModule.getButtons(),
-             oGoogleApi1, olLocation, headrCollection;
+                 oPoolDataTable = new PoolDataTable(oApplication, "#tblPool"),                 
+                 buttons = oMeetEventModule.getButtons(),
+                 oGoogleApi, oGoogleApi1, olLocation, headrCollection;
 
              /*
               *  Private Methods
@@ -69,11 +68,15 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
                  }
              });
 
-             $(buttons.btnNextToCalendar).bind("click", function () {
-                 $(oMeetEventModule.subModules.id[1]).removeClass("hide");
-                 $(oMeetEventModule.subModules.id[0]).addClass("hide");
-                 $(oApplication.modules.plugins.calendar.id).fullCalendar('render');
-                 $(oApplication.modules.plugins.calendar.id).fullCalendar('option', 'height', 550);
+             $(buttons.btnNextToCalendar).bind("click", function () {            
+                 if (oApplication.oValidateControls.validate(oMeetEventModule.subModules.id[0])) {
+                     if (oApplication.oValidateControls.validatePeoplePicker()) {
+                         $(oMeetEventModule.subModules.id[1]).removeClass("hide");
+                         $(oMeetEventModule.subModules.id[0]).addClass("hide");
+                         $(oApplication.modules.plugins.calendar.id).fullCalendar('render');
+                         $(oApplication.modules.plugins.calendar.id).fullCalendar('option', 'height', 550);
+                     }
+                 }
 
              });
 
@@ -83,10 +86,11 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
              });
 
              $(buttons.btnCreateEvent).bind("click", function () {
-                 var geoLocation, usrEmailObjects,
+                 var oDAMeetEventList = new DAMeetEventList(oApplication),
+                     geoLocation, usrEmailObjects,                   
                      status = {};
 
-                 status["Status"] = oApplication.getConstants().ListFields.Status.InProgress;
+                 status["Status"] = oApplication.getConstants().DB.ListFields.Status.InProgress;
                  oApplication.startProgressbar();
                  oApplication.showHideModule(oApplication.modules.progressbar.id);       // show progress bar
                  geoLocation = oGoogleApi.getGeoLocation();
@@ -99,7 +103,7 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
                              usrEmailObjects = oMeetEventController.getEmailObjectsByUsers("JOINMEET", usersObject, oListItem);       // Create email objects and push in an Array                             
                              oUtilityController.sendEmails(usrEmailObjects)       // Send Emails to the participants
                                                         .done(function () {
-                                                            oDAMeetEventList.updateListItemByItemId(oListItem.ID, status, true);
+                                                            oDAMeetEventList.updateListItemByItemId(oListItem.ID, status, false);
                                                         });
                              oApplication.stopProgressBar();
                              oApplication.oShowMeetEventView.loadMeetEvent(oListItem, usersObject);
@@ -179,7 +183,7 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
              */
              $("#txt-title-meetevent").focus();
              initializeGoogleMap();
-
+             oApplication.oValidateControls.bindEvents(oMeetEventModule.subModules.id[0]);
          }
 
          return MeetEventView;

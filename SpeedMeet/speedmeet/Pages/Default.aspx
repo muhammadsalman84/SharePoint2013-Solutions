@@ -22,14 +22,14 @@
     <link rel="Stylesheet" type="text/css" href="../Content/jquery.fileupload.css" />
 
     <!-- Add your JavaScript to the following file -->
-    <!-- <script src="../Scripts/libs/jquery-1.9.1.js"></script>
-    <script src="../Scripts/libs/bootstrap.min.js"></script>
+    <!--<script src="../Scripts/libs/bootstrap.min.js"></script>
     <script src="../Scripts/libs/jquery.dataTables.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script src="https://www.google.com/jsapi"></script>
-    <script src="../Scripts/libs/moment.min.js"></script>
-    <script src='../Scripts/libs/fullcalendar.min.js'></script>-->
+    <script src="../Scripts/libs/moment.min.js"></script>-->
+    
     <script data-main="../Scripts/App" src="../Scripts/require.js"></script>
+    <!--<script src="../Scripts/libs/validator.js"></script>-->
 
 </asp:Content>
 

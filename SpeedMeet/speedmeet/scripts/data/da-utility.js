@@ -45,7 +45,8 @@ define(["data/da-layer"], function (DALayer) {
                             spName: "Feedback"
                         },
                         Status: {
-                            spName: "Status"
+                            spName: "Status",
+                            title: "Status"
                         }
                     }
                 }

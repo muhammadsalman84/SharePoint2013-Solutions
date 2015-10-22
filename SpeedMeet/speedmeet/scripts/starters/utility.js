@@ -49,12 +49,53 @@ define([], function () {
         }
 
         self.showAlert = function (element) {
-            $(element).removeClass("hide");                        
-            window.setTimeout(function () {                                            
-                    $(element).addClass("hide");                
+            $(element).removeClass("hide");
+            window.setTimeout(function () {
+                $(element).addClass("hide");
             }, 2000);
         }
-       
+
+        self.validateRequiredControls = function (moduleId) {
+            var element, isValid = true, elementId,
+                errorHtml = "<span class='help-block' id='{0}'>This field is required.</span>";
+
+            $(moduleId).find("*").each(function (index) {
+                element = $(this).attr("required");               
+                if (element) {
+                    elementId = $(this).attr('id') + "-error";
+                    $("#" + elementId).remove();
+                    errorHtml = String.format(errorHtml, elementId);
+                    if ($(this).val()) {
+                        $(this).closest('.form-group').removeClass('has-error').addClass('has-success');                                                
+                    }
+                    else {                        
+                        $(this).closest('.form-group').removeClass('has-success').addClass('has-error');                        
+                        if ($(this).parent('.input-group').length) {
+                            $(errorHtml).insertAfter($(this).parent());
+                        } else {
+                            $(errorHtml).insertAfter($(this));
+                        }
+
+                        isValid = false;
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        self.bindValidationEvents = function (moduleId) {
+            var hasRequired;
+            $(moduleId).find("*").each(function (index) {
+                hasRequired = $(this).attr("required");
+                if (hasRequired) {
+                    $(this).bind("blur", function () {
+
+                    });
+                }
+            });
+        }
+
     }
 
     return SpeedMeetUtility;

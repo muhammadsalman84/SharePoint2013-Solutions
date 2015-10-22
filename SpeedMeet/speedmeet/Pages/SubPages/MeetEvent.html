@@ -5,102 +5,104 @@
 
 
 <div id="IContent" class="container-fluid">
-    <div id="IMeetEventONE" class="row hide">
-        <div class="col-md-5">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4>Please fill the fields to create a new SpeedMeet event.</h4>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-11 form-group">
-                    <label for="txt-title-meetevent">Title</label>
-                    <input type="text" class="form-control" id="txt-title-meetevent" data-spfield="Title" required>
-                </div>
-                <div class="col-md-1">
-                </div>
-                <div class="col-md-11 form-group">
-                    <label for="txt-location-meetevent">Location</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="txt-location-meetevent" data-spfield="Location1" required>
-                        <span class="input-group-btn">
-                            <button type="button" id="btnSearchLocation" class="btn btn-success">
-                                <i class="glyphicon glyphicon-search pull-left"></i><span>Search</span>
-                            </button>
-                        </span>
+    <form id="MeetEvent-form">
+        <div id="IMeetEventONE" class="row hide">
+            <div class="col-md-5">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4>Please fill the fields to create a new SpeedMeet event.</h4>
                     </div>
                 </div>
-                <div class="col-md-1">
+                <div class="row form-group">
+                    <div class="col-md-11 form-group">
+                        <label for="txt-title-meetevent">Title</label>
+                        <input type="text" class="form-control" name="txt-title-meetevent" id="txt-title-meetevent" data-spfield="Title" required>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-11 form-group">
+                        <label for="txt-location-meetevent">Location</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="txt-location-meetevent" data-spfield="Location1" required>
+                            <span class="input-group-btn">
+                                <button type="button" id="btnSearchLocation" class="btn btn-success">
+                                    <i class="glyphicon glyphicon-search pull-left"></i><span>Search</span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-11 form-group">
+                        <label for="txt-description-meetevent">Description</label>
+                        <textarea rows="8" class="form-control" id="txt-description-meetevent" data-spfield="Description1"></textarea>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-11 form-group">
+                        <label for="peoplePickerDiv">Invite participant(s) to your SpeedMeet event</label>
+                        <div id="peoplePickerDiv" style="width: 100%" data-spfield="Participants1" data-type="peoplepicker"></div>
+                    </div>
+                    <div class="col-md-12 top-buffer">
+                    </div>
+                    <div class="col-md-12 top-buffer">
+                    </div>
+                    <div class="col-md-9">
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <button type="button" id="btnNextToCalendar" class="btn btn-primary" data-bsbutton="true">Next</button>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-12 hide">
+                        <label for="fileupload">Share file(s) with the participant(s)</label><br />
+                        <span class="btn btn-primary fileinput-button">
+                            <i class="glyphicon glyphicon-paperclip"></i>
+                            <span>Select files...</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input id="fileupload" type="file" name="files[]" multiple>
+                        </span>
+                        <div id="files" style="width:100%"></div>
+                    </div>
                 </div>
-                <div class="col-md-11 form-group">
-                    <label for="txt-description-meetevent">Description</label>
-                    <textarea rows="8" class="form-control" id="txt-description-meetevent" data-spfield="Description1"></textarea>
-                </div>
-                <div class="col-md-1">
-                </div>
-                <div class="col-md-11 form-group">
-                    <label for="peoplePickerDiv">Invite participant(s) to your SpeedMeet event</label>
-                    <div id="peoplePickerDiv" style="width: 100%" data-spfield="Participants1"></div>
-                </div>
-                <div class="col-md-12 top-buffer">
-                </div>
-                <div class="col-md-12 top-buffer">
-                </div>
-                <div class="col-md-9">
-                </div>
-                <div class="col-md-2 form-group">
-                    <button type="button" id="btnNextToCalendar" class="btn btn-primary" data-bsbutton="true">Next</button>
-                </div>
-                <div class="col-md-1">
-                </div>
-                <div class="col-md-12 hide">
-                    <label for="fileupload">Share file(s) with the participant(s)</label><br />
-                    <span class="btn btn-primary fileinput-button">
-                        <i class="glyphicon glyphicon-paperclip"></i>
-                        <span>Select files...</span>
-                        <!-- The file input field used as target for the file upload widget -->
-                        <input id="fileupload" type="file" name="files[]" multiple>
-                    </span>
-                    <div id="files" style="width:100%"></div>
+            </div>
+            <div class="col-md-7">
+                <div style="width: 100%; height: 600px;">
+                    <div id="map-canvas" data-spfield="GeoLocation"></div>
                 </div>
             </div>
         </div>
-        <div class="col-md-7">
-            <div style="width: 100%; height: 600px;">
-                <div id="map-canvas" data-spfield="GeoLocation"></div>
-            </div>
-        </div>
-    </div>
-    <div id="IMeetEventTWO" class="row hide">
+        <div id="IMeetEventTWO" class="row hide">
 
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4>Choose the days along with the time slots for the event.</h4>
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4>Choose the days along with the time slots for the event.</h4>
+                    </div>
+                </div>
+
+                <div id='calendar' data-spfield="CalendarDates">
+                </div>
+                <br />
+            </div>
+            <div class="col-md-12"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="btn-group btn-group-justified">
+                    <a id="btnBackToMap" class="btn btn-warning" data-bsbutton="true">
+                        Back
+                    </a>
+                    <a id="btnCreateEvent" class="btn btn-primary" data-bsbutton="true">
+                        <i class="glyphicon glyphicon-list-alt pull-left"></i>
+                        Create SpeedMeet event
+                    </a>
+                    <a id="btnUpdateEvent" class="btn btn-primary hide" data-bsbutton="true">
+                        <i class="glyphicon glyphicon-list-alt pull-left"></i>
+                        Update SpeedMeet event
+                    </a>
                 </div>
             </div>
-
-            <div id='calendar' data-spfield="CalendarDates">
-            </div>
-            <br />
+            <div class="col-md-4"></div>
         </div>
-        <div class="col-md-12"></div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <div class="btn-group btn-group-justified">
-                <a id="btnBackToMap" class="btn btn-warning" data-bsbutton="true">
-                    Back
-                </a>
-                <a id="btnCreateEvent" class="btn btn-primary" data-bsbutton="true">
-                    <i class="glyphicon glyphicon-list-alt pull-left"></i>
-                    Create SpeedMeet event
-                </a>
-                <a id="btnUpdateEvent" class="btn btn-primary hide" data-bsbutton="true">
-                    <i class="glyphicon glyphicon-list-alt pull-left"></i>
-                    Update SpeedMeet event
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4"></div>
-    </div>
+    </form>
 </div>

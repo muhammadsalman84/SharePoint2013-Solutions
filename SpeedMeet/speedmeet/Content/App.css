@@ -125,3 +125,49 @@ td.details-control {
 tr.details td.details-control {
     background: url('../Images/details_close.png') no-repeat center center;
 }
+
+.status-InProgress.status-Finalized{
+    color:white
+}
+
+.status-InProgress {
+    color:white;
+    background-color:#34CA10;
+}
+
+.status-Finalized {
+    color:white;
+    background-color:#39B3D7;
+}
+
+.status-Cancelled {
+    color:white;
+    background-color:#EB9316;
+}
+
+label.valid {
+	width: 24px;
+	height: 24px;
+	background: url('../Images/valid.png') center center no-repeat;
+	display: inline-block;
+	text-indent: -9999px;
+}
+
+label.error {
+	font-weight: bold;
+	color: red;
+	padding: 2px 8px;
+	margin-top: 2px;
+}
+
+.field-error .control-label,
+.field-error .help-block,
+.field-error .form-control-feedback {
+    color: #ff0039;
+}
+
+.field-success .control-label,
+.field-success .help-block,
+.field-success .form-control-feedback {
+    color: #2780e3;
+}

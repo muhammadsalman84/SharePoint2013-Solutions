@@ -12,11 +12,11 @@ define(["data/da-utility", "data/da-layer"],
                 var sMethodType = CONSTANTS.DB.HTTP.METHODS.GET,
                 oHttpRequest = oDAUtility.getHttpRequest(sMethodType, "default", oApplication.getSPAppWebUrl()),
                 oSpeedMeetList = oDAUtility.SPLists().SpeedMeet,
-                olMeetItems,
-                aData = [],
+                olMeetItems, status,
+                aData = [],                
                 oDeferred = $.Deferred();
 
-                oHttpRequest.url += "lists/getbytitle('" + oSpeedMeetList.Title + "')/items?$select=ID,Title,Location1,Description1,Participants1Id,Author/ID,Author/Title,Created&$expand=Author/ID,Author/Title&$filter=Author/ID eq " + "'" + _spPageContextInfo.userId + "' &$orderby=Created desc";
+                oHttpRequest.url += "lists/getbytitle('" + oSpeedMeetList.Title + "')/items?$select=ID,Title,Location1,Description1,Participants1Id,Author/ID,Author/Title,Created,Status&$expand=Author/ID,Author/Title&$filter=Author/ID eq " + "'" + _spPageContextInfo.userId + "' &$orderby=Created desc";
                 oDALayer.SubmitWebMethod(oHttpRequest).done(function (oListItems) {
                     if (oListItems.d.results) {
                         olMeetItems = oListItems.d.results;
@@ -29,6 +29,8 @@ define(["data/da-utility", "data/da-layer"],
                             row.push(eventItem.Title);
                             row.push(eventItem.Created);
                             row.push(eventItem.Location1);
+                            status = eventItem.Status.toString().replace(/"/g, '');     // Replace double quotes from Status
+                            row.push(status);
                             aData.push(row);
 
                             eventDetails[eventId] = {};
@@ -47,6 +49,7 @@ define(["data/da-utility", "data/da-layer"],
                         arrayHdrs.push({ "title": oSpeedMeetList.fields.Title.title });
                         arrayHdrs.push({ "title": "Created" });
                         arrayHdrs.push({ "title": oSpeedMeetList.fields.Location1.title });
+                        arrayHdrs.push({ "title": oSpeedMeetList.fields.Status.title });
                         arrayHdrs.push({
                             data: null,
                             className: "center",

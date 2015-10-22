@@ -17,24 +17,24 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
 
                  oUtilityController.getUsers(users).done(   // get the participants details
                         function (usersDetailObject) {
-                             var user, participantHtml = "";
-                             for(user in usersDetailObject){    // create presence of the users
-                                 participantHtml += "&nbsp;&nbsp;&nbsp;" + usersDetailObject[user]["PicturePresence"];
-                             }
+                            var user, participantHtml = "";
+                            for (user in usersDetailObject) {    // create presence of the users
+                                participantHtml += "&nbsp;&nbsp;&nbsp;" + usersDetailObject[user]["PicturePresence"];
+                            }
 
-                             detailHtml += '<tr>' + '<td><strong>Participants:</strong></td>' +
-                                            '<td>' + participantHtml + '</td>' + '</tr>';
-                             detailHtml += '<tr>' + '<td><strong>Description:</strong></td>' +
-                                           '<td>' + eventDetails[eventId]["description"] + '</td>' + '</tr>'
+                            detailHtml += '<tr>' + '<td><strong>Participants:</strong></td>' +
+                                           '<td>' + participantHtml + '</td>' + '</tr>';
+                            detailHtml += '<tr>' + '<td><strong>Description:</strong></td>' +
+                                          '<td>' + eventDetails[eventId]["description"] + '</td>' + '</tr>'
 
-                             detailHtml += '</table>';
+                            detailHtml += '</table>';
 
-                             row.child(detailHtml).show();
-                 });
+                            row.child(detailHtml).show();
+                        });
 
-                
+
                  //return detailHtml;
-                 
+
              }
              this.getMySpeedMeets = function () {
                  var oDAMeetEventList = new DAMeetEventList(oApplication),
@@ -42,6 +42,7 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                       tableBody = tableName + " tbody",
                       dtTable, headers, eventDetails,
                       oBaseDataTable, columnsDef, columnsOrder, data, eventHtml, allAnchors;
+
 
                  oMyMeetEventController.getMySpeedMeets().done(function (arrayDataSet) {
                      headers = arrayDataSet.splice(arrayDataSet.length - 2, 1);
@@ -51,7 +52,7 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
 
                      oBaseDataTable = new BaseDataTable(tableName, arrayDataSet, headers[0]);
                      columnsDef =       // Set the buttons column width & hide the ID column (first column)
-                         [{ "sWidth": "20%", "aTargets": [4] },     // Set the width of the Edit/Cancel buttons column
+                         [{ "sWidth": "20%", "aTargets": [5] },     // Set the width of the Edit/Cancel buttons column
                           { "sWidth": "5%", "aTargets": [0] },
                           /*{     // Hide the ID column
                               "targets": [1], "visible": false, "searchable": false
@@ -64,7 +65,19 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                                   eventHtml = '<a href="#" class="myevent" id="event' + full[0] + '" data-eventId="' + full[0] + '">' + data + '</a>';
                                   return eventHtml;
                               },
-                              "targets": 1
+                              "targets": [1]
+                          },
+                          {
+                              "render": function (data, type, full, meta) {
+                                  var statusHtml = "<span class='{0}'>" + data + "</span>";
+                                  if (data == oApplication.getConstants().DB.ListFields.Status.InProgress)
+                                      statusHtml = String.format(statusHtml, "status-InProgress");
+                                  else if (data == oApplication.getConstants().DB.ListFields.Status.Finalized)
+                                      statusHtml = String.format(statusHtml, "status-Finalized");
+
+                                  return statusHtml;
+                              },
+                              "targets": [4]
                           }];
 
                      columnsOrder = [[2, "desc"]];      // Order by created date (descending)
@@ -92,7 +105,7 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                      });
 
 
-                    
+
                      // Show details of the event.
                      $(tableBody).on('click', 'td.details-control', function () {
 
@@ -109,7 +122,7 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                              tr.addClass('details');
                              detailHtml = showEventDetails(row.data(), eventDetails[0], row);
                              var html = '<tr>' + '<td>Full name:</td>' + '<td>Muhammad Salman Malik</td>' + '</tr>'
-                             
+
                          }
                      });
                  });

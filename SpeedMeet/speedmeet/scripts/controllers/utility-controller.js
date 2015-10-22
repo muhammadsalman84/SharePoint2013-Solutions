@@ -122,7 +122,12 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
         }
 
         this.sendEmails = function (emailObjects) {
-            oDAUtility.sendEmails(emailObjects);
+            var oDeferred = $.Deferred();
+            oDAUtility.sendEmails(emailObjects).done(function () {
+                oDeferred.resolve();
+            });
+
+            return oDeferred.promise();
         }
 
         this.getHeadersInfo = function (oListItem) {

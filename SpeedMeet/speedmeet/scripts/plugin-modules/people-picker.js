@@ -3,7 +3,7 @@
 define(function () {
     function PeoplePicker() {
         var self = this;
-
+        self.peoplePickerDiv = "peoplePickerDiv";
         // Render and initialize the client-side People Picker.
         self.initializePeoplePicker = function (peoplePickerElementId) {
 
@@ -23,7 +23,7 @@ define(function () {
             SPClientPeoplePicker_InitStandaloneControlWrapper(peoplePickerElementId, null, schema);
         }
 
-        self.initializePeoplePicker('peoplePickerDiv');
+        self.initializePeoplePicker(self.peoplePickerDiv);
 
         self.getParticipants = function () {
             var peoplePicker = SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan;

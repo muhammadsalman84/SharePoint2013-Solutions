@@ -39,5 +39,7 @@
     <File Path="Scripts\views\join-meetevent-view.js" Url="Scripts/views/join-meetevent-view.js" ReplaceContent="TRUE" />
     <File Path="Scripts\controllers\join-meetevent-controller.js" Url="Scripts/controllers/join-meetevent-controller.js" ReplaceContent="TRUE" />
     <File Path="Scripts\controllers\final-meetevent-controller.js" Url="Scripts/controllers/final-meetevent-controller.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery.validate.js" Url="Scripts/libs/jquery.validate.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\views\validate-controls.js" Url="Scripts/views/validate-controls.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

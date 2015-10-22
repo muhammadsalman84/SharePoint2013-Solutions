@@ -11,5 +11,8 @@
     <File Path="Images\Person.png" Url="Images/Person.png" ReplaceContent="TRUE" />
     <File Path="Images\details_close.png" Url="Images/details_close.png" ReplaceContent="TRUE" />
     <File Path="Images\details_open.png" Url="Images/details_open.png" ReplaceContent="TRUE" />
+    <File Path="Images\checked.gif" Url="Images/checked.gif" ReplaceContent="TRUE" />
+    <File Path="Images\error.png" Url="Images/error.png" ReplaceContent="TRUE" />
+    <File Path="Images\valid.png" Url="Images/valid.png" ReplaceContent="TRUE" />
   </Module>
 </Elements>

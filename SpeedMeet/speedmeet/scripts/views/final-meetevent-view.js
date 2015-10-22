@@ -41,6 +41,10 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "controlle
 
 
              this.updateFinalDate = function (itemId, finalDateObject) {
+                 var listObject = {};
+                 listObject = finalDateObject;
+                 listObject["Status"] = oApplication.getConstants().DB.ListFields.Status.Finalized;
+                 
                  oDAMeetEventList.updateListItemByItemId(itemId, finalDateObject, true).done(function () {
                      self.bindFinalSpeedMeetView(itemId, true);
                  });

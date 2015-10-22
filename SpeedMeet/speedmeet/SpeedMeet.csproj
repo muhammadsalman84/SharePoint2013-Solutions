@@ -84,15 +84,18 @@
       <DependentUpon>Feature2.feature</DependentUpon>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\checked.gif" />
     <Content Include="Images\default_participant.jpg" />
     <Content Include="Images\details_close.png" />
     <Content Include="Images\details_open.png" />
+    <Content Include="Images\error.png" />
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
     <Content Include="Images\Person.png" />
     <Content Include="Images\speedmeet_logo-text.png" />
     <Content Include="Images\speedmeet_logo.png" />
     <Content Include="Images\tuv_logo.jpg" />
+    <Content Include="Images\valid.png" />
     <Content Include="Pages\SubPages\FinalMeetEvent.html" />
     <Content Include="Pages\SubPages\JoinMeetEvent.html" />
     <Content Include="Pages\SubPages\ShowMeetEvent.html" />
@@ -126,6 +129,7 @@
     <Content Include="Scripts\libs\jquery-1.9.1.min.js" />
     <Content Include="Scripts\libs\bootstrap.min.js" />
     <Content Include="Scripts\libs\jquery.dataTables.js" />
+    <Content Include="Scripts\libs\jquery.validate.js" />
     <Content Include="Scripts\libs\moment.min.js" />
     <Content Include="Scripts\controllers\meetevent-controller.js" />
     <Content Include="Scripts\controllers\utility-controller.js" />
@@ -141,6 +145,7 @@
     <Content Include="Scripts\starters\constants.js" />
     <Content Include="Scripts\starters\utility.js" />
     <Content Include="Scripts\starters\application.js" />
+    <Content Include="Scripts\views\validate-controls.js" />
     <Content Include="Scripts\views\main.js" />
     <Content Include="Scripts\views\join-meetevent-view.js" />
     <Content Include="Scripts\views\my-meetevent-view.js" />

@@ -38,16 +38,17 @@ define(["starters/utility", "starters/constants", "plugin-modules/progressbar", 
                      getButtons: function () {
                          return setModuleFields(this, '*[data-BSButton="true"]');
                      },
-                     menuButton: "#btnNewSpeedMeet"
+                     menuButton: "#btnNewMeetEvent"
                  },
                  myMeetEventModule: {
                      id: "#IMyMeetEvent",
                      hide: true,
-                     menuButton: "#btnMySpeedMeets"
+                     menuButton: "#btnMyMeetEvents"
                  },
                  joinMeetEventModule: {
                      id: "#IJoinMeetEvent",
-                     hide: true                     
+                     hide: true,
+                     menuButton: "#btnJoinMeetEvent"
                  },
                  showMeetEventModule: {
                      id: "#IShowMeetEvent",

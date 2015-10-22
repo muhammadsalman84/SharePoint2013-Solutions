@@ -40,5 +40,7 @@
     <ProjectItemFile Source="views\join-meetevent-view.js" Target="Scripts\views\" Type="ElementFile" />
     <ProjectItemFile Source="controllers\join-meetevent-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
     <ProjectItemFile Source="controllers\final-meetevent-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery.validate.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="views\validate-controls.js" Target="Scripts\views\" Type="ElementFile" />
   </Files>
 </ProjectItem>

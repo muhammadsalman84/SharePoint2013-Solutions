@@ -63,6 +63,7 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
         }
         else {
             for (field in fieldsCollection) {
+                //if (field)
                 dataObject[field] = fieldsCollection[field];
             }
         }
