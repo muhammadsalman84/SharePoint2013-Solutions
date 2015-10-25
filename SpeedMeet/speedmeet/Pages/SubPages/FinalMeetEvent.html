@@ -3,8 +3,8 @@
     @author: Muhammad Salman Malik
 -->
 <div>
-    <div class="row">
-        <div class="adminFunctions">
+    <div id="IFinalSuccess" class="hide">
+        <div class="row adminFunctions">
             <div class="col-md-6"></div>
             <div class="col-md-6">
                 <div class="btn-group btn-group-justified">
@@ -24,18 +24,15 @@
                 <hr>
             </div>
         </div>
-    </div>
-    <div class="row row-eq-height">
-        <div class="panel panel-primary" style="height: 350px;">
+        <div class="row-eq-height panel panel-primary" style="height: 350px;">
             <div class="panel-heading text-center" style="height: 350px;">
-                <div class="col-md-6">
-                    <h1><span id="txt-title-finalize"></span></h1>
-                    <h2><span id="txt-date-finalize"></span></h2>
-                    <h3><span id="txt-time-finalize"></span></h3>
-
+                <div class="col-md-6" style="height: 310px;">
+                    <h1><span id="txt-title-final-success"></span></h1>
+                    <h2><span id="txt-date-final-success"></span></h2>
+                    <h3><span id="txt-time-final-success"></span></h3>
                 </div>
-                <div class="col-md-9" style="width: 50%; height: 310px;">
-                    <b><span id="txt-location-finalize"></span></b>
+                <div class="col-md-6" style="height: 310px;">
+                    <b><strong>Location: </strong><span id="txt-location-final-success"></span></b>
                     <div id="floating-panel-final">
                         <button type="button" id="btnStreetViewFinalize" class="btn btn-success">Show Street View</button>
                     </div>
@@ -44,7 +41,21 @@
             </div>
         </div>
     </div>
+    <div id="IFinalCancel" class="hide">
+        <div class="row panel panel-warning hide" style="height: 350px;">
+            <div class="panel-heading text-center" style="height: 350px;">
+                <div class="col-md-12">
+                    <h1>
+                        The following event has been cancelled;
+                    </h1>
+                    <h2><span id="txt-title-final-cancel"></span></h2>
+                    <h3><span id="txt-date-final-cancel"></span></h3>
+                    <h4><span id="txt-time-final-cancel"></span></h4>
 
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

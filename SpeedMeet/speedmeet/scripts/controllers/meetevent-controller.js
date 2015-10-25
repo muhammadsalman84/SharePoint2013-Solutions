@@ -241,7 +241,6 @@ define(["data/da-utility", "data/da-layer", "controllers/utility-controller", "d
 
                 return arrayEmails;
             }
-
            
         }
 

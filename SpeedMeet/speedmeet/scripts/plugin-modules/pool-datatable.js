@@ -23,7 +23,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
 
                 $("#tfooterrow").append("<td>" + footerCellHtml + "</td>");
 
-                $(footerButtonId).click(function () {             // on Finalize button click Event
+                $(footerButtonId).click(function () {   // on Finalize button click Event
                     var hdrCell = $(self._dtName + " thead tr:nth-child(2) th:nth-child(" + columnIndex + ")");
                     finalDateObject = {};
                     finalDateObject['FinalEventDate'] = {};
@@ -55,14 +55,14 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                     cell = $("#tfooterrow td:eq(" + columnIndex + ")");
 
                 if (cell.length > 0) {
-                    columnTotal = $(cell.html()).find("span").text();       // Get value of column total wrapped in span element
+                    columnTotal = $(cell.html()).find("span").text();   // Get value of column total wrapped in span element
                     columnTotal = parseInt(columnTotal);
 
                     if (isYes) {
-                        columnTotal++;      //Add to FeedBack total
+                        columnTotal++;   // Add to FeedBack total
                     }
                     else {
-                        columnTotal--;      //Subtract from FeedBack total
+                        columnTotal--;   // Subtract from FeedBack total
                     }
 
                     footerButtonId = "footerButton" + columnIndex;
@@ -93,7 +93,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
 
                 $(data).each(function (i) {
                     if (i > 0) {
-                        $('td', row).eq(i).bind('click', function () {      // Loop each cells of the row and bind click event dynamically
+                        $('td', row).eq(i).bind('click', function () {   // Loop each cells of the row and bind click event dynamically
                             
                             td = $('td', row).eq(i).html();
                             dateStart = $(td).attr('data-startdate');
@@ -114,7 +114,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                                 }
 
                                 oUtilityController.showAdminView(oListItem.AuthorId);       // Hide the Finalize button if the user is not the Author of the Item
-                                self._isFeedBackChanged = true;       // set user feedback
+                                self._isFeedBackChanged = true;   // set user feedback
                             }
                         });
                     }
@@ -168,7 +168,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                     oDAMeetEventList = new DAMeetEventList(oApplication);
 
 
-                $.each(self.activeRow.cells, function (index, cell) {      // Collect all the values of the cell in a object literal
+                $.each(self.activeRow.cells, function (index, cell) {   // Collect all the values of the cell in a object literal
                     cellHtml = $(cell).html();
                     if (index > 0) {
                         cellName = "Cell" + index;
@@ -182,13 +182,13 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                     }
                 });
 
-                oDAMeetEventList.getListItemByItemId(itemId)        // Get the list item object from Sharepoint list.
+                oDAMeetEventList.getListItemByItemId(itemId)    // Get the list item object from Sharepoint list.
                     .done(function (oListItem) {
                         if (oListItem) {
                             olFeedBack = JSON.parse(oListItem.Feedback);
 
-                            for (oDate in olFeedBack) {      // Loop object literal from List                                
-                                for (oCellValue in olRowCells) {        // Loop object literal from Row
+                            for (oDate in olFeedBack) {   // Loop object literal from List                                
+                                for (oCellValue in olRowCells) {   // Loop object literal from Row
                                     if ((olRowCells[oCellValue].startDate == olFeedBack[oDate].start) &&
                                         (olRowCells[oCellValue].endDate == olFeedBack[oDate].end))
                                         olFeedBack[oDate].Participants[_spPageContextInfo.userId] = olRowCells[oCellValue].Feedback;
@@ -198,7 +198,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                             feedBackObject['Feedback'] = olFeedBack;
                             oDAMeetEventList.
                                 updateListItemByItemId
-                                    (oListItem.Id, feedBackObject, true)      // Update the FeedBack field value in the List Item.
+                                    (oListItem.Id, feedBackObject, true)    // Update the FeedBack field value in the List Item.
                                         .done(function () {
                                             oDeferred.resolve(true);
                                         }).
@@ -222,8 +222,8 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
 
             this.bindDataTable = function (headerCollection, users, oListItem) {
 
-                $(this._dtName).append(headerCollection["headrHtml"]);                         // Append Header row to the DataTable
-                $(this._dtName).append(self.CONSTANTS.HTML.footerRow);      // Append Footer row to the DataTable
+                $(this._dtName).append(headerCollection["headrHtml"]);   // Append Header row to the DataTable
+                $(this._dtName).append(self.CONSTANTS.HTML.footerRow);   // Append Footer row to the DataTable
 
                 PoolDataTable.dtTable = $(self._dtName).DataTable({
                     "paging": false,
@@ -232,7 +232,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                     "bFilter": false,
                     data: getDataSet(users, oListItem, headerCollection["headrSequence"]),
                     "aoColumnDefs": [
-                        { "sWidth": "200px", "aTargets": [0] }              // set Participant column width
+                        { "sWidth": "200px", "aTargets": [0] }   // set Participant column width
                     ],
                     //columns: columns,
                     destroy: true,
@@ -240,7 +240,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                     "scrollCollapse": true,*/
                     "bAutoWidth": false,
                     //"scrollX": true,
-                    "createdRow": function (row, data, index) {             // On each Row, set css class and event
+                    "createdRow": function (row, data, index) {   // On each Row, set css class and event
                         var userId = $(data[0]).attr("id").split("User")[1];
                         if (_spPageContextInfo.userId != userId) {
                             $(row).addClass('readonly-rows');
@@ -248,7 +248,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                         else {
                             $(row).addClass('active-rows');
                             bindEventOnDTCells(data, row, oListItem);
-                            self.activeRow = row;       // Set the active row to be later use by saveChoices() Method
+                            self.activeRow = row;   // Set the active row to be later use by saveChoices() Method
                         }
                     },
                     "footerCallback":

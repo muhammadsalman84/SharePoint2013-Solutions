@@ -26,19 +26,19 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-mo
                  $("#txt-title-pool").text("SpeedMeet Event: " + oListItem.Title);
                  $("#txt-description-pool").text(oListItem.Description1);
                  $("#txt-location-pool").text(oListItem.Location1);
+                 $("#txt-organizer-pool").text(oListItem.Author.Title);
                  var geoLocation = JSON.parse(oListItem.GeoLocation);
                  oGoogleApi = new GoogleApi("map-canvas-showevent", geoLocation, true);
                  oGoogleApi.initialzeMap();
                  oApplication.ActiveListItem = oListItem;       // Set Active List Item Object for Edit purpose
-                 redirectToFinalView(oListItem);        // If the date is finalized then redirect to Finalize view
+                 //redirectToFinalView(oListItem);        // If the date is finalized then redirect to Finalize view
              }
 
 
-             this.loadMeetEvent = function (oListItem, usersObject) {
-                 var itemId = null,
-                     oUtilityController = new UtilityController(oApplication);
-
-                 if (typeof (oListItem) == "object") {     // If it is an object then Listitem object is passed.
+             this.loadMeetEvent = function (itemId, usersObject) {
+                 var oUtilityController = new UtilityController(oApplication);
+                 oDeferred = $.Deferred();
+                 /*if (typeof (oListItem) == "object") {     // If it is an object then Listitem object is passed.
 
                      headerHtml = oUtilityController.getHeadersInfo(oListItem);       // Create Headers for the DataTable                                                                          
                      oPoolDataTable.clearDataTable();
@@ -46,22 +46,22 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-mo
 
                      bindView(oListItem);
                  }
-                 else {
-                     itemId = oListItem;
+                 else {*/
 
-                     oDAMeetEventList.getListItemByItemId(itemId).
-                         done(function (oListItem) {
-                             oUtilityController.getUsersInfo(oListItem).done(function (usersObject) {
-                                 // Create Headers for the DataTable
-                                 headerHtml = oUtilityController.getHeadersInfo(oListItem);
-                                 oPoolDataTable.clearDataTable();
-                                 // Bind DataTable with header html and data.                                                  
-                                 oPoolDataTable.bindDataTable(headerHtml, usersObject, oListItem);
-                                 bindView(oListItem);
-                             });
-
+                 oDAMeetEventList.getListItemByItemId(itemId, true).
+                     done(function (oListItem) {
+                         oUtilityController.getUsersInfo(oListItem).done(function (usersObject) {
+                             // Create Headers for the DataTable
+                             headerHtml = oUtilityController.getHeadersInfo(oListItem);
+                             oPoolDataTable.clearDataTable();
+                             // Bind DataTable with header html and data.                                                  
+                             oPoolDataTable.bindDataTable(headerHtml, usersObject, oListItem);
+                             bindView(oListItem);
+                             oDeferred.resolve();
                          });
-                 }
+
+                     });
+                 return oDeferred.promise();
              }
 
              $("#btnShowStreetView").bind('click', function () {
@@ -72,7 +72,11 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-mo
                  oApplication.oMeetEventView.editEvent(oApplication.ActiveListItem.ID);
              });
 
-             $("#btnSaveChoices-show").bind('click', function () {                
+             $("#btnCancelMeet-show").bind('click', function () {
+                 oApplication.oFinalSpeedMeetView.cancelEvent(oApplication.ActiveListItem.ID);
+             });
+
+             $("#btnSaveChoices-show").bind('click', function () {
                  oPoolDataTable.saveUserChoices(oApplication.ActiveListItem.ID)
                     .done(function (success) {
                         if (success === true) {

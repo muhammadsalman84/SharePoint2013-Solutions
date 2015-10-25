@@ -4,29 +4,49 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "controlle
          function FinalizeMeetEventView(oApplication) {
              var self = this;
              var oDAMeetEventList = new DAMeetEventList(oApplication),
-                 oGoogleApi, finalEventData, geoLocation;
+                 oGoogleApi, geoLocation;
 
+             function setFinalView(oListItem) {
+                 var finalEventData = JSON.parse(oListItem.FinalEventDate);
+                 $("#txt-location-final-success").text(oListItem.Location1);
+                 $("#txt-title-final-success").text("SpeedMeet Event: " + oListItem.Title);
+                 $("#txt-date-final-success").text(finalEventData.FinalDate);
+                 $("#txt-time-final-success").text(finalEventData.FinalStartTime + " - " + finalEventData.FinalEndTime);
+             }
+
+             function setCancelledView(oListItem) {
+                 var finalEventData = JSON.parse(oListItem.FinalEventDate);
+                 $("#txt-location-final-cancel").text(oListItem.Location1);
+                 $("#txt-title-final-cancel").text("SpeedMeet Event: " + oListItem.Title);
+                 $("#txt-date-final-cancel").text(finalEventData.FinalDate);
+                 $("#txt-time-final-cancel").text(finalEventData.FinalStartTime + " - " + finalEventData.FinalEndTime);
+             }
 
              this.bindFinalSpeedMeetView = function (itemId, doEmail) {
                  var oUtilityController = new UtilityController(oApplication),
                      oFinalController = new FinalController(oApplication),
-                     emailObjects;
+                     emailObjects, itemStatus,
+                     statuses = oApplication.getConstants().DB.ListFields.Status,
+                     finalModuleId = oApplication.modules.finalMeetEventModule.id;
 
                  oDAMeetEventList.getListItemByItemId(itemId)
                         .done(function (oListItem) {
                             if (oListItem) {
                                 geoLocation = JSON.parse(oListItem.GeoLocation);
-                                finalEventData = JSON.parse(oListItem.FinalEventDate);
-                                oApplication.showHideModule(oApplication.modules.finalMeetEventModule.id);                    // Show the final module view
-                                $("#txt-location-finalize").text(oListItem.Location1);
-                                $("#txt-title-finalize").text("SpeedMeet Event: " + oListItem.Title);
-                                $("#txt-date-finalize").text(finalEventData.FinalDate);
-                                $("#txt-time-finalize").text(finalEventData.FinalStartTime + " - " + finalEventData.FinalEndTime);
-
+                                
+                                itemStatus = JSON.parse(oListItem.Status);
                                 oApplication.ActiveListItem = oListItem;        // Set the Active list item
 
-                                oGoogleApi = new GoogleApi("map-canvas-finalevent", geoLocation, true);
-                                oGoogleApi.initialzeMap();
+                                if (itemStatus == statuses.Finalized) {                         
+                                    setFinalView(oListItem);
+                                    oApplication.showHideModule(finalModuleId, 0);
+                                    oGoogleApi = new GoogleApi("map-canvas-finalevent", geoLocation, true);
+                                    oGoogleApi.initialzeMap();
+                                }
+                                else if (itemStatus == statuses.Cancelled) {
+                                    setCancelledView(oListItem);
+                                    oApplication.showHideModule(finalModuleId, 1);
+                                }                                                         
 
                                 if (doEmail) {
                                     oUtilityController.getUsersInfo(oListItem).done(function (usersObject) {
@@ -39,16 +59,23 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "controlle
                         });
              }
 
-
              this.updateFinalDate = function (itemId, finalDateObject) {
                  var listObject = {};
                  listObject = finalDateObject;
                  listObject["Status"] = oApplication.getConstants().DB.ListFields.Status.Finalized;
-                 
+
                  oDAMeetEventList.updateListItemByItemId(itemId, finalDateObject, true).done(function () {
                      self.bindFinalSpeedMeetView(itemId, true);
                  });
 
+             }
+
+             this.cancelEvent = function (itemId) {
+                 var status = {};
+                 status["Status"] = oApplication.getConstants().DB.ListFields.Status.Cancelled;
+                 oDAMeetEventList.updateListItemByItemId(itemId, status, false).done(function () {
+                     self.bindFinalSpeedMeetView(itemId, true);
+                 });
              }
 
              $("#btnStreetViewFinalize").click(function () {

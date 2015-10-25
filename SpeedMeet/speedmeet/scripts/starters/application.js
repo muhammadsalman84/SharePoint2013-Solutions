@@ -11,7 +11,7 @@ define(["starters/utility", "starters/constants", "plugin-modules/progressbar", 
              FullCalendar.apply(self);
              Constants.apply(self);
              ProgressbarModule.apply(self);
-             
+
 
              setModuleFields = function (module, strFindQuery) {
                  var fields = {};
@@ -56,7 +56,10 @@ define(["starters/utility", "starters/constants", "plugin-modules/progressbar", 
                  },
                  finalMeetEventModule: {
                      id: "#IFinalMeetEvent",
-                     hide: true
+                     hide: true,
+                     subModules: {
+                         id: ["#IFinalSuccess", "#IFinalCancel"]
+                     }
                  },
                  progressbar: {
                      id: "#IProgressbar",
@@ -85,7 +88,7 @@ define(["starters/utility", "starters/constants", "plugin-modules/progressbar", 
          }
 
          loadApplication.prototype = {
-             showHideModule: function (moduleToShow) {
+             showHideModule: function (moduleToShow, subModuleIndex) {
                  var allModules = this.modules;
                  for (var module in this.modules) {
                      if (allModules[module].hasOwnProperty("hide")) {
@@ -97,7 +100,7 @@ define(["starters/utility", "starters/constants", "plugin-modules/progressbar", 
                              if (allModules[module].hasOwnProperty("subModules")) {
 
                                  $(allModules[module].subModules.id).each(function (i) {
-                                     if (i == 0)
+                                     if (i == subModuleIndex)
                                          $(allModules[module].subModules.id[0]).removeClass("hide");
                                      else
                                          $(allModules[module].subModules.id[i]).addClass("hide");
@@ -131,7 +134,7 @@ define(["starters/utility", "starters/constants", "plugin-modules/progressbar", 
                      control.val("");
                  }
              }
-             
+
          }
 
          return loadApplication;

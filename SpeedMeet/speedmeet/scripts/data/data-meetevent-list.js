@@ -92,7 +92,7 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
         oHttpRequest = oDAUtility.getHttpRequest(methodType, "default", this.oApplication.getSPAppWebUrl(), itemType);
         oHttpRequest.url += "lists/GetByTitle('" + oSpeedMeetList.Title + "')/items(" + itemId + ")";
         if (doGetDetail == true)
-            oHttpRequest.url += "?$select=Participants1/Title,Participants1/Name,*&$expand=Participants1/Id";
+            oHttpRequest.url += "?$select=Participants1/Title,Participants1/Name,Author/ID,Author/Title,*&$expand=Participants1/Id,Author/ID,Author/Title";
 
         oDALayer.SubmitWebMethod(oHttpRequest).done(function (oListItem) {
             if (oListItem.d) {

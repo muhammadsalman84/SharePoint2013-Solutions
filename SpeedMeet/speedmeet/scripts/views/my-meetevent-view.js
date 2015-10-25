@@ -4,8 +4,28 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
          function MyMeetEventView(oApplication) {
              var oMyMeetEventController = new MyMeetEventController(oApplication);
 
-             function showMeetEvent(itemId) {
-                 oApplication.oShowMeetEventView.loadMeetEvent(itemId, _spPageContextInfo.userId);
+             function showMeetEvent(itemId, dsArray) {
+                 var itemStatus = oApplication.getConstants().DB.ListFields.Status,
+                     status;
+
+                 $.each(dsArray, function (index, itemArray) {
+                     if (itemId == itemArray[0]) {
+                         status = itemArray[4];   // Status value in the array
+                         return false;
+                     }
+                 });
+
+                 switch (status) {
+                     case itemStatus.Finalized:
+                         oApplication.oFinalSpeedMeetView.bindFinalSpeedMeetView(itemId);
+                         break;
+                     case itemStatus.Cancelled:
+                         oApplication.oFinalSpeedMeetView.bindFinalSpeedMeetView(itemId);
+                         break;
+                     default:
+                         oApplication.oShowMeetEventView.loadMeetEvent(itemId, _spPageContextInfo.userId);
+                 }
+                 
              }
 
              function showEventDetails(data, eventDetails, row) {
@@ -44,13 +64,13 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                       oBaseDataTable, columnsDef, columnsOrder, data, eventHtml, allAnchors;
 
 
-                 oMyMeetEventController.getMySpeedMeets().done(function (arrayDataSet) {
-                     headers = arrayDataSet.splice(arrayDataSet.length - 2, 1);
-                     arrayDataSet.join();
-                     eventDetails = arrayDataSet.splice(arrayDataSet.length - 1, 1);
-                     arrayDataSet.join();
+                 oMyMeetEventController.getMySpeedMeets().done(function (dsArray) {
+                     headers = dsArray.splice(dsArray.length - 2, 1);
+                     dsArray.join();
+                     eventDetails = dsArray.splice(dsArray.length - 1, 1);
+                     dsArray.join();
 
-                     oBaseDataTable = new BaseDataTable(tableName, arrayDataSet, headers[0]);
+                     oBaseDataTable = new BaseDataTable(tableName, dsArray, headers[0]);
                      columnsDef =       // Set the buttons column width & hide the ID column (first column)
                          [{ "sWidth": "20%", "aTargets": [5] },     // Set the width of the Edit/Cancel buttons column
                           { "sWidth": "5%", "aTargets": [0] },
@@ -69,11 +89,21 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                           },
                           {
                               "render": function (data, type, full, meta) {
-                                  var statusHtml = "<span class='{0}'>" + data + "</span>";
-                                  if (data == oApplication.getConstants().DB.ListFields.Status.InProgress)
-                                      statusHtml = String.format(statusHtml, "status-InProgress");
-                                  else if (data == oApplication.getConstants().DB.ListFields.Status.Finalized)
-                                      statusHtml = String.format(statusHtml, "status-Finalized");
+                                  var statusHtml, itemStatus;
+                                  statusHtml = "<strong><span class='{0}'>" + data + "</span></strong></strong>";
+                                  itemStatus = oApplication.getConstants().DB.ListFields.Status;
+
+                                  switch (data) {
+                                      case itemStatus.InProgress:
+                                          statusHtml = String.format(statusHtml, "status-InProgress");
+                                          break;
+                                      case itemStatus.Finalized:
+                                          statusHtml = String.format(statusHtml, "status-Finalized");
+                                          break;
+                                      case itemStatus.Cancelled:
+                                          statusHtml = String.format(statusHtml, "status-Cancelled");
+                                          break;
+                                  }
 
                                   return statusHtml;
                               },
@@ -90,7 +120,7 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                      $.each(allAnchors, function (index, eventAnchor) {
                          $(eventAnchor).bind('click', function () {
                              var eventId = $(this).attr("data-eventId");
-                             showMeetEvent(eventId);
+                             showMeetEvent(eventId, dsArray);
                          });
                      });
 

@@ -5,9 +5,9 @@ define([],
              var self = this;
              self.oApplication = oApplication;
 
-             var getErrorHtml = function (element) {
+             var getErrorHtml = function (element, errorElementHtml) {
                  var elementId,
-                 errorHtml = "<span class='help-block' id='{0}'>This field is required.</span>";
+                 errorHtml = errorElementHtml || "<span class='help-block' id='{0}'>This field is required.</span>";
 
                  elementId = $(element).attr('id') + "-error";
                  $("#" + elementId).remove();
@@ -16,8 +16,8 @@ define([],
                  return errorHtml;
              }
 
-             self.showError = function (element) {
-                 var errorHtml = getErrorHtml(element);
+             self.showError = function (element, errorHtml) {
+                 var errorHtml = getErrorHtml(element, errorHtml);
                  $(element).closest('.form-group').addClass('has-error');
                  if ($(element).parent('.input-group').length) {
                      $(errorHtml).insertAfter($(element).parent());
@@ -97,8 +97,6 @@ define([],
          }
 
          ValidateControls.prototype.validatePeoplePicker = function () {
-
-
              var self = this,
                  participants = self.oApplication.getParticipants();
 
@@ -108,6 +106,37 @@ define([],
              }
              else {
                  self.removeError("#peoplePickerDiv");
+             }
+
+             return true;
+         }
+
+         ValidateControls.prototype.validatePeoplePicker = function () {
+             var self = this,
+                 participants = self.oApplication.getParticipants();
+
+             if (participants.length == 0) {
+                 self.showError($("#peoplePickerDiv"));
+                 return false;
+             }
+             else {
+                 self.removeError("#peoplePickerDiv");
+             }
+
+             return true;
+         }
+
+         ValidateControls.prototype.validateCalendar = function () {
+             var self = this,
+                 errorElementHtml = "<strong><span class='help-block' id='{0}'>Please select atleast one time slot in order to proceed further.</span></strong></strong>",
+                 calendarDates = self.oApplication.getAllSelectedDates();
+                
+             if (calendarDates.length == 0) {
+                 self.showError($("#calendar"), errorElementHtml);
+                 return false;
+             }
+             else {
+                 self.removeError($("#calendar"));
              }
 
              return true;

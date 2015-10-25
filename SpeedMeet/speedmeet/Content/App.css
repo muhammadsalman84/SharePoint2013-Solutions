@@ -161,14 +161,3 @@ label.error {
 	margin-top: 2px;
 }
 
-.field-error .control-label,
-.field-error .help-block,
-.field-error .form-control-feedback {
-    color: #ff0039;
-}
-
-.field-success .control-label,
-.field-success .help-block,
-.field-success .form-control-feedback {
-    color: #2780e3;
-}

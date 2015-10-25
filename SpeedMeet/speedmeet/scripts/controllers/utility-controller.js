@@ -12,7 +12,7 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
             CONSTANTS,
             dtTable;
 
-        this.presenceSettings = presenceSettings;          
+        this.presenceSettings = presenceSettings;
 
         /* 
          * Get the Participant's internal id and login name  from SharePoint          
@@ -71,7 +71,7 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
                     var ajaxRequest = oDALayer.SubmitWebMethod(oHttpRequest);
 
                     ajaxRequest.done(function (userProfile) {
-                       
+
                         if (userProfile.d.AccountName) {
                             var oUserProfile = userProfile.d;
                             for (olUser in olUsers) {
@@ -103,7 +103,7 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
         this.getUsersInfo = function (oListItem) {
             var oDeferred = $.Deferred(),
                 oSpeedMeetList = oDAUtility.SPLists().SpeedMeet,
-                participants =[];
+                participants = [];
 
             olFeedBack = JSON.parse(oListItem.Feedback);
             iItemID = oListItem.ID;
@@ -133,7 +133,7 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
         this.getHeadersInfo = function (oListItem) {
 
             var resultsCollection = {}, headerSequence = {}, allDates = [],
-                dates = {}, date, time, count, headerCounter, firstHdrHtml, startDT, endDT,
+                oDates = {}, date, time, count, headerCounter, firstHdrHtml, startDT, endDT,
                 secondHdrHtml, listItemHtml, startTime, endTime, dataAttrHtml,
 
                 feedBackObject = JSON.parse(oListItem.Feedback);        // get the feedback from the Item object
@@ -143,7 +143,7 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
             $.each(feedBackObject, function (index, dateTimeObject) {       // interate on each date and create a new object literal.
                 var dateStart = moment(dateTimeObject.start).format("MMMM Do YYYY");
                 var i, isFound = false;
-                for (date in dates) {
+                for (date in oDates) {
                     if (date === dateStart) {
                         isFound = true;
                         break;
@@ -157,22 +157,22 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
                 endTime = new Date(endTime.getTime() + (endTime.getTimezoneOffset() * 60000));
 
                 if (isFound == false) {
-                    dates[dateStart] = {};
-                    dates[dateStart]["time1"] = {};
+                    oDates[dateStart] = {};
+                    oDates[dateStart]["time1"] = {};
 
-                    dates[dateStart]["time1"]["start"] = moment(startTime).format("h:mm a");
-                    dates[dateStart]["time1"]["startDT"] = dateTimeObject.start;
-                    dates[dateStart]["time1"]["end"] = moment(endTime).format("h:mm a");
-                    dates[dateStart]["time1"]["endDT"] = dateTimeObject.end;
+                    oDates[dateStart]["time1"]["start"] = moment(startTime).format("h:mm a");
+                    oDates[dateStart]["time1"]["startDT"] = dateTimeObject.start;
+                    oDates[dateStart]["time1"]["end"] = moment(endTime).format("h:mm a");
+                    oDates[dateStart]["time1"]["endDT"] = dateTimeObject.end;
                 }
                 else {
-                    count = $.map(dates[dateStart], function (n, i) { return i; }).length;
+                    count = $.map(oDates[dateStart], function (n, i) { return i; }).length;
                     count++;
-                    dates[dateStart]["time" + count] = {};
-                    dates[dateStart]["time" + count]["start"] = moment(startTime).format("h:mm a");
-                    dates[dateStart]["time" + count]["startDT"] = dateTimeObject.start;
-                    dates[dateStart]["time" + count]["end"] = moment(endTime).format("h:mm a");
-                    dates[dateStart]["time" + count]["endDT"] = dateTimeObject.end;
+                    oDates[dateStart]["time" + count] = {};
+                    oDates[dateStart]["time" + count]["start"] = moment(startTime).format("h:mm a");
+                    oDates[dateStart]["time" + count]["startDT"] = dateTimeObject.start;
+                    oDates[dateStart]["time" + count]["end"] = moment(endTime).format("h:mm a");
+                    oDates[dateStart]["time" + count]["endDT"] = dateTimeObject.end;
                     isFound = false;
                 }
 
@@ -184,20 +184,28 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
             firstHdrHtml += "<tr> <th rowspan='2'>Participant(s)</th>";
             headerCounter = 1;
 
-            $.each(dates, function (date, AllTimes) {
-                count = $.map(dates[date], function (n, i) { return i; }).length;
-                firstHdrHtml += "<th colspan='" + count + "'>" + date + "</th>";
+            var allDatesTitle = [], allTimes, dateTitle;
+            $.each(oDates, function (date, AllTimes) {
+                allDatesTitle.push(date);
+            });
+            allDatesTitle.sort();
 
-                for (time in AllTimes) {
-                    startTime = AllTimes[time]["start"];
-                    endTime = AllTimes[time]["end"];
-                    startDT = AllTimes[time]["startDT"];
-                    endDT = AllTimes[time]["endDT"];
+            $.each(allDatesTitle, function (date, AllTimes) {
+                dateTitle = allDatesTitle[date];
+                count = $.map(oDates[dateTitle], function (n, i) { return i; }).length;
+                firstHdrHtml += "<th colspan='" + count + "'>" + dateTitle + "</th>";
+
+                allTimes = oDates[dateTitle];
+                for (time in allTimes) {
+                    startTime = allTimes[time]["start"];
+                    endTime = allTimes[time]["end"];
+                    startDT = allTimes[time]["startDT"];
+                    endDT = allTimes[time]["endDT"];
 
                     headerSequence["time" + headerCounter] = {};
                     headerSequence["time" + headerCounter]["startDT"] = startDT;
                     headerSequence["time" + headerCounter]["endDT"] = endDT;
-                    dataAttrHtml = "data-HdrDate='" + date + "' data-HdrStartTime='" + startTime + "' data-HdrEndTime='" + endTime + "'";
+                    dataAttrHtml = "data-HdrDate='" + dateTitle + "' data-HdrStartTime='" + startTime + "' data-HdrEndTime='" + endTime + "'";
                     dataAttrHtml += "data-HdrStartDT='" + startDT + "' data-HdrEndDT='" + endDT + "'";
                     //dataAttrHtml += listItemHtml;
                     secondHdrHtml += "<th " + dataAttrHtml + ">" + startTime + " - " + endTime + "</th>";
@@ -220,13 +228,13 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
                 options = this.presenceSettings;
             else
                 options = { type: "withpicture", redirectToProfile: true }
-                
+
 
             var settings = $.extend({
                 type: "default",
                 redirectToProfile: true
             }, options);
-            
+
             var name, sip, personalUrl, pictureUrl, title, department = "" | "";
             personalUrl = "#";
 
