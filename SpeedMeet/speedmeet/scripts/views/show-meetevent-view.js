@@ -36,7 +36,7 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-mo
 
 
              this.loadMeetEvent = function (itemId, usersObject) {
-                 var oUtilityController = new UtilityController(oApplication);
+                 var oUtilityController = new UtilityController(oApplication),
                  oDeferred = $.Deferred();
                  /*if (typeof (oListItem) == "object") {     // If it is an object then Listitem object is passed.
 

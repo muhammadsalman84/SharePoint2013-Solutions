@@ -101,7 +101,7 @@ define(["starters/utility", "starters/constants", "plugin-modules/progressbar", 
 
                                  $(allModules[module].subModules.id).each(function (i) {
                                      if (i == subModuleIndex)
-                                         $(allModules[module].subModules.id[0]).removeClass("hide");
+                                         $(allModules[module].subModules.id[i]).removeClass("hide");
                                      else
                                          $(allModules[module].subModules.id[i]).addClass("hide");
                                  });

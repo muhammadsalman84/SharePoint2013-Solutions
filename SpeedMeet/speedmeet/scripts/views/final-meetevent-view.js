@@ -16,10 +16,8 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "controlle
 
              function setCancelledView(oListItem) {
                  var finalEventData = JSON.parse(oListItem.FinalEventDate);
-                 $("#txt-location-final-cancel").text(oListItem.Location1);
                  $("#txt-title-final-cancel").text("SpeedMeet Event: " + oListItem.Title);
-                 $("#txt-date-final-cancel").text(finalEventData.FinalDate);
-                 $("#txt-time-final-cancel").text(finalEventData.FinalStartTime + " - " + finalEventData.FinalEndTime);
+                 $("#txt-Location-final-cancel").text("Location: " + oListItem.Location1);
              }
 
              this.bindFinalSpeedMeetView = function (itemId, doEmail) {
@@ -33,11 +31,15 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "controlle
                         .done(function (oListItem) {
                             if (oListItem) {
                                 geoLocation = JSON.parse(oListItem.GeoLocation);
-                                
-                                itemStatus = JSON.parse(oListItem.Status);
+                                            
+                                try {
+                                    itemStatus = $.parseJSON(oListItem.Status);
+                                } catch (e) {
+                                    itemStatus = oListItem.Status;   // Not a JSON value
+                                }
                                 oApplication.ActiveListItem = oListItem;        // Set the Active list item
 
-                                if (itemStatus == statuses.Finalized) {                         
+                                if (itemStatus == statuses.Finalized) {
                                     setFinalView(oListItem);
                                     oApplication.showHideModule(finalModuleId, 0);
                                     oGoogleApi = new GoogleApi("map-canvas-finalevent", geoLocation, true);
@@ -46,7 +48,7 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "controlle
                                 else if (itemStatus == statuses.Cancelled) {
                                     setCancelledView(oListItem);
                                     oApplication.showHideModule(finalModuleId, 1);
-                                }                                                         
+                                }
 
                                 if (doEmail) {
                                     oUtilityController.getUsersInfo(oListItem).done(function (usersObject) {
