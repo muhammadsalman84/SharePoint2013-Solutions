@@ -14,7 +14,7 @@ define(function () {
                             PATCH: "PATCH"
                         }
                     },
-                    ListFields:{
+                    ListFields: {
                         Status: {
                             Created: "Created",
                             InProgress: "InProgress",
@@ -106,7 +106,7 @@ define(function () {
                     FinalizeEvent: {
                         FROM: "smtpgate.de.tuv.com",
                         TO: "{0}",
-                        SUBJECT: "SpeedMeet event finalized",
+                        SUBJECT: "SpeedMeet event: Date finalized",
                         BODY: "{0}",
                         BODY_TEXT: function () {
                             var sHtml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
@@ -121,7 +121,7 @@ define(function () {
                             sHtml += '<p> <strong>Dear {0}</strong>, </p>';
                             sHtml += '<p> <br> The date has been finalized for the event <strong>"{1}"</strong></strong>. The following are the details;<br></p>';
                             sHtml += '<table style="width: 100%">';
-                            sHtml += '<tr><td style="color:white;background-color:#0072C6; font-size:x-large" colspan="2">SpeedMeet Event: {2}</td></tr>';                            
+                            sHtml += '<tr><td style="color:white;background-color:#0072C6; font-size:x-large" colspan="2">SpeedMeet Event: {2}</td></tr>';
                             sHtml += '<tr><td style="width: 152px">Description:</td><td>{3}</td></tr>';
                             sHtml += '<tr><td style="width: 152px">Location:</td><td>{4}</td></tr>';
                             sHtml += '<tr><td style="width: 152px">Date-Time:</td><td>{5}</td></tr>';
@@ -132,13 +132,42 @@ define(function () {
 
                             return sHtml;
                         }
+                    },
+                    CancelEvent: {
+                        FROM: "smtpgate.de.tuv.com",
+                        TO: "{0}",
+                        SUBJECT: "SpeedMeet event: Canceled",
+                        BODY: "{0}",
+                        BODY_TEXT: function () {
+                            var sHtml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+                            sHtml += '<html xmlns="http://www.w3.org/1999/xhtml">';
+                            sHtml += '<head>';
+                            sHtml += '<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />';
+                            sHtml += '<title>SpeedMeet event canceled</title>';
+                            sHtml += '<style type="text/css">a, u {';
+                            sHtml += 'text-decoration: none;';
+                            sHtml += '}</style></head>';
+                            sHtml += '<body>';
+                            sHtml += '<p> <strong>Dear {0}</strong>, </p>';
+                            sHtml += '<p> <br> The following event have been canceled.<br></p>';
+                            sHtml += '<table style="width: 100%">';
+                            sHtml += '<tr><td style="color:white;background-color:#0072C6; font-size:x-large" colspan="2">SpeedMeet Event: {1}</td></tr>';
+                            sHtml += '<tr><td style="width: 152px">Description:</td><td>{2}</td></tr>';
+                            sHtml += '<tr><td style="width: 152px">Location:</td><td>{3}</td></tr>';                     
+                            sHtml += '</table>';
+                            sHtml += '<p> For further details, please visit your <strong><a href="{4}">SpeedMeet event</a></strong>.</p>';
+                            sHtml += '</p><div >';
+                            sHtml += '</div></body></html>';
+
+                            return sHtml;
+                        }
                     }
                 }
             }
-                
+
             return constantsLiteral;
         }
-        
+
     }
 
     return Constants;

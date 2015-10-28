@@ -1,5 +1,6 @@
 ﻿'use strict';
-define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
+define(["data/da-utility", "data/da-layer", "data/data-meetevent-list"],
+    function (DAUtility, DALayer, DAMeetList) {
     function UtilityController(oApplication, presenceSettings) {
 
         var self = this,
@@ -219,6 +220,30 @@ define(["data/da-utility", "data/da-layer"], function (DAUtility, DALayer) {
             resultsCollection["headrHtml"] = firstHdrHtml;
             resultsCollection["headrSequence"] = headerSequence;
             return resultsCollection;
+        }
+
+        this.getItemStatus = function (itemId) {
+            var oDAMeetList = new DAMeetList(oApplication),
+                itemStatus,
+                oDeferred = $.Deferred();
+
+            oDAMeetList.getListItemByItemId(itemId)
+                          .done(function (oListItem) {
+                              if (oListItem) {
+                                  try {
+                                      itemStatus = $.parseJSON(oListItem.Status);
+                                  } catch (e) {
+                                      itemStatus = oListItem.Status;   // Not a JSON value
+                                  }
+
+                                  oDeferred.resolve(itemStatus);
+                              }
+                          })
+                         .fail(function (error) {
+                             oDeferred.resolve(error);
+                         });
+
+            return oDeferred.promise();
         }
 
         this.getPresence = function (accountName, data) {

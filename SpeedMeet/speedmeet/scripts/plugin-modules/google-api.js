@@ -117,7 +117,7 @@ define(['async!https://maps.googleapis.com/maps/api/js?v=3.exp'], function () {
                 self.removeMarkers();
                 self.markers.push(marker);
                 google.maps.event.addListener(marker, 'click', function () {
-                    infowindow.open(map, marker);
+                    //infowindow.open(map, marker);
                 });
             }
         });

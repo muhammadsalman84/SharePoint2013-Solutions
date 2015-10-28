@@ -17,15 +17,15 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
 
                  switch (status) {
                      case itemStatus.Finalized:
-                         oApplication.oFinalSpeedMeetView.bindFinalSpeedMeetView(itemId);
+                         oApplication.oFinalSpeedMeetView.bindFinalView(itemId);
                          break;
                      case itemStatus.Cancelled:
-                         oApplication.oFinalSpeedMeetView.bindFinalSpeedMeetView(itemId);
+                         oApplication.oFinalSpeedMeetView.bindFinalView(itemId);
                          break;
                      default:
                          oApplication.oShowMeetEventView.loadMeetEvent(itemId, _spPageContextInfo.userId);
                  }
-                 
+
              }
 
              function showEventDetails(data, eventDetails, row) {
@@ -80,39 +80,48 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                            {     // Hide the Created column
                                "targets": [2], "visible": false, "searchable": false
                            },
-                          {
-                              "render": function (data, type, full, meta) {
-                                  eventHtml = '<a href="#" class="myevent" id="event' + full[0] + '" data-eventId="' + full[0] + '">' + data + '</a>';
-                                  return eventHtml;
-                              },
-                              "targets": [1]
-                          },
-                          {
-                              "render": function (data, type, full, meta) {
-                                  var statusHtml, itemStatus;
-                                  statusHtml = "<strong><span class='{0}'>" + data + "</span></strong></strong>";
-                                  itemStatus = oApplication.getConstants().DB.ListFields.Status;
+                           {
+                               "render": function (data, type, full, meta) {
+                                   eventHtml = '<a href="#" class="myevent" id="event' + full[0] + '" data-eventId="' + full[0] + '">' + data + '</a>';
+                                   return eventHtml;
+                               },
+                               "targets": [1]
+                           },
+                           {
+                               "render": function (data, type, full, meta) {
+                                   var statusHtml, itemStatus;
+                                   statusHtml = "<strong><span class='{0}'>" + data + "</span></strong></strong>";
+                                   itemStatus = oApplication.getConstants().DB.ListFields.Status;
 
-                                  switch (data) {
-                                      case itemStatus.InProgress:
-                                          statusHtml = String.format(statusHtml, "status-InProgress");
-                                          break;
-                                      case itemStatus.Finalized:
-                                          statusHtml = String.format(statusHtml, "status-Finalized");
-                                          break;
-                                      case itemStatus.Cancelled:
-                                          statusHtml = String.format(statusHtml, "status-Cancelled");
-                                          break;
-                                  }
+                                   switch (data) {
+                                       case itemStatus.InProgress:
+                                           statusHtml = String.format(statusHtml, "status-InProgress");
+                                           break;
+                                       case itemStatus.Finalized:
+                                           statusHtml = String.format(statusHtml, "status-Finalized");
+                                           break;
+                                       case itemStatus.Cancelled:
+                                           statusHtml = String.format(statusHtml, "status-Cancelled");
+                                           break;
+                                   }
 
-                                  return statusHtml;
-                              },
-                              "targets": [4]
-                          }];
+                                   return statusHtml;
+                               },
+                               "targets": [4]
+                           }];
 
                      columnsOrder = [[2, "desc"]];      // Order by created date (descending)
+                     var createdRow = function (row, data, index) {
+                         if (data[4] == "Cancelled") {
+                             $(row).find(".my-btns").each(function (index, element) {
+                                 $(this).attr("disabled", true);
+                             });
+
+                         }
+                     }
+
                      oBaseDataTable.clearDataTable();
-                     oBaseDataTable.bindDataTable(columnsDef, columnsOrder);
+                     oBaseDataTable.bindDataTable(columnsDef, columnsOrder, createdRow);
 
                      allAnchors = $(tableBody).find("a.myevent");
 
@@ -134,6 +143,16 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                                         });
                      });
 
+                     // Cancel button Click event.
+                     $(tableBody + ' tr').on('click', '#btnCancelMeet-mymeet', function () {
+                         data = oBaseDataTable.DataTable().row($(this).parents('tr')).data();
+                         oDAMeetEventList.getListItemByItemId(data[0])
+                                        .done(function (oListItem) {
+                                            oApplication.ActiveListItem = oListItem;        // Set the Active list item
+                                            oApplication.oFinalSpeedMeetView.cancelEvent(oApplication.ActiveListItem.ID);
+                                        });
+                     });
+
 
 
                      // Show details of the event.
@@ -150,8 +169,7 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                          }
                          else {
                              tr.addClass('details');
-                             detailHtml = showEventDetails(row.data(), eventDetails[0], row);
-                             var html = '<tr>' + '<td>Full name:</td>' + '<td>Muhammad Salman Malik</td>' + '</tr>'
+                             showEventDetails(row.data(), eventDetails[0], row);                             
 
                          }
                      });

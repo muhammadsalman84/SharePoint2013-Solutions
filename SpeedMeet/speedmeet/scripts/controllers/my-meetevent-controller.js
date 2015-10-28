@@ -53,7 +53,7 @@ define(["data/da-utility", "data/da-layer"],
                         arrayHdrs.push({
                             data: null,
                             className: "center",
-                            defaultContent: "<div class='btn-group btn-group-justified'><a type='button' id='btnEditMeet-mymeet' class='btn btn-primary' data-bsbutton='true'> <i class='glyphicon glyphicon-edit pull-left'></i>Edit</a><a type='button' id='btnCancelMeet-mymeet' class='btn btn-primary' data-bsbutton='true'> <i class='glyphicon glyphicon-trash pull-left'></i>Cancel</a></div>"
+                            defaultContent: "<div class='btn-group btn-group-justified'><a type='button' id='btnEditMeet-mymeet' class='btn btn-primary my-btns' data-bsbutton='true'> <i class='glyphicon glyphicon-edit pull-left'></i>Edit</a><a type='button' id='btnCancelMeet-mymeet' class='btn btn-primary my-btns' data-bsbutton='true'> <i class='glyphicon glyphicon-trash pull-left'></i>Cancel</a></div>"
 
                         });
 

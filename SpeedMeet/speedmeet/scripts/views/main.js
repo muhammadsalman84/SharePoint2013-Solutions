@@ -3,11 +3,11 @@ define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent
      function (MeetEventView, MyMeetEventView, JoinMeetEventView, ShowMeetEventView, FinalSpeedMeetView) {
          function MainView(oApplication) {
              var headerButtons = oApplication.modules.menubar.getButtons(),
-                 olLocation, itemId, sUserId;
+                 olLocation, itemId, userId;
 
              // Get Query String
              itemId = oApplication.getQueryStringParameters("smItemId");
-             sUserId = oApplication.getQueryStringParameters("smUserId");
+             userId = oApplication.getQueryStringParameters("smUserId");
 
              // Set Objects in the Application Object
              oApplication.oMyMeetEventView = new MyMeetEventView(oApplication);
@@ -15,11 +15,11 @@ define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent
              oApplication.oShowMeetEventView = new ShowMeetEventView(oApplication);
              oApplication.oJoinMeetEventView = new JoinMeetEventView(oApplication);
 
-             if ((itemId) && (sUserId == _spPageContextInfo.userId)) {
+             if ((itemId) && (userId == _spPageContextInfo.userId)) {
                  oApplication.oMeetEventView = new MeetEventView(oApplication);
-                 oApplication.oShowMeetEventView.loadMeetEvent(itemId, sUserId);
+                 oApplication.oMeetEventView.showEvent(itemId);
              }
-             else {
+             else {                 
                  oApplication.showHideModule(oApplication.modules.meetEventModule.id, 0);
                  oApplication.oMeetEventView = new MeetEventView(oApplication);
              }

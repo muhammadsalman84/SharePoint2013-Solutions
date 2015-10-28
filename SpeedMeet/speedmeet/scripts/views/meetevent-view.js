@@ -2,10 +2,10 @@
 define(["controllers/meetevent-controller", "controllers/utility-controller", "plugin-modules/pool-datatable", "plugin-modules/google-api", "data/data-meetevent-list", "views/validate-controls"],
      function (MeetEventController, UtilityController, PoolDataTable, GoogleApi, DAMeetEventList, ValidateControls) {
          function MeetEventView(oApplication) {
-             var oMeetEventModule = oApplication.modules.meetEventModule,                 
+             var oMeetEventModule = oApplication.modules.meetEventModule,
                  oMeetEventController = new MeetEventController(oApplication),
                  oUtilityController = new UtilityController(oApplication),
-                 oPoolDataTable = new PoolDataTable(oApplication, "#tblPool"),                 
+                 oPoolDataTable = new PoolDataTable(oApplication, "#tblPool"),
                  buttons = oMeetEventModule.getButtons(),
                  oGoogleApi, oGoogleApi1, olLocation, headrCollection;
 
@@ -72,11 +72,11 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
                  var oValidateControls = new ValidateControls(oApplication);
                  if (oValidateControls.validate(oMeetEventModule.subModules.id[0]) &&
                      (oValidateControls.validatePeoplePicker())) {
-                         $(oMeetEventModule.subModules.id[1]).removeClass("hide");
-                         $(oMeetEventModule.subModules.id[0]).addClass("hide");
-                         $(oApplication.modules.plugins.calendar.id).fullCalendar('render');
-                         $(oApplication.modules.plugins.calendar.id).fullCalendar('option', 'height', 550);
-                     }
+                     $(oMeetEventModule.subModules.id[1]).removeClass("hide");
+                     $(oMeetEventModule.subModules.id[0]).addClass("hide");
+                     $(oApplication.modules.plugins.calendar.id).fullCalendar('render');
+                     $(oApplication.modules.plugins.calendar.id).fullCalendar('option', 'height', 550);
+                 }
 
              });
 
@@ -88,7 +88,7 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
              $(buttons.btnCreateEvent).bind("click", function () {
                  var oDAMeetEventList = new DAMeetEventList(oApplication),
                      oValidateControls = new ValidateControls(oApplication),
-                     geoLocation, usrEmailObjects,                   
+                     geoLocation, usrEmailObjects,
                      status = {};
 
                  if (oValidateControls.validateCalendar()) {
@@ -106,7 +106,7 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
                                  oUtilityController.sendEmails(usrEmailObjects)       // Send Emails to the participants
                                                             .done(function () {
                                                                 oDAMeetEventList.updateListItemByItemId(oListItem.ID, status, false);
-                                                                
+
                                                             });
                                  oApplication.incrementProgressBar(10, "finalizing(s)..");
                                  oApplication.oShowMeetEventView.loadMeetEvent(oListItem.ID, usersObject).
@@ -144,7 +144,7 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
                                                 }
 
                                                 oUtilityController.sendEmails(usrEmailObjects)   // Send Emails to the new participants                                                                                           
-                                                delete oApplication.ActiveListItem;                                              
+                                                delete oApplication.ActiveListItem;
                                                 oApplication.oShowMeetEventView.loadMeetEvent(oListItem.ID, usersObject).
                                                                                     done(function () {
                                                                                         oApplication.stopProgressBar();
@@ -184,6 +184,29 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
                  oApplication.showHideModule(oMeetEventModule.id, 0);
                  oGoogleApi.refreshMap();
                  $("#txt-title-meetevent").focus();
+             }
+
+             this.showEvent = function (itemId) {
+                 var oUtilityController = new UtilityController(oApplication),
+                     constants = oApplication.getConstants();
+
+                 oUtilityController.getItemStatus(itemId)
+                                                    .done(function (itemStatus) {
+
+                                                        switch (itemStatus) {
+                                                            case constants.DB.ListFields.Status.Finalized:
+                                                                oApplication.oFinalSpeedMeetView.bindFinalView(itemId);
+                                                                break;
+                                                            case constants.DB.ListFields.Status.Cancelled:
+                                                                oApplication.oFinalSpeedMeetView.bindFinalView(itemId);
+                                                                break;
+                                                            default:
+                                                                oApplication.oShowMeetEventView.loadMeetEvent(itemId, _spPageContextInfo.userId);
+                                                        }
+                                                    })
+                                                    .fail(function (error) {
+                                                        alert(error);
+                                                    });
              }
 
              /*

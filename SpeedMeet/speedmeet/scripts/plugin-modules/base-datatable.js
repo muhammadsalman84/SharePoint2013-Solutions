@@ -17,12 +17,13 @@ define(function () {
         $(this._dtName).empty();
     };
 
-    BaseDataTable.prototype.bindDataTable = function (columnsDef, columnsOrder) {
+    BaseDataTable.prototype.bindDataTable = function (columnsDef, columnsOrder, createdRowFunction) {
         this._dataTableObject = $(this._dtName).DataTable({
             "data": this._dataSet,
             "columns": this._columns,
             "columnDefs": columnsDef,
             "order": columnsOrder,
+            "createdRow":createdRowFunction,
             destroy: true
         });
     };

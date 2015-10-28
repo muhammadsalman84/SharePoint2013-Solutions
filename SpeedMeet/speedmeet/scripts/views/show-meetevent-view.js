@@ -17,16 +17,27 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-mo
              }
 
              function bindView(oListItem) {
-                 var oUtilityController = new UtilityController(oApplication),
-                 showMeetEventModuleId = oApplication.modules.showMeetEventModule.id;
+                 var users = [],
+                     presenceSettings = { type: "default", redirectToProfile: true },
+                     oUtilityController = new UtilityController(oApplication, presenceSettings),
+                     showMeetEventModuleId = oApplication.modules.showMeetEventModule.id;
 
                  oApplication.showHideModule(showMeetEventModuleId);
                  oUtilityController.showAdminView(oListItem.AuthorId);      // Hide or Show the admin functionalities
 
+                 users.push(oListItem.Author.ID);
+                 oUtilityController.getUsers(users)   // get the Author presence
+                     .done(
+                       function (usersDetailObject) {
+                           $("#txt-organizer-pool").html(usersDetailObject[oListItem.Author.ID]["PicturePresence"]);
+                       })
+                     .fail(function () {
+                         $("#txt-organizer-pool").text(oListItem.Author.Title);
+                     });
                  $("#txt-title-pool").text("SpeedMeet Event: " + oListItem.Title);
                  $("#txt-description-pool").text(oListItem.Description1);
                  $("#txt-location-pool").text(oListItem.Location1);
-                 $("#txt-organizer-pool").text(oListItem.Author.Title);
+                
                  var geoLocation = JSON.parse(oListItem.GeoLocation);
                  oGoogleApi = new GoogleApi("map-canvas-showevent", geoLocation, true);
                  oGoogleApi.initialzeMap();
