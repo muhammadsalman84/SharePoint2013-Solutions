@@ -191,7 +191,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                                 for (oCellValue in olRowCells) {   // Loop object literal from Row
                                     if ((olRowCells[oCellValue].startDate == olFeedBack[oDate].start) &&
                                         (olRowCells[oCellValue].endDate == olFeedBack[oDate].end))
-                                        olFeedBack[oDate].Participants[_spPageContextInfo.userId] = olRowCells[oCellValue].Feedback;
+                                        olFeedBack[oDate].Participants[oApplication.CurrentUserId] = olRowCells[oCellValue].Feedback;
                                 }
                             }
 
@@ -242,7 +242,7 @@ define(["datatables", "plugin-modules/base-datatable", "data/data-meetevent-list
                     //"scrollX": true,
                     "createdRow": function (row, data, index) {   // On each Row, set css class and event
                         var userId = $(data[0]).attr("id").split("User")[1];
-                        if (_spPageContextInfo.userId != userId) {
+                        if (oApplication.CurrentUserId != userId) {
                             $(row).addClass('readonly-rows');
                         }
                         else {

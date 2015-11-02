@@ -7,25 +7,33 @@ define(["data/da-utility", "data/da-layer", "controllers/utility-controller", "d
             oDALayer = new DALayer,
             oMeetEventModule = oApplication.modules.meetEventModule,
             oSpeedMeetList = oDAUtility.SPLists().SpeedMeet,
-            olSpeedMeetFlds = oSpeedMeetList.fields,            
+            olSpeedMeetFlds = oSpeedMeetList.fields,
             CONSTANTS = oApplication.getConstants();
             oDAUtility.getListStruct(oMeetEventModule, oSpeedMeetList);
 
             function getParticipantsKeys(userKeys) {
                 var deferred = $.Deferred(),
-                 arrayParticipants = [], defCounter = 0;
+                    arrayParticipants = [],
+                    defCounter = 0;
 
+                /* var getOwner = oDALayer.getCurrentUser(this);
+                 getOwner.done(function (owner) {
+                     var ownerLoginName = owner.get_loginName();
+                     ownerLoginName = ownerLoginName.replace("i:0#.w|", "");
+                     userKeys.push(ownerLoginName);   // Add Owner Login to the array.*/
                 $(userKeys).each(function (index) {
                     var user = oDALayer.getUserByLoginName(this);
                     user.done(function (userInfo) {
+                        var title = userInfo.get_title();
                         arrayParticipants.push(userInfo.get_id());
+
                         defCounter += 1;
                         if (userKeys.length - defCounter == 0) {
                             deferred.resolve(arrayParticipants);
                         }
                     });
                 });
-
+                // });
                 return deferred.promise();
             }
 
@@ -128,9 +136,11 @@ define(["data/da-utility", "data/da-layer", "controllers/utility-controller", "d
 
                                             getParticipantsKeys(oApplication.getParticipants()).done(function (arrayUserKeys) {
 
-                                                foundAuthorId = $.inArray(_spPageContextInfo.userId, arrayUserKeys);
+                                                //_spPageContextInfo.userId
+                                                foundAuthorId = $.inArray(oApplication.CurrentUserId, arrayUserKeys);
                                                 if (foundAuthorId == -1)
-                                                    arrayUserKeys.push(_spPageContextInfo.userId);                      // Add the current user in the collection.  
+                                                    arrayUserKeys.push(oApplication.CurrentUserId);                      // Add the current user in the collection.  
+                                                    
 
                                                 listObject.Participants1 = arrayUserKeys;                               // Set the Particpant array to the list object
                                                 newFeedBack = createFeedBackData(listObject);
@@ -174,9 +184,10 @@ define(["data/da-utility", "data/da-layer", "controllers/utility-controller", "d
                     //Increment 20
                     oApplication.incrementProgressBar(20, "Creating a new SpeedMeet..");
                     olSpeedMeetFlds.Participants1.value = arrayUserKeys;
-                    var foundCreatorId = $.inArray(_spPageContextInfo.userId, arrayUserKeys);
+                    var foundCreatorId = $.inArray(oApplication.CurrentUserId, arrayUserKeys);
                     if (foundCreatorId == -1)
-                        arrayUserKeys.push(_spPageContextInfo.userId);                      // Add the current user in the collection.                                                
+                        arrayUserKeys.push(oApplication.CurrentUserId);                      // Add the current user in the collection.                                                
+
                     listObject.Participants1 = arrayUserKeys;                               // Set the Particpant array to the list object
                     newFeedBack = createFeedBackData(listObject);
                     listObject["Feedback"] = newFeedBack;
@@ -241,7 +252,7 @@ define(["data/da-utility", "data/da-layer", "controllers/utility-controller", "d
 
                 return arrayEmails;
             }
-           
+
         }
 
         return MeetEventController;

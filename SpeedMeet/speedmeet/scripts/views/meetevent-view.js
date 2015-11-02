@@ -207,7 +207,7 @@ define(["controllers/meetevent-controller", "controllers/utility-controller", "p
                                                     .fail(function (error) {
                                                         alert(error);
                                                     });
-             }
+             }            
 
              /*
               *  Initializations

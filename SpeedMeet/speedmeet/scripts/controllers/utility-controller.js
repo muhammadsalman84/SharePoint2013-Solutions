@@ -246,6 +246,23 @@ define(["data/da-utility", "data/da-layer", "data/data-meetevent-list"],
             return oDeferred.promise();
         }
 
+        this.getLoginUserId = function () {
+            var oDeferred = $.Deferred(),
+                loginName,
+                getCurrentUser = oDALayer.getCurrentUser();
+
+            getCurrentUser.done(function (oUser) {
+                loginName = oUser.get_loginName();
+                loginName = loginName.replace("i:0#.w|", "");
+                var user = oDALayer.getUserByLoginName(loginName);
+                user.done(function (userInfo) {
+                    oDeferred.resolve(userInfo.get_id());
+                });
+            });
+
+            return oDeferred.promise();
+        }
+
         this.getPresence = function (accountName, data) {
             RegisterSod("Strings.js", "/_layouts/15/Strings.js");
             var options;

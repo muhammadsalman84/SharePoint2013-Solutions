@@ -1,6 +1,6 @@
 ﻿'use strict';
-define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent-view", "views/show-meetevent-view", "views/final-meetevent-view"],
-     function (MeetEventView, MyMeetEventView, JoinMeetEventView, ShowMeetEventView, FinalSpeedMeetView) {
+define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent-view", "views/show-meetevent-view", "views/final-meetevent-view", "controllers/utility-controller"],
+     function (MeetEventView, MyMeetEventView, JoinMeetEventView, ShowMeetEventView, FinalSpeedMeetView, utilityController) {
          function MainView(oApplication) {
              var headerButtons = oApplication.modules.menubar.getButtons(),
                  olLocation, itemId, userId;
@@ -9,21 +9,40 @@ define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent
              itemId = oApplication.getQueryStringParameters("smItemId");
              userId = oApplication.getQueryStringParameters("smUserId");
 
-             // Set Objects in the Application Object
-             oApplication.oMyMeetEventView = new MyMeetEventView(oApplication);
-             oApplication.oFinalSpeedMeetView = new FinalSpeedMeetView(oApplication);
-             oApplication.oShowMeetEventView = new ShowMeetEventView(oApplication);
-             oApplication.oJoinMeetEventView = new JoinMeetEventView(oApplication);
+             var setStartUpValues = function () {
+                 var oUtilityController = new utilityController(oApplication),
+                     oDeferred = $.Deferred();
 
-             if ((itemId) && (userId == _spPageContextInfo.userId)) {
-                 oApplication.oMeetEventView = new MeetEventView(oApplication);
-                 oApplication.oMeetEventView.showEvent(itemId);
-             }
-             else {                 
-                 oApplication.showHideModule(oApplication.modules.meetEventModule.id, 0);
-                 oApplication.oMeetEventView = new MeetEventView(oApplication);
-             }
-             
+                 oUtilityController.getLoginUserId().done(function (userId) {
+                     oApplication.CurrentUserId = userId;
+                     oDeferred.resolve();
+                 });
+
+                 return oDeferred.promise();
+             }           
+
+             setStartUpValues().done(function () {
+
+                 // Set Objects in the Application Object
+                 oApplication.oMyMeetEventView = new MyMeetEventView(oApplication);
+                 oApplication.oFinalSpeedMeetView = new FinalSpeedMeetView(oApplication);
+                 oApplication.oShowMeetEventView = new ShowMeetEventView(oApplication);
+                 oApplication.oJoinMeetEventView = new JoinMeetEventView(oApplication);
+
+                 if ((itemId) && (userId == oApplication.CurrentUserId)) {
+                     oApplication.oMeetEventView = new MeetEventView(oApplication);
+                     oApplication.oMeetEventView.showEvent(itemId);
+                 }
+                 else {
+                     oApplication.showHideModule(oApplication.modules.meetEventModule.id, 0);
+                     oApplication.oMeetEventView = new MeetEventView(oApplication);
+                 }
+
+             }).fail(function () {
+                 alert("Sorry an error occured while loading the SpeedMeet App.");
+             });
+
+
 
              // Menu Button Events
              $(headerButtons.btnNewMeetEvent).bind("click", function () {
@@ -41,6 +60,8 @@ define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent
                  oApplication.showHideModule(module.id);
                  oApplication.oJoinMeetEventView.getMeetInvitations();
              });
+
+
 
              var uploadFiles = [], crossCounter = 0;
 

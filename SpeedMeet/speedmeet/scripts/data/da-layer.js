@@ -62,6 +62,21 @@ define(function () {
                     });
 
                 return deferred.promise();
+            },
+            getCurrentUser: function () {
+                var deferred = $.Deferred(),
+                context = new SP.ClientContext.get_current(),
+                user = context.get_web().get_currentUser();
+                context.load(user);
+                context.executeQueryAsync(
+                    function () {
+                        deferred.resolve(user);
+                    },
+                    function (sender, args) {
+                        deferred.reject(sender, args);
+                    });
+
+                return deferred.promise();
             }
         }
     }

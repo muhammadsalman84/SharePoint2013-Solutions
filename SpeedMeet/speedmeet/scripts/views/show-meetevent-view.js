@@ -3,8 +3,7 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-mo
      function (DAMeetEventList, UtilityController, PoolDataTable, GoogleApi) {
          function ShowMeetEventView(oApplication) {
 
-             var oDAMeetEventList = new DAMeetEventList(oApplication),
-                 //oPoolController = new PoolController(oApplication),
+             var oDAMeetEventList = new DAMeetEventList(oApplication),                 
                  oPoolDataTable = new PoolDataTable(oApplication, "#tblPool", oApplication.oFinalSpeedMeet),
                  headerHtml, oGoogleApi;
 
@@ -34,6 +33,7 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-mo
                      .fail(function () {
                          $("#txt-organizer-pool").text(oListItem.Author.Title);
                      });
+
                  $("#txt-title-pool").text("SpeedMeet Event: " + oListItem.Title);
                  $("#txt-description-pool").text(oListItem.Description1);
                  $("#txt-location-pool").text(oListItem.Location1);
@@ -41,23 +41,13 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-mo
                  var geoLocation = JSON.parse(oListItem.GeoLocation);
                  oGoogleApi = new GoogleApi("map-canvas-showevent", geoLocation, true);
                  oGoogleApi.initialzeMap();
-                 oApplication.ActiveListItem = oListItem;       // Set Active List Item Object for Edit purpose
-                 //redirectToFinalView(oListItem);        // If the date is finalized then redirect to Finalize view
+                 oApplication.ActiveListItem = oListItem;       // Set Active List Item Object for Edit purpose                 
              }
 
 
              this.loadMeetEvent = function (itemId, usersObject) {
                  var oUtilityController = new UtilityController(oApplication),
-                 oDeferred = $.Deferred();
-                 /*if (typeof (oListItem) == "object") {     // If it is an object then Listitem object is passed.
-
-                     headerHtml = oUtilityController.getHeadersInfo(oListItem);       // Create Headers for the DataTable                                                                          
-                     oPoolDataTable.clearDataTable();
-                     oPoolDataTable.bindDataTable(headerHtml, usersObject, oListItem);
-
-                     bindView(oListItem);
-                 }
-                 else {*/
+                 oDeferred = $.Deferred();              
 
                  oDAMeetEventList.getListItemByItemId(itemId, true).
                      done(function (oListItem) {
@@ -93,7 +83,7 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-mo
                         if (success === true) {
                             oApplication.showAlert("#alertChoicesSaved-show");
                         }
-                    })
+                    });
              });
 
          }
