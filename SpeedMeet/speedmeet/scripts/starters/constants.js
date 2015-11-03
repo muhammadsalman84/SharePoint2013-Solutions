@@ -95,9 +95,11 @@ define(function () {
                             sHtml += '<td>{3}</td>';
                             sHtml += '</tr>';
                             sHtml += '</table><b></p><div>';
-                            sHtml += '<a href="{4}">	<table style="color:white;background-color:#0072C6;width: 15%" align="left">';
-                            sHtml += '<tr><td class="auto-style8">Join this SpeedMeet</td></tr>';
-                            sHtml += '</table></a>';
+                            //sHtml += '<a href="{4}">	<table style="color:white;background-color:#0072C6;width: 15%" align="left">';
+                            //sHtml += '<tr><td class="auto-style8">Join this SpeedMeet</td></tr>';
+                            //sHtml += '</table></a>';
+                            sHtml += '<a href="{4}">Join this SpeedMeet';                           
+                            sHtml += '</a>';
                             sHtml += '<br></div></body></html>';
 
                             return sHtml;

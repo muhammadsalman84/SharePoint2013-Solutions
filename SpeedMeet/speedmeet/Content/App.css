@@ -21,6 +21,12 @@
     display: block;
 }
 
+#IHeaderButtons{
+    width:20%;
+    text-align:right;
+    margin-left:70%;
+}
+
 #peoplePickerDiv_TopSpan {
     width: 100% !important;
 }

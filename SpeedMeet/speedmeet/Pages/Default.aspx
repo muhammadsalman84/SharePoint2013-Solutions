@@ -50,42 +50,60 @@
     <SharePoint:ScriptLink Name="sp.core.js" runat="server" LoadAfterUI="true" Localizable="false" />
     <div id="IModules">
         <div id="IHeader">
-            <img id="img-company-logo" src="../Images/tuv_logo.jpg" alt="TUV logo" />
-            <img id="img-app-logo" class="img-responsive" src="../Images/speedmeet_logo-text.png" alt="SharePoint Speed Meet App logo" />
-            <hr />
-        </div>
-        <div id="IContainer">
             <div class="row">
                 <div class="col-md-2">
-                    <div id="IMenubar">
-                        <ul class="nav nav-pills nav-stacked span3">
-                            <li class="active"><a id="btnNewMeetEvent" href="javascript:;" data-bsbutton="true">New SpeedMeet</a></li>
-                            <li><a id="btnMyMeetEvents" href="javascript:;" data-bsbutton="true">My SpeedMeets</a></li>
-                            <li><a id="btnJoinMeetEvent" href="javascript:;" data-bsbutton="true">SpeedMeet Requests</a></li>
-                        </ul>
-                    </div>
+                    <img id="img-company-logo" src="../Images/tuv_logo.jpg" alt="TUV logo" />
                 </div>
-                <div id="IContent">
-                    <div id="IMeetEvent" class="col-md-10 hide">
-                    </div>
-                    <div id="IMyMeetEvent" class="col-md-10 hide">
-                    </div>
-                    <div id="IJoinMeetEvent" class="col-md-10 hide">
-                    </div>
-                    <div id="IShowMeetEvent" class="col-md-10 hide">
-                    </div>
-                    <div id="IFinalMeetEvent" class="col-md-10 hide">
-                    </div>
-
-                    <div id="IProgressbar" class="progress progress-striped active module-progressbar hide">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; height: 40px;">
-                            Loading... 
+                <div class="col-md-8">
+                    <img id="img-app-logo" class="img-responsive" src="../Images/speedmeet_logo-text.png" alt="SharePoint Speed Meet App logo" />
+                </div>
+                <div class="col-md-2">
+                    <div id="IHeaderButtons">
+                        <div class="btn-group">
+                            <a id="btn-Announcements" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-bell"></i><span id="badge-Announcement" class="badge"></span>
+                            </a>
+                            <ul id="allAnnouncements" class="dropdown-menu dropdown-menu-right" role="menu">
+                                <li><b>No new Announcements</b></li><li class='divider'></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
+        <hr />
     </div>
+    <div id="IContainer">
+        <div class="row">
+            <div class="col-md-2">
+                <div id="IMenubar">
+                    <ul class="nav nav-pills nav-stacked span3">
+                        <li class="active"><a id="btnNewMeetEvent" href="javascript:;" data-bsbutton="true">New SpeedMeet</a></li>
+                        <li><a id="btnMyMeetEvents" href="javascript:;" data-bsbutton="true">My SpeedMeets</a></li>
+                        <li><a id="btnJoinMeetEvent" href="javascript:;" data-bsbutton="true">SpeedMeet Requests</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="IContent">
+                <div id="IMeetEvent" class="col-md-10 hide">
+                </div>
+                <div id="IMyMeetEvent" class="col-md-10 hide">
+                </div>
+                <div id="IJoinMeetEvent" class="col-md-10 hide">
+                </div>
+                <div id="IShowMeetEvent" class="col-md-10 hide">
+                </div>
+                <div id="IFinalMeetEvent" class="col-md-10 hide">
+                </div>
 
+                <div id="IProgressbar" class="progress progress-striped active module-progressbar hide">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; height: 40px;">
+                        Loading... 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
 </asp:Content>

@@ -41,5 +41,7 @@
     <File Path="Scripts\controllers\final-meetevent-controller.js" Url="Scripts/controllers/final-meetevent-controller.js" ReplaceContent="TRUE" />
     <File Path="Scripts\libs\jquery.validate.js" Url="Scripts/libs/jquery.validate.js" ReplaceContent="TRUE" />
     <File Path="Scripts\views\validate-controls.js" Url="Scripts/views/validate-controls.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\views\announcements-view.js" Url="Scripts/views/announcements-view.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\controllers\announcement-controller.js" Url="Scripts/controllers/announcement-controller.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

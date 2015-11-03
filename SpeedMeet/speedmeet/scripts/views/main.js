@@ -1,6 +1,7 @@
 ﻿'use strict';
-define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent-view", "views/show-meetevent-view", "views/final-meetevent-view", "controllers/utility-controller"],
-     function (MeetEventView, MyMeetEventView, JoinMeetEventView, ShowMeetEventView, FinalSpeedMeetView, utilityController) {
+define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent-view",
+    "views/show-meetevent-view", "views/final-meetevent-view", "views/announcements-view", "controllers/utility-controller"],
+     function (MeetEventView, MyMeetEventView, JoinMeetEventView, ShowMeetEventView, FinalSpeedMeetView, AnnouncementsView, utilityController) {
          function MainView(oApplication) {
              var headerButtons = oApplication.modules.menubar.getButtons(),
                  olLocation, itemId, userId;
@@ -28,6 +29,7 @@ define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent
                  oApplication.oFinalSpeedMeetView = new FinalSpeedMeetView(oApplication);
                  oApplication.oShowMeetEventView = new ShowMeetEventView(oApplication);
                  oApplication.oJoinMeetEventView = new JoinMeetEventView(oApplication);
+                 oApplication.oAnnouncementView = new AnnouncementsView(oApplication);
 
                  if ((itemId) && (userId == oApplication.CurrentUserId)) {
                      oApplication.oMeetEventView = new MeetEventView(oApplication);

@@ -5,7 +5,7 @@
     <ProjectItemFile Source="AppIcon.png" Target="Images\" Type="ElementFile" />
     <ProjectItemFile Source="speedmeet_logo.png" Target="Images\" Type="ElementFile" />
     <ProjectItemFile Source="tuv_logo.jpg" Target="Images\" Type="ElementFile" />
-    <ProjectItemFile Source="speedmeet_logo-text.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="_speedmeet_logo-text.png" Target="Images\" Type="ElementFile" />
     <ProjectItemFile Source="glyphicons-halflings.png" Target="Images\" Type="ElementFile" />
     <ProjectItemFile Source="glyphicons-halflings-white.png" Target="Images\" Type="ElementFile" />
     <ProjectItemFile Source="default_participant.jpg" Target="Images\" Type="ElementFile" />
@@ -15,5 +15,6 @@
     <ProjectItemFile Source="checked.gif" Target="Images\" Type="ElementFile" />
     <ProjectItemFile Source="error.png" Target="Images\" Type="ElementFile" />
     <ProjectItemFile Source="valid.png" Target="Images\" Type="ElementFile" />
+    <ProjectItemFile Source="speedmeet_logo-text.png" Target="Images\" Type="ElementFile" />
   </Files>
 </ProjectItem>
