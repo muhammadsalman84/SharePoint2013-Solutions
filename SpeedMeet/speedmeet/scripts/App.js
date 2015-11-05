@@ -1,24 +1,16 @@
 ﻿'use strict';
 
-/*require.config({
-    baseUrl: '../Scripts',
-    paths: {
-        "jquery": "libs/jquery-1.9.1",
-        "bootstrap": "libs/bootstrap.min",
-        "datatables": "libs/jquery.dataTables",
-        "async": "libs/async",
-        "jsapi": "//google.com/jsapi",
-        "moment": "libs/moment.min",
-        "fullCalendar": "libs/fullcalendar.min",
-        "jquery.validate": "libs/jquery.validate"
-    }
-});*/
-
 require.config({
     baseUrl: '../Scripts',
+    shim: {
+        "bootstrap": { "deps": ['jquery'] }
+    },
     paths: {
-        "jquery": "libs/jquery-1.9.1",
+        /*"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min",
+        "bootstrap": "//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min",*/
+        "jquery": "libs/jquery-1.11.3.min",
         "bootstrap": "libs/bootstrap.min",
+        "jquery-ui": "libs/jquery-ui",
         "datatables": "libs/jquery.dataTables",
         "async": "libs/async",
         "jsapi": "//google.com/jsapi",
@@ -28,8 +20,8 @@ require.config({
     }
 });
 
-require(['jquery', 'starters/application', 'views/main', 'jquery.validate'],
-function ($, Application, viewMain, validate) {    
+require(['starters/application', 'views/main'],
+function (Application, viewMain) {
     var waitDialog = SP.UI.ModalDialog.showWaitScreenWithNoClose('Loading SpeedMeet...', 'Please wait, this will not take longer...');
     $(document).ready(function () {
         //(SP.Res.dialogLoading15);
@@ -50,7 +42,7 @@ function ($, Application, viewMain, validate) {
 
         });
 
-    });   
+    });
 });
 
 

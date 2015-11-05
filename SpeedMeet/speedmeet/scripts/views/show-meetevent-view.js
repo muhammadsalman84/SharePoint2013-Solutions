@@ -59,6 +59,8 @@ define(["data/data-meetevent-list", "controllers/utility-controller", "plugin-mo
                              oPoolDataTable.bindDataTable(headerHtml, usersObject, oListItem);
                              bindView(oListItem);
                              oDeferred.resolve();
+
+                             oUtilityController.updateParticipantInfo(1, oListItem);
                          });
 
                      });

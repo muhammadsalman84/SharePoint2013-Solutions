@@ -36,8 +36,17 @@ define(["controllers/announcement-controller"],
                     .then(successAnnouncements, errorAnnouncements);
              }
 
+            /* $("#btn-Announcements").bind("click", function () {
+                 $(this).toggleClass('btn-warning').toggleClass('btn-primary');
+             });
+
+             $("#btn-Announcements").bind("mouseleave", function () {
+                 $(this).removeClass('btn-warning').addClass('btn-primary');
+             });*/
+
+             setInterval(myAnnouncements, 40000);
+
              myAnnouncements();
-             setTimeout(myAnnouncements, 60000);
              return {
                  getMyAnnouncments: myAnnouncements
              }

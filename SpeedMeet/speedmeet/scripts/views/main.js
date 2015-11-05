@@ -40,6 +40,13 @@ define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent
                      oApplication.oMeetEventView = new MeetEventView(oApplication);
                  }
 
+                // $(document).tooltip();
+                 //$(document).tooltip();
+                 var bootstrap3_enabled = (typeof $().emulateTransitionEnd == 'function');
+
+                 $('[data-toggle="tooltip"]').tooltip();
+                 //$("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
              }).fail(function () {
                  alert("Sorry an error occured while loading the SpeedMeet App.");
              });

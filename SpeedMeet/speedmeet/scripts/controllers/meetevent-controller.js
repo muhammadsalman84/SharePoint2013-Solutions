@@ -11,6 +11,17 @@ define(["data/da-utility", "data/da-layer", "controllers/utility-controller", "d
             CONSTANTS = oApplication.getConstants();
             oDAUtility.getListStruct(oMeetEventModule, oSpeedMeetList);
 
+            function getParticipantsInfo(userIdsArray) {
+                var participantsData = {};
+                
+                $(userIdsArray).each(function (index, userId) {
+                    participantsData[userId] = {};
+                    participantsData[userId]["announcement"] = 0;
+                });
+
+                return participantsData;
+            }
+
             function getParticipantsKeys(userKeys) {
                 var deferred = $.Deferred(),
                     arrayParticipants = [],
@@ -122,6 +133,7 @@ define(["data/da-utility", "data/da-layer", "controllers/utility-controller", "d
 
                 return newUsers;
             }
+           
 
             this.UpdateMeetEvent = function (geoLocation) {
                 var oDAMeetEventList = new DAMeetEventList(oApplication),
@@ -197,6 +209,7 @@ define(["data/da-utility", "data/da-layer", "controllers/utility-controller", "d
                     listObject["Feedback"] = JSON.stringify(listObject["Feedback"]);
                     listObject["MeetingDates"] = JSON.stringify(listObject["MeetingDates"]);
                     listObject["GeoLocation"] = JSON.stringify(listObject["GeoLocation"]);
+                    listObject["ParticipantsInfo"] = JSON.stringify(getParticipantsInfo(arrayUserKeys));
 
                     var olistItem = oDAMeetEventList.createListitem(listObject, false);
                     olistItem.done(function (listItem) {

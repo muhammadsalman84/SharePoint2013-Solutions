@@ -21,18 +21,8 @@
     <link rel="Stylesheet" type="text/css" href="../Content/jquery.dataTables.min.css" />
     <link rel="Stylesheet" type="text/css" href="../Content/jquery.fileupload.css" />
 
-    <!-- Add your JavaScript to the following file -->
-    <script src="../Scripts/libs/jquery-1.9.1.js"></script>
-    <script src="../Scripts/libs/bootstrap.min.js"></script>
-    <script src="../Scripts/libs/jquery.dataTables.js"></script>
-    <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>-->
-    <script src="https://www.google.com/jsapi"></script>
-    <script src="../Scripts/libs/moment.min.js"></script>
-    <script src="../Scripts/libs/fullcalendar.min.js"></script>
-    <script src="../Scripts/libs/jquery.validate.js"></script>
-
     <script data-main="../Scripts/App" src="../Scripts/require.js"></script>
-    <!--<script src="../Scripts/libs/validator.js"></script>-->
+
 
 </asp:Content>
 
@@ -60,12 +50,13 @@
                 <div class="col-md-2">
                     <div id="IHeaderButtons">
                         <div class="btn-group">
-                            <a id="btn-Announcements" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                            <a id="btn-Announcements" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-bell"></i><span id="badge-Announcement" class="badge"></span>
                             </a>
-                            <ul id="allAnnouncements" class="dropdown-menu dropdown-menu-right" role="menu">
+                            <div id="allAnnouncements" class="dropdown-menu dropdown-menu-right" style="padding: 15px; padding-bottom: 0px;">
+                            <!--<ul id="allAnnouncements" class="dropdown-menu dropdown-menu-right" role="menu">-->
                                 <li><b>No new Announcements</b></li><li class='divider'></li>
-                            </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

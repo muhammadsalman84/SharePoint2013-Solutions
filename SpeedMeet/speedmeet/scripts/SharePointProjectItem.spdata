@@ -6,8 +6,7 @@
     <ProjectItemFile Source="libs\jquery-1.9.1.min.map" Target="Scripts\libs\" Type="ElementFile" />
     <ProjectItemFile Source="libs\jquery-1.9.1.min.js" Target="Scripts\libs\" Type="ElementFile" />
     <ProjectItemFile Source="libs\jquery-1.9.1.js" Target="Scripts\libs\" Type="ElementFile" />
-    <ProjectItemFile Source="libs\jquery-1.9.1.intellisense.js" Target="Scripts\libs\" Type="ElementFile" />
-    <ProjectItemFile Source="libs\bootstrap.min.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\_bootstrap.min.js" Target="Scripts\libs\" Type="ElementFile" />
     <ProjectItemFile Source="require.js" Target="Scripts\" Type="ElementFile" />
     <ProjectItemFile Source="starters\application.js" Target="Scripts\starters\" Type="ElementFile" />
     <ProjectItemFile Source="starters\utility.js" Target="Scripts\starters\" Type="ElementFile" />
@@ -44,5 +43,10 @@
     <ProjectItemFile Source="views\validate-controls.js" Target="Scripts\views\" Type="ElementFile" />
     <ProjectItemFile Source="views\announcements-view.js" Target="Scripts\views\" Type="ElementFile" />
     <ProjectItemFile Source="controllers\announcement-controller.js" Target="Scripts\controllers\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery-1.9.1.intellisense.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery-1.11.3.min.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery-1.10.2.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\bootstrap.min.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery-ui.js" Target="Scripts\libs\" Type="ElementFile" />
   </Files>
 </ProjectItem>

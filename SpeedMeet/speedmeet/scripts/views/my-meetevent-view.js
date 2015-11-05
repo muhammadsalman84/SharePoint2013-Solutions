@@ -56,6 +56,7 @@ define(["controllers/my-meetevent-controller", "controllers/utility-controller",
                  //return detailHtml;
 
              }
+
              this.getMySpeedMeets = function () {
                  var oDAMeetEventList = new DAMeetEventList(oApplication),
                       tableName = "#tblMyMeetEvents",

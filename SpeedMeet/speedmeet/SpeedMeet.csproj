@@ -125,11 +125,15 @@
     <Content Include="Scripts\Elements.xml" />
     <Content Include="Scripts\App.js" />
     <Content Include="Scripts\libs\async.js" />
+    <Content Include="Scripts\libs\bootstrap.min.js" />
     <Content Include="Scripts\libs\fullcalendar.min.js" />
+    <Content Include="Scripts\libs\jquery-1.10.2.js" />
+    <Content Include="Scripts\libs\jquery-1.11.3.min.js" />
     <Content Include="Scripts\libs\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\libs\jquery-1.9.1.js" />
     <Content Include="Scripts\libs\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\libs\bootstrap.min.js" />
+    <Content Include="Scripts\libs\jquery-ui.js" />
+    <Content Include="Scripts\libs\_bootstrap.min.js" />
     <Content Include="Scripts\libs\jquery.dataTables.js" />
     <Content Include="Scripts\libs\jquery.validate.js" />
     <Content Include="Scripts\libs\moment.min.js" />

@@ -5,8 +5,7 @@
     <File Path="Scripts\libs\jquery-1.9.1.min.map" Url="Scripts/libs/jquery-1.9.1.min.map" ReplaceContent="TRUE" />
     <File Path="Scripts\libs\jquery-1.9.1.min.js" Url="Scripts/libs/jquery-1.9.1.min.js" ReplaceContent="TRUE" />
     <File Path="Scripts\libs\jquery-1.9.1.js" Url="Scripts/libs/jquery-1.9.1.js" ReplaceContent="TRUE" />
-    <File Path="Scripts\libs\jquery-1.9.1.intellisense.js" Url="Scripts/libs/jquery-1.9.1.intellisense.js" ReplaceContent="TRUE" />
-    <File Path="Scripts\libs\bootstrap.min.js" Url="Scripts/libs/bootstrap.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\_bootstrap.min.js" Url="Scripts/libs/_bootstrap.min.js" ReplaceContent="TRUE" />
     <File Path="Scripts\require.js" Url="Scripts/require.js" ReplaceContent="TRUE" />
     <File Path="Scripts\starters\application.js" Url="Scripts/starters/application.js" ReplaceContent="TRUE" />
     <File Path="Scripts\starters\utility.js" Url="Scripts/starters/utility.js" ReplaceContent="TRUE" />
@@ -43,5 +42,10 @@
     <File Path="Scripts\views\validate-controls.js" Url="Scripts/views/validate-controls.js" ReplaceContent="TRUE" />
     <File Path="Scripts\views\announcements-view.js" Url="Scripts/views/announcements-view.js" ReplaceContent="TRUE" />
     <File Path="Scripts\controllers\announcement-controller.js" Url="Scripts/controllers/announcement-controller.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery-1.9.1.intellisense.js" Url="Scripts/libs/jquery-1.9.1.intellisense.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery-1.11.3.min.js" Url="Scripts/libs/jquery-1.11.3.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery-1.10.2.js" Url="Scripts/libs/jquery-1.10.2.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\bootstrap.min.js" Url="Scripts/libs/bootstrap.min.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery-ui.js" Url="Scripts/libs/jquery-ui.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>
