@@ -15,11 +15,21 @@
 
     <!-- Add your CSS styles to the following file -->
     <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
-    <link rel="Stylesheet" type="text/css" href="../Content/bootstrap.min.css" />
-    <link rel="Stylesheet" type="text/css" href="../Content/bootstrap-theme.min.css" />
+    <link rel="Stylesheet" type="text/css" href="../Content/bootstrap.css" />    
     <link rel="Stylesheet" type="text/css" href="../Content/fullcalendar.min.css" />
     <link rel="Stylesheet" type="text/css" href="../Content/jquery.dataTables.min.css" />
     <link rel="Stylesheet" type="text/css" href="../Content/jquery.fileupload.css" />
+
+     <!-- Add your JavaScript to the following file -->
+    <script src="../Scripts/libs/jquery-1.11.3.min.js"></script>
+    <script src="../Scripts/libs/bootstrap.min.js"></script>
+    <script src="../Scripts/libs/jquery-ui.js"></script>
+    <script src="../Scripts/libs/jquery.dataTables.js"></script>    
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="../Scripts/libs/moment.min.js"></script>
+    <script src="../Scripts/libs/fullcalendar.min.js"></script>
+    <script src="../Scripts/libs/jquery.validate.js"></script>    
+   
 
     <script data-main="../Scripts/App" src="../Scripts/require.js"></script>
 

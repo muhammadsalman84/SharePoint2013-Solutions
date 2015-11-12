@@ -41,8 +41,7 @@ define(["views/meetevent-view", "views/my-meetevent-view", "views/join-meetevent
                  }
 
                 // $(document).tooltip();
-                 //$(document).tooltip();
-                 var bootstrap3_enabled = (typeof $().emulateTransitionEnd == 'function');
+                 //$(document).tooltip();                 
 
                  $('[data-toggle="tooltip"]').tooltip();
                  //$("body").tooltip({ selector: '[data-toggle=tooltip]' });

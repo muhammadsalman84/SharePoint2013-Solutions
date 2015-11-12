@@ -47,5 +47,6 @@
     <File Path="Scripts\libs\jquery-1.10.2.js" Url="Scripts/libs/jquery-1.10.2.js" ReplaceContent="TRUE" />
     <File Path="Scripts\libs\bootstrap.min.js" Url="Scripts/libs/bootstrap.min.js" ReplaceContent="TRUE" />
     <File Path="Scripts\libs\jquery-ui.js" Url="Scripts/libs/jquery-ui.js" ReplaceContent="TRUE" />
+    <File Path="Scripts\libs\jquery.js" Url="Scripts/libs/jquery.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

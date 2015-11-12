@@ -91,6 +91,9 @@ define(["data/da-utility", "data/da-layer", "data/data-meetevent-list"],
                             if (iTotalCount == iCounter) {
                                 oDeferred.resolve(olUsers);
                             }
+                        })
+                        .fail(function (failUser) {
+                            faileUser;
                         });
                     });
                 });

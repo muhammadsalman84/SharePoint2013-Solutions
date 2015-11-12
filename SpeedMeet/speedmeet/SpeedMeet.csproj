@@ -129,6 +129,7 @@
     <Content Include="Scripts\libs\fullcalendar.min.js" />
     <Content Include="Scripts\libs\jquery-1.10.2.js" />
     <Content Include="Scripts\libs\jquery-1.11.3.min.js" />
+    <Content Include="Scripts\libs\jquery.js" />
     <Content Include="Scripts\libs\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\libs\jquery-1.9.1.js" />
     <Content Include="Scripts\libs\jquery-1.9.1.min.js" />

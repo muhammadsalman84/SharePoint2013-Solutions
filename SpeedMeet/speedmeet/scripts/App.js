@@ -1,13 +1,13 @@
 ﻿'use strict';
 
-require.config({
+/*require.config({
     baseUrl: '../Scripts',
     shim: {
-        "bootstrap": { "deps": ['jquery'] }
+        //"bootstrap": { "deps": ['jquery'] }
     },
     paths: {
         /*"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min",
-        "bootstrap": "//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min",*/
+        "bootstrap": "//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min",
         "jquery": "libs/jquery-1.11.3.min",
         "bootstrap": "libs/bootstrap.min",
         "jquery-ui": "libs/jquery-ui",
@@ -17,6 +17,16 @@ require.config({
         "moment": "libs/moment.min",
         "fullCalendar": "libs/fullcalendar.min",
         "jquery.validate": "libs/jquery.validate"
+    }
+});*/
+
+require.config({
+    baseUrl: '../Scripts',
+    shim: {
+        //"bootstrap": { "deps": ['jquery'] }
+    },
+    paths: {               
+        "async": "libs/async"       
     }
 });
 

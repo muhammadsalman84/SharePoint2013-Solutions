@@ -48,5 +48,6 @@
     <ProjectItemFile Source="libs\jquery-1.10.2.js" Target="Scripts\libs\" Type="ElementFile" />
     <ProjectItemFile Source="libs\bootstrap.min.js" Target="Scripts\libs\" Type="ElementFile" />
     <ProjectItemFile Source="libs\jquery-ui.js" Target="Scripts\libs\" Type="ElementFile" />
+    <ProjectItemFile Source="libs\jquery.js" Target="Scripts\libs\" Type="ElementFile" />
   </Files>
 </ProjectItem>
